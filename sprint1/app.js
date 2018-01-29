@@ -171,12 +171,26 @@ class Body extends React.Component {
   render() {
     return (
       <div className="container"> 
-		<h3>Input</h3>
-        <input type="text" className="text" 
-          value={this.parser.value} onChange={this.parser}/>
-        <h3>Output</h3>
-         <input type="text" className="text" 
-          value={this.getDistance()} disabled/>
+	<div className="row">
+	  <div className="col-9">
+	    <h3>Input</h3>
+	    <div className="row">
+	      <div className="col-lg-3 col-md-offset-1">
+	        <input type="text" className="text" value={this.parser.value} onChange={this.parser}/>
+	      </div>
+	      <div className="col-lg-3">
+	        <input type="text" className="text" value={this.parser.value} onChange={this.parser}/>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<br />
+	<div className="row">
+	  <div className="col-9">
+            <h3>Output</h3>
+            <input type="text" className="text" value={this.getDistance()} disabled/>
+	  </div>
+	</div>
       </div>
     );
   }
@@ -186,11 +200,13 @@ class Body extends React.Component {
 class Main extends React.Component {
   render() {
     return (
-      <div className="jumbotron">
-		<Header />
+    <div>
+      <div className="jumbotron bg-info text-white">
+	<Header />
         <hr />
-        <Body />
       </div>
+      <Body />
+    </div>
     );
   }
 }
