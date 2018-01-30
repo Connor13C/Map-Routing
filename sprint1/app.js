@@ -59,10 +59,9 @@ function fileSelector(evt){
   var file = evt.target.files[0];
   var fileReader = new FileReader();
   fileReader.onload = function(evt){
-    //need to call file interpreter here??
     var contents = evt.target.result;
-    //console.log(contents);
     var scriptString = JSON.parse(contents);
+	
 	//logs results to console so we can see contents of scriptString array
     //console.log(scriptString);
 	//still have to add a function that creates a table with data
