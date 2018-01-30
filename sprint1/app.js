@@ -47,36 +47,6 @@ function floatingPoint(match) {
     return null;
   }
 }
-
-function fileSelector(evt){
-	/**
-	 * This function is trigger when a file is uploaded
-	 * A file reader is created that reads the JSON file
-	 * The JSON file will get parsed into an array of JavaScript strings
-	 *
-	*/
-	
-  var file = evt.target.files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function(evt){
-    var contents = evt.target.result;
-    var scriptString = JSON.parse(contents);
-	
-	//logs results to console so we can see contents of scriptString array
-    //console.log(scriptString);
-	//still have to add a function that creates a table with data
-    //this.fileInterpretor(scriptString);
-    
-    
-  };
-  fileReader.readAsText(file);
-  
-}
-
-//Event listener for when a file is uploaded
-document.getElementById('file').addEventListener('change', fileSelector, false);
-
-
 let CoordinateParser = {
   // There's a separate regex for each format along with a function to extract the information
   // from the capture groups. The links provide an explanation for the components of each regex
@@ -225,6 +195,53 @@ class Body extends React.Component {
   }
 }
 
+class FileHandler extends React.Component{
+  
+  constructor(props){
+    super(props);
+    this.fileSelector = this.fileSelector.bind(this);
+    
+  }
+  
+  fileSelector(evt){
+	/**
+	 * This method is triggered when a file is uploaded
+	 * A file reader is created that reads the JSON file
+	 * The JSON file will get parsed into an array of JavaScript strings
+	 *
+	*/
+  var file = evt.target.files[0];
+  var fileReader = new FileReader();
+  fileReader.onload = function(evt){
+    //need to call file interpreter here??
+    var contents = evt.target.result;
+    //console.log(contents);
+    var scriptString = JSON.parse(contents);
+    console.log(scriptString);
+    //this.fileInterpretor(scriptString);
+    
+    
+  };
+  fileReader.readAsText(file);
+  
+  }
+  
+  render ()
+    {
+        return <div>
+          
+          <div className="container">
+            <br />
+            <input type="file" onChange={this.fileSelector} />
+          </div>
+          
+         </div>;
+      
+
+    }
+  
+}
+
 
 class Main extends React.Component {
   render() {
@@ -235,6 +252,7 @@ class Main extends React.Component {
         <hr />
       </div>
       <Body />
+	  <FileHandler />
     </div>
     );
   }
