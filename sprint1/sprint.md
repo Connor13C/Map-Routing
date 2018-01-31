@@ -45,7 +45,7 @@ Epics planned for this release.
 * *Distance Calculator*: We created an application that takes in two coordinates and calculates the distance between them using the chord length formula.
 
 #### Incomplete user stories / epics in Sprint Backlog 
-* *Itinerary*: We are still working on the calculation of total distance when uploading a file of many coordinates (an itinerary). We currently have the button with a table. but the actual calculation is still in progress.
+* *Itinerary*: We are still working on the calculation of total distance when uploading a file of many coordinates (an itinerary). We currently have the button with a table, but the actual calculation is still in progress.
 
 #### What went well
 * So far we have a great team dynamic and are working well together. 
