@@ -182,7 +182,7 @@ class Body extends React.Component {
 	      </div>
 	    </div>
 	  </div>
-https://unpkg.com/react-dom@16/umd/react-dom.development.js	</div>
+	</div>
 	<br />
 	<div className="row">
 	  <div className="col-9">
