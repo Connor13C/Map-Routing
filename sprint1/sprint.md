@@ -58,7 +58,7 @@ Epics planned for this release.
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  | * This time we will make our tasks more sequential so changes are being integrated in the code in a more logical order versus just whenever they get finished by the person assigned to them. | 
-What we did well | * We worked really well as a team, and have been getting a long really well.  |  | 
-What we need to work on |  |  | *We are still working on getting familiar with the different tools such as zenhub and GitHub protocol as well as learning bootstrap and JavaScript
-What we will change next time |  | * Next time we will be more organized in how we are going about splitting up epics more sequentially and assigning them based on that sequence.   |
+What we will change this time | * We will try to do more communication on the front end of the project instead of just communicating as we go. | * This time we will make our tasks more sequential so changes are being integrated in the code in a more logical order versus just whenever they get finished by the person assigned to them. | We will hopefully be able to understand the tools better and be able to make changes faster. We will also be able to understand JavaScript a little more than we did last time.
+What we did well | * We worked really well as a team, and have been getting a long really well.  |* We followed the protocols for reviewing, approving, and merging tasks and had very few merge conflicts.  | * We were able to pick up the tools quicker than we anticipated and were able to learn new skills.
+What we need to work on | * We need to work on using Slack more because we currently do most of our communication in person. | * We could be faster at responding to review requests and being aware of when someone is committing changes. | *We are still working on getting familiar with the different tools such as zenhub and GitHub protocol as well as learning bootstrap and JavaScript
+What we will change next time | * We will incorporate Slack more into our communication. | * Next time we will be more organized in how we are going about splitting up epics more sequentially and assigning them based on that sequence.   | * We will use ZenHub more as we go instead of updating it all at once.
