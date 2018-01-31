@@ -126,42 +126,30 @@ class Body extends React.Component {
     };
  
     this.parser = this.parser.bind(this);
-    this.setLat1 = this.setLat1.bind(this);
-    this.setLong1 = this.setLong1.bind(this);
-    this.setLat2 = this.setLat2.bind(this);
-    this.setLong2 = this.setLong2.bind(this);
+    this.parser2 = this.parser2.bind(this);
     this.getDistance = this.getDistance.bind(this);
+    this.degreesToRad = this.degreesToRad.bind(this);
   }
-  parser(number){//not the real parser
-    this.setLat1(number);
-    this.setLong1(number);
-    this.setLat2(number);
-    this.setLong2(number);
+  parser(event){
+      var coord = Coordinate.parse(event.target.value);
+      this.setState({ sourceLat: Number(this.degreesToRad(coord.lat))});
+      this.setState({ sourceLong: Number(this.degreesToRad(coord.long))});
     }
+   parser2(event){
+      var coord = Coordinate.parse(event.target.value);
+      this.setState({ destLat: Number(this.degreesToRad(coord.lat))});
+      this.setState({ destLong: Number(this.degreesToRad(coord.long))});
+   }
   
-  setLat1(number){
-      this.setState({ sourceLat: Number(this.degreesToRad(number.target.value))});
-  }
-  
-    setLong1(number){
-      this.setState({ sourceLong: Number(this.degreesToRad(number.target.value))});
-  }
-  
-    setLat2(number){
-      this.setState({ destLat: Number(this.degreesToRad(number.target.value))});
-  }
-    setLong2(number){
-      this.setState({ destLong: Number(this.degreesToRad(number.target.value))});
-  }
-    getDistance(){//not correctly implemented yet
-  //var x = Math.cos(Number(this.state.destLat))*Math.cos(Number(this.state.destLong))-Math.cos(Number(this.state.sourceLat))*Math.cos(Number(this.state.sourceLong));//cos(Theta2)*cos(Lamda2)- cos(Theta1)*cos(Lamda1)
-	//var y = Math.cos(Number(this.state.destLat))*Math.sin(Number(this.state.destLong))-Math.cos(Number(this.state.sourceLat))*Math.sin(Number(this.state.sourceLong));//cos(Theta2)*sin(Lamda2)- cos(Theta1)*sin(Lamda1)
-	//var z = Math.sin(Number(this.state.destLat))-Math.sin(Number(this.state.sourceLat));//sin(Theta2)-sin(Theta1)
-	//return Math.sqrt(Math.po      var a = Math.cos(Number(this.state.sourceLat));
-      //var a = Math.cos(Number(this.state.sourceLat));
-      //return a;//Number(Obj.degreesToRadians(a));
-      return this.state.destLat;
-    }         
+  getDistance(){
+      var x = Math.cos(Number(this.state.destLat))*Math.cos(Number(this.state.destLong))-Math.cos(Number(this.state.sourceLat))*Math.cos(Number(this.state.sourceLong));//cos(Theta2)*cos(Lamda2)- cos(Theta1)*cos(Lamda1)
+      var y = Math.cos(Number(this.state.destLat))*Math.sin(Number(this.state.destLong))-Math.cos(Number(this.state.sourceLat))*Math.sin(Number(this.state.sourceLong));//cos(Theta2)*sin(Lamda2)- cos(Theta1)*sin(Lamda1)
+      var z = Math.sin(Number(this.state.destLat))-Math.sin(Number(this.state.sourceLat));//sin(Theta2)-sin(Theta1)
+      var c = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));//sqrt(x^2+y^2+z^2)
+      var rho = 2*Math.asin(c/2);//2arcsin(C/2)
+      var d = 3958.7613*rho;//radius*central angle (in miles km would be 6371.0088)
+      return d;
+    }          
 
  degreesToRad(degree){//convert float input in degrees to radians
   return Number((degree/180)*Math.PI);
@@ -178,7 +166,7 @@ class Body extends React.Component {
 	        <input type="text" className="text" value={this.parser.value} onChange={this.parser}/>
 	      </div>
 	      <div className="col-lg-3">
-	        <input type="text" className="text" value={this.parser.value} onChange={this.parser}/>
+	        <input type="text" className="text" value={this.parser2.value} onChange={this.parser2}/>
 	      </div>
 	    </div>
 	  </div>
