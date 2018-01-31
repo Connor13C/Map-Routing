@@ -172,7 +172,7 @@ class Body extends React.Component {
       <div className="container"> 
 	<div className="row">
 	  <div className="col-9">
-	    <h3>Input</h3>
+	   <h3>Enter Two Coordinates:</h3>
 	    <div className="row">
 	      <div className="col-lg-3 col-md-offset-1">
 	        <input type="text" className="text" value={this.parser.value} onChange={this.parser}/>
@@ -182,11 +182,11 @@ class Body extends React.Component {
 	      </div>
 	    </div>
 	  </div>
-	</div>
+https://unpkg.com/react-dom@16/umd/react-dom.development.js	</div>
 	<br />
 	<div className="row">
 	  <div className="col-9">
-            <h3>Output</h3>
+            <h3>Calculated Distance:</h3>
             <input type="text" className="text" value={this.getDistance()} disabled/>
 	  </div>
 	</div>
