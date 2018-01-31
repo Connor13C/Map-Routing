@@ -1,4 +1,4 @@
-https://piazza.com/class/jc5gi1b6jm25ck?cid=19# Sprint 1 - t08 - Pantz
+# Sprint 1 - t08 - Pantz
 
 ## Goal
 
