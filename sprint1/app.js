@@ -173,7 +173,7 @@ class Body extends React.Component {
       <div className="container"> 
 	<div className="row">
 	  <div className="col-9">
-	    <h3>Input</h3>
+	   <h3>Enter Two Coordinates:</h3>
 	    <div className="row">
 	      <div className="col-lg-3 col-md-offset-1">
 	        <input type="text" className="text" value={this.parser.value} onChange={this.parser}/>
@@ -187,12 +187,12 @@ class Body extends React.Component {
 	<br />
 	<div className="row">
 	  <div className="col-9">
-            <h3>Output</h3>
+            <h3>Calculated Distance:</h3>
           <div class="btn-group" data-toggle="buttons">
             <input type="text" className="text" value={this.getDistance(3958.7613)} disabled/>
             <button type="button" className="btn btn-primary" onClick={this.getDistance()}>Miles</button>
             <button type="button" className="btn btn-primary" onClick={this.getDistance()}>Kilometers</button>
-      </div>
+          </div>
 	  </div>
 	</div>
       </div>
