@@ -164,13 +164,14 @@ class Body extends React.Component {
       sourceLong: "",
       destLat: "",
       destLong: "",
-      distance: 0
+      units: "mi"
     };
  
     this.parser = this.parser.bind(this);
     this.parser2 = this.parser2.bind(this);
     this.getDistance = this.getDistance.bind(this);
     this.degreesToRad = this.degreesToRad.bind(this);
+    this.setUnits = this.setUnits.bind(this);
   }
   parser(event){
       var coord = Coordinate.parse(event.target.value);
@@ -193,24 +194,34 @@ class Body extends React.Component {
 	  }
    }
   
-  getDistance(number){
+  getDistance(){
     if(this.state.sourceLat==""||this.state.sourceLong==""||this.state.destLat==""||this.state.destLong==""){
       return "Not correct format";
+    }
+    var unit;
+    if(this.state.units==="mi"){
+      unit=3958.7613;
+    }
+     if(this.state.units==="km"){
+      unit=6371.0088;
     }
       var x = Math.cos(Number(this.state.destLat))*Math.cos(Number(this.state.destLong))-Math.cos(Number(this.state.sourceLat))*Math.cos(Number(this.state.sourceLong));//cos(Theta2)*cos(Lamda2)- cos(Theta1)*cos(Lamda1)
       var y = Math.cos(Number(this.state.destLat))*Math.sin(Number(this.state.destLong))-Math.cos(Number(this.state.sourceLat))*Math.sin(Number(this.state.sourceLong));//cos(Theta2)*sin(Lamda2)- cos(Theta1)*sin(Lamda1)
       var z = Math.sin(Number(this.state.destLat))-Math.sin(Number(this.state.sourceLat));//sin(Theta2)-sin(Theta1)
       var c = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));//sqrt(x^2+y^2+z^2)
       var rho = 2*Math.asin(c/2);//2arcsin(C/2)
-      var d = number*rho;//radius*central angle (in miles km would be 6371.0088)
+      var d = unit*rho;//radius*central angle (in miles km would be 6371.0088)
       return d;
     }          
 
  degreesToRad(degree){//convert float input in degrees to radians
   return Number((degree/180)*Math.PI);
 }
+  setUnits(e){
+    this.setState({units: e.target.value});
+  }
   
-  render() {
+  render() { 
     return (
       <div className="container"> 
 	<div className="row">
@@ -230,11 +241,9 @@ class Body extends React.Component {
 	<div className="row">
 	  <div className="col-9">
             <h3>Calculated Distance:</h3>
-          <div class="btn-group" data-toggle="buttons">
-            <input type="text" className="text" value={this.getDistance(3958.7613)} disabled/>
-            <button type="button" className="btn btn-primary" onClick={this.getDistance()}>Miles</button>
-            <button type="button" className="btn btn-primary" onClick={this.getDistance()}>Kilometers</button>
-          </div>
+            <input type="text" className="text" value={this.getDistance()} disabled/>
+            <button type="button" className="btn btn-primary" onClick={this.setUnits} value="mi">Miles</button>
+            <button type="button" className="btn btn-primary" onClick={this.setUnits} value="km">Kilometers</button>
 	  </div>
 	</div>
       </div>
