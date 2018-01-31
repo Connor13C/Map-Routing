@@ -142,8 +142,13 @@ class Body extends React.Component {
     }
    parser2(event){
       var coord = Coordinate.parse(event.target.value);
-      this.setState({ destLat: Number(this.degreesToRad(coord.lat))});
-      this.setState({ destLong: Number(this.degreesToRad(coord.long))});
+      if(coord==null){
+        
+      }
+      else{
+		this.setState({ destLat: Number(this.degreesToRad(coord.lat))});
+		this.setState({ destLong: Number(this.degreesToRad(coord.long))});
+	  }
    }
   
   getDistance(number){
