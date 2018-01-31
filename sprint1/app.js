@@ -2,11 +2,11 @@ function degreesMinutesSeconds(match) {
   // Capture groups are 1-indexed, as 0 is the whole capture
   var lat = parseInt(match[1]);
   lat += match[2] == undefined ? 0 : parseInt(match[2]) / 60;
-  lat += match[3] == undefined ? 0 : parseInt(match[3]) / 3600;
+  lat += match[3] == undefined ? 0 : parseFloat(match[3]) / 3600;
   lat *= match[4] == 'N' ? 1 : -1;
   var long = parseInt(match[5]);
   long += match[6] == undefined ? 0 : parseInt(match[6]) / 60;
-  long += match[7] == undefined ? 0 : parseInt(match[7]) / 3600;
+  long += match[7] == undefined ? 0 : parseFloat(match[7]) / 3600;
   long *= match[8] == 'E' ? 1 : -1;
   if (Number.isFinite(lat) && Number.isFinite(long)) {
     return new Coordinate(lat, long);
@@ -53,11 +53,11 @@ let CoordinateParser = {
   // along with unit tests to verify that they work. These are designed to be as flexible as possible
   // and are fairly complicated for that reason.
   // Regexes:
-  // https://regex101.com/r/q3ygIu/5/tests
+  // https://regex101.com/r/q3ygIu/6/tests
   // https://regex101.com/r/SGceKs/3/tests
   // https://regex101.com/r/ZyvGn6/2/tests
   // https://regex101.com/r/gKpYIj/1/tests
-  formats: [[/^\s*(\d+)°\s*(?:(\d+)(?:′|'))?\s*(?:(\d+)(?:″|"))?\s*(N|S)\s*(\d+)°\s*(?:(\d+)(?:′|'))?\s*(?:(\d+)(?:″|"))?\s*(E|W)\s*$/,
+  formats: [[/^\s*(\d+)°\s*(?:(\d+)(?:′|'))?\s*(?:(\d+(?:\.\d+)?)(?:″|"))?\s*(N|S)\s*(\d+)°\s*(?:(\d+)(?:′|'))?\s*(?:(\d+(?:\.\d+)?)(?:″|"))?\s*(E|W)\s*$/,
               degreesMinutesSeconds],
             [/^\s*(\d+)°\s*(?:(\d+(?:\.\d+)?)(?:′|'))\s*(N|S)\s*(\d+)°\s*(?:(\d+(?:\.\d+)?)(?:′|'))\s*(E|W)\s*$/,
               degreesDecimalMinutes],
@@ -67,7 +67,7 @@ let CoordinateParser = {
               floatingPoint],
            ],
   parse(input) {
-    for (pair of this.formats) {
+    for (var pair of this.formats) {
       var match = pair[0].exec(input);
       if (match !== null) {
         return pair[1](match);
@@ -75,6 +75,9 @@ let CoordinateParser = {
     }
     return null;
   }
+}
+function degreesToRad(degree){//convert float input in degrees to radians
+  return (degree/180)*Math.PI;
 }
 
 /**
@@ -89,6 +92,27 @@ class Coordinate {
     this.lat = lat;
     this.long = long;
   }
+
+  /**
+   * Gets the distance between this coordinate and another.
+   * @param {Coordinate} other - the other coordinate
+   * @param {number} conversionFactor - the unit used to convert
+   *     to a standard unit.  Defaults to miles.
+   * @returns {number} the distance between the two coordinates.
+   */ 
+  distanceTo(other, conversionFactor = 3958.7613) {
+    var srcLat = degreesToRad(this.lat);
+    var srcLong = degreesToRad(this.long);
+    var destLat = degreesToRad(other.lat);
+    var destLong = degreesToRad(other.long);
+    var x = Math.cos(destLat)*Math.cos(destLong)-Math.cos(srcLat)*Math.cos(srcLong);//cos(Theta2)*cos(Lamda2)- cos(Theta1)*cos(Lamda1)
+    var y = Math.cos(destLat)*Math.sin(destLong)-Math.cos(srcLat)*Math.sin(srcLong);//cos(Theta2)*sin(Lamda2)- cos(Theta1)*sin(Lamda1)
+    var z = Math.sin(destLat)-Math.sin(srcLat);//sin(Theta2)-sin(Theta1)
+    var c = Math.sqrt(Math.pow(x,2)+Math.pow(y,2)+Math.pow(z,2));//sqrt(x^2+y^2+z^2)
+    var rho = 2*Math.asin(c/2);//2arcsin(C/2)
+    var d = conversionFactor*rho;//radius*central angle (in miles km would be 6371.0088)
+    return d;
+  }
   /**
    * Parses the input string to a Coordinate.
    * @param {string} input - the input string
@@ -97,6 +121,24 @@ class Coordinate {
    */
   static parse(input) {
     return CoordinateParser.parse(input);
+  }
+}
+/**
+ * Represents a single leg of a trip.
+ */ 
+class TripLeg {
+  /**
+   *
+   *@param {string} from - The source location
+   *@param {string} to - The destination location
+   *@param {number} length - Length of this leg
+   *@param {number} cumulative - Length so far
+   */
+  constructor(from, to, length, cumulative) {
+    this.from = from;
+    this.to = to;
+    this.length = length;
+    this.cumulative = cumulative;
   }
 }
 
@@ -205,7 +247,38 @@ class FileHandler extends React.Component{
   constructor(props){
     super(props);
     this.fileSelector = this.fileSelector.bind(this);
-    
+    this.onFileChange = this.onFileChange.bind(this);
+    this.state = {trip:[]};
+  }
+  
+  onFileChange(evt) {
+    //need to call file interpreter here??
+    var contents = evt.target.result;
+    //console.log(contents);
+    var brews = JSON.parse(contents);
+    var trip = [];
+    var cumulative = 0;
+    var current = null;
+    var currentCoord = null;
+    for (var i = 0; i < brews.length; i++) {
+      var dest = Coordinate.parse(brews[i].latitude + ' ' + brews[i].longitude);
+      if (dest === null) {
+        console.log('failed to parse ' + brews[i].latitude + ' ' +brews[i].longitude);
+        console.log('belongs to ' + brews[i].id);
+      } else if (current === null) {
+        current = brews[i];
+        currentCoord = dest;
+      } else {
+        var dist = currentCoord.distanceTo(dest);
+        cumulative += dist;
+        trip.push(new TripLeg(current.name, brews[i].name, dist, cumulative));
+        current = brews[i];
+        currentCoord = dest;
+      }
+    }
+    console.log(trip);
+    //equivalent to {trip: trip}
+    this.setState({trip});    
   }
   
   fileSelector(evt){
@@ -215,19 +288,10 @@ class FileHandler extends React.Component{
 	 * The JSON file will get parsed into an array of JavaScript strings
 	 *
 	*/
-  var file = evt.target.files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function(evt){
-    //need to call file interpreter here??
-    var contents = evt.target.result;
-    //console.log(contents);
-    var scriptString = JSON.parse(contents);
-    console.log(scriptString);
-    //this.fileInterpretor(scriptString);
-    
-    
-  };
-  fileReader.readAsText(file);
+    var file = evt.target.files[0];
+    var fileReader = new FileReader();
+    fileReader.onload = this.onFileChange;
+    fileReader.readAsText(file);
   
   }
   
