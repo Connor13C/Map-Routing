@@ -142,9 +142,6 @@ class TripLeg {
   }
 }
 
-
-
-
 class Header extends React.Component{
     render() {
         return (
@@ -238,6 +235,7 @@ class Body extends React.Component {
 	  </div>
 	</div>
 	<br />
+	<br />
 	<div className="row">
 	  <div className="col-9">
             <h3>Calculated Distance:</h3>
@@ -323,6 +321,7 @@ class FileHandler extends React.Component{
     }
   
 }
+
 class DestinationTable extends React.Component{
   constructor(props){
     super(props);
@@ -371,16 +370,50 @@ class DestinationTable extends React.Component{
   }
 }
 
+class Instructions extends React.Component{
+		render() {
+        return (
+		<div className="container">
+			<br/>
+			<br/>
+			<div className="card col-sm-12 col-md-9 col-lg-8 col-xl-5">
+				<div id="accordion">
+					<div className="card-header bg-white" id="headingThree">
+						<h5 className="mb-0">
+							<button className="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								Accepted Formats	
+							</button>
+						</h5>
+					</div>
+					<div id="collapseThree" className="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+						<div className="card-body">
+							degrees minutes seconds: 40° 26′ 46″ N 79° 58′ 56″ W<br/>
+							degrees decimal minutes: 40° 26.767′ N 79° 58.933′ W<br/>
+							decimal degrees: 40.446° N 79.982° W<br/>
+							floating point 40.445 -79.982<br/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<br/>
+		</div>
+                
+        )
+    }
+}
+
 
 class Main extends React.Component {
   render() {
     return (
     <div>
       <div className="jumbotron bg-info text-white">
-	<Header />
+		<Header />
         <hr />
       </div>
       <Body />
+	  <Instructions />
 	  <FileHandler />
     </div>
     );
