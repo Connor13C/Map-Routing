@@ -280,14 +280,15 @@ class FileHandler extends React.Component{
       } else {
         var dist = currentCoord.distanceTo(dest);
         cumulative += dist;
-        trip.push(new TripLeg(current.name, brews[i].name, dist, cumulative));
+        trip.push({from:current.name, to:brews[i].name, length:dist, cumulative:cumulative});
         current = brews[i];
         currentCoord = dest;
       }
     }
-    console.log(trip);
+    //console.log(trip);
     //equivalent to {trip: trip}
-    this.setState({trip});    
+    this.setState({trip});   
+    
   }
   
   fileSelector(evt){
@@ -306,18 +307,68 @@ class FileHandler extends React.Component{
   
   render ()
     {
+      console.log(this.state.trip);
         return <div>
           
           <div className="container">
             <br />
             <input type="file" onChange={this.fileSelector} />
           </div>
+          <DestinationTable  info={this.state.trip} />
+          
           
          </div>;
       
 
     }
   
+}
+class DestinationTable extends React.Component{
+  constructor(props){
+    super(props);
+    
+  }
+  
+  createTable(info){
+    var arrayMap = info.map(brewery =>
+      <tr>
+        <td> {brewery.from} </td>
+        <td> {brewery.to} </td>
+        <td> {brewery.length} </td>
+        <td> {brewery.cumulative} </td>
+       </tr>
+        
+      
+    );
+    return arrayMap;
+  }
+  
+  render()
+  {
+    var destTable = this.createTable(this.props.info);
+    return (
+      <div>
+        <br />
+        <div className="container-fluid">
+            <div className="table-responsive-sm">
+              <table className="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Source</th>
+                    <th scope="col">Destination</th>
+                    <th scope="col">Length of leg</th>
+                    <th scope="col">Cumulative</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {destTable}
+                </tbody>
+              </table>
+            </div>
+        </div>
+      </div>
+      );
+  }
 }
 
 
