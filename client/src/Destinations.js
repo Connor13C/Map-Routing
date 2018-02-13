@@ -10,19 +10,37 @@ import React, {Component} from 'react';
 class Destinations extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        errorMessage: null
+    };
     this.loadTFFI = this.loadTFFI.bind(this);
   }
 
   loadTFFI(event) {
-    console.log(event.target.files[0].name);
-    // now you need to read the file and create a JSON.
-    // then you need to set the trip property
-    // this.props.updateTrip(??);
+    let reader = new FileReader();
+    let fileName = event.target.files[0].name;
+    reader.onload = () => {
+        try {
+            let json = JSON.parse(reader.result);
+            this.setState({errorMesssage:null});
+            this.props.updateTrip(json);
+        } catch(exception) {
+            this.setState({errorMessage: "Failed to parse " + fileName})
+        }
+    };
+    reader.readAsText(event.target.files[0]);
   }
 
   render() {
-    // need to clean up the button
-    const count = 99; // need to count the number in the trip
+    let count = this.props.trip.places.length;
+    let infoMessage;
+    if (this.state.errorMessage != null) {
+        infoMessage = <div className="alert alert-danger">{this.state.errorMessage}</div>;
+    } else if (count > 0) {
+        infoMessage = <div className="alert alert-success">Loaded {count} destinations.</div>
+    } else {
+        infoMessage = "";
+    }
     return (
         <div id="destinations" className="card">
           <div className="card-header bg-info text-white">
@@ -33,7 +51,7 @@ class Destinations extends Component {
             <div className="form-group" role="group">
                 <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
             </div>
-            <h5>There are {count} destinations. </h5>
+              {infoMessage}
           </div>
         </div>
     )
