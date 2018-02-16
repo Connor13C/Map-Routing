@@ -17,7 +17,8 @@ public class Trip {
   public ArrayList<Integer> distances;
   public String map;
 
-  /** The top level method that does planning.
+
+   /** The top level method that does planning.
    * At this point it just adds the map and distances for the places in order.
    * It might need to reorder the places in the future.
    */
@@ -25,7 +26,6 @@ public class Trip {
 
     this.map = svg();
     this.distances = legDistances();
-
   }
 
   /**
@@ -53,17 +53,23 @@ public class Trip {
    */
   private ArrayList<Integer> legDistances() {
 
-    ArrayList<Integer> dist = new ArrayList<Integer>();
+    ArrayList<Integer> dist = new ArrayList<>();
 
-    // hardcoded example
-    dist.add(12);
-    dist.add(23);
-    dist.add(34);
-    dist.add(45);
-    dist.add(65);
-    dist.add(19);
+    for(int i = 0; i < places.size(); i++){
+      Coordinate current = Coordinate.fromPlace(places.get(i));
+      if(i == 0){
+        dist.add(0);
+      }
+      else if(i != 0 && i < places.size()-1){
+        Coordinate next = Coordinate.fromPlace(places.get(i+1));
+        dist.add((int) current.distanceTo(next));
+      }
+    }
 
+
+    Coordinate first = Coordinate.fromPlace(places.get(0));
+    Coordinate last = Coordinate.fromPlace(places.get(places.size()-1));
+    dist.add((int)first.distanceTo(last));
     return dist;
   }
-
 }
