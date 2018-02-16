@@ -57,10 +57,7 @@ public class Trip {
 
     for(int i = 0; i < places.size(); i++){
       Coordinate current = Coordinate.fromPlace(places.get(i));
-      if(i == 0){
-        dist.add(0);
-      }
-      else if(i != 0 && i < places.size()-1){
+      if(i < places.size()-1){
         Coordinate next = Coordinate.fromPlace(places.get(i+1));
         dist.add((int) current.distanceTo(next));
       }
