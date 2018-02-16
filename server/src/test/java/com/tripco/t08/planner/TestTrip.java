@@ -21,6 +21,7 @@ public class TestTrip {
   @Before
   public void initialize() {
     trip = new Trip();
+    trip.places = new ArrayList<>();
   }
 
   @Test
