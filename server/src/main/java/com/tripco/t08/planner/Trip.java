@@ -56,17 +56,15 @@ public class Trip {
     ArrayList<Integer> dist = new ArrayList<>();
 
     for(int i = 0; i < places.size(); i++){
-      Coordinate current = Coordinate.fromPlace(places.get(i));
-      if(i < places.size()-1){
-        Coordinate next = Coordinate.fromPlace(places.get(i+1));
-        dist.add((int) current.distanceTo(next));
+      if(i == 0){
+        dist.add(0);
+      }
+      if(i != 0){
+        Coordinate previous = Coordinate.fromPlace(places.get(i-1));
+        Coordinate current = Coordinate.fromPlace(places.get(i));
+        dist.add((int) previous.distanceTo(current));
       }
     }
-
-
-    Coordinate first = Coordinate.fromPlace(places.get(0));
-    Coordinate last = Coordinate.fromPlace(places.get(places.size()-1));
-    dist.add((int)first.distanceTo(last));
     return dist;
   }
 }

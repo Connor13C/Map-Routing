@@ -31,6 +31,8 @@ class Destinations extends Component {
     reader.readAsText(event.target.files[0]);
   }
 
+
+
   render() {
     let count = this.props.trip.places.length;
     let infoMessage;
