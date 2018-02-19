@@ -22,7 +22,6 @@ public class Trip {
    * It might need to reorder the places in the future.
    */
   public void plan() {
-    places.add(places.get(0));
     this.map = svg();
     this.distances = legDistances();
   }
@@ -55,16 +54,14 @@ public class Trip {
     ArrayList<Integer> dist = new ArrayList<>();
 
     for(int i = 0; i < places.size(); i++){
-      if(i == 0){
-        dist.add(0);
-      }
-      if(i != 0){
         Coordinate previous = Coordinate.fromPlace(places.get(i-1));
         Coordinate current = Coordinate.fromPlace(places.get(i));
         dist.add((int) previous.distanceTo(current));
-      }
     }
 
+    Coordinate first = Coordinate.fromPlace(places.get(0));
+    Coordinate last = Coordinate.fromPlace(places.get(places.size()-1));
+    dist.add((int) first.distanceTo(last));
     return dist;
   }
 }
