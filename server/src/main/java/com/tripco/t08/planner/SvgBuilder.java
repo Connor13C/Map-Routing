@@ -64,6 +64,9 @@ public class SvgBuilder {
         for (MapObject mapObject : mapObjects) {
             s.append(mapObject.getX()).append(",").append(mapObject.getY()).append(" ");
         }
+        if(mapObjects.size() > 0) {
+            s.append(mapObjects.get(0).getX()).append(",").append(mapObjects.get(0).getY()).append(" ");
+        }
         return s.toString();
     }
 
