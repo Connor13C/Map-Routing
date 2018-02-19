@@ -470,8 +470,18 @@
   <svg id="svg_5" height="783.0824" width="1000" y="37" x="37">
         <g id="svg_6">
           <title>Layer 2</title>
+          <defs>
+            <marker id="arrow" markerWidth="20" markerHeight="20" refX="11" refY="3" orient="auto" markerUnits="strokeWidth" viewBox="0 0 20 20">
+              <path d="M0,0 L0,6 L9,3 z" fill="red" />
+            </marker>
+          </defs>
+
+          <marker id="circle" markerWidth="20" markerHeight="20" refX="4" refY="4">
+            <circle cx="4" cy="4" r="3" stroke="none" fill="blue"/>
+          </marker>
+
           <!--CO Border <polygon points="0,0 985,0 990,705 0,705" stroke-width="12" stroke="brown" fill="none" id="svg_8" />-->
-          <polyline points=" POINTSGOHERE " fill="none" stroke-width="4" stroke="red" id="svg_7" /><!--Change this line to move overlay-->
+          <polyline points=" POINTSGOHERE " fill="none" stroke-width="4" stroke="blue" marker-end="url(#arrow)" marker-start="url(#circle)"/> <!--Change this line to move overlay-->
         </g>
       </svg>
 </svg>
