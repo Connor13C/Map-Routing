@@ -17,7 +17,6 @@ public class Trip {
   public ArrayList<Integer> distances;
   public String map;
 
-
    /** The top level method that does planning.
    * At this point it just adds the map and distances for the places in order.
    * It might need to reorder the places in the future.
@@ -65,6 +64,8 @@ public class Trip {
         dist.add((int) previous.distanceTo(current));
       }
     }
+    dist.add((int) Coordinate.fromPlace(places.get(places.size()-1)).distanceTo(Coordinate.fromPlace(places.get(0))));
+
     return dist;
   }
 }
