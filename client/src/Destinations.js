@@ -22,7 +22,7 @@ class Destinations extends Component {
     reader.onload = () => {
         try {
             let json = JSON.parse(reader.result);
-            this.setState({errorMesssage:null});
+            this.setState({errorMessage:null});
             this.props.updateTrip(json);
         } catch(exception) {
             this.setState({errorMessage: "Failed to parse " + fileName})
@@ -49,7 +49,9 @@ class Destinations extends Component {
           <div className="card-body">
             <p>Load destinations from a file.</p>
             <div className="form-group" role="group">
-                <input type="file" className="form-control-file" onChange={this.loadTFFI} id="tffifile" />
+                <label className="btn btn-primary">
+                    Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
+                </label>
             </div>
               {infoMessage}
           </div>
