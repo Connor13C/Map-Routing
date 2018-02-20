@@ -40,6 +40,9 @@ class Trip extends Component {
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){
+      var fileDownload = require('react-file-download');
+      var data= JSON.stringify(this.props.trip);
+      fileDownload(data, 'trip.json');
   }
 
   /* Renders the buttons, map, and itinerary.
