@@ -43,26 +43,37 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *14*   | *0* 
-Story Points |  *13*  | *0* 
+Tasks |  *30*   | *30* 
+Story Points |  *28*  | *28* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*date* | *@task only* | *@task only* | none
+*2/6* | *@task only* | *@task only* | none
+*2/8* | *@task only* | *@task only* | none
+*2/11* | *@task only* | *@task only* | none
+*2/13* | *@task only* | *@task only* | none
+*2/15* | *@task only* | *@task only* | none
+*2/18* | *@task only* | *@task only* | none
+*2/20* | *@task only* | *@task only* | none
  | | | 
  
 
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* *Build a responsive, mobile first web application*:  *comments*
+* *Let the user load a file with destinations*: *comments*
+* *Show a map of the round trip*: *comments*
+* *Plan trips in the state of Colorado*: *comments*
+* *Plan the trip in the destination order the user provided*: *comments*
+* *Show an Itinerary of the round trip*: *comments*
+* *Let the user save their trip*: *comments*
 
 #### Incomplete epics in Sprint Backlog 
-* *user story*: *explanation...*
-*
+* *none!*
+
 
 #### What went well
 * *something*
