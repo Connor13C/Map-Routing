@@ -16,6 +16,8 @@ import java.util.ArrayList;
  * so it may returned as the response.
  */
 public class Plan {
+  // Gson is thread safe
+  private static final Gson GSON = new Gson();
 
   private Trip trip;
 
@@ -27,13 +29,8 @@ public class Plan {
     // first print the request
     System.out.println(HTTP.echoRequest(request));
 
-    // extract the information from the body of the request.
-    JsonParser jsonParser = new JsonParser();
-    JsonElement requestBody = jsonParser.parse(request.body());
-
     // convert the body of the request to a Java class.
-    Gson gson = new Gson();
-    trip = gson.fromJson(requestBody, Trip.class);
+    trip = GSON.fromJson(request.body(), Trip.class);
 
     // plan the trip.
     trip.plan();
