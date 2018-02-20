@@ -36,6 +36,7 @@ Epics planned for this release.
 * *Show an itinerary of the round trip*
 * *Plan the trip in the destination order provided*
 * *Let the user save their trip*
+* *Give the userthe option of miles or kilometers for the unit of distance*
 
 *We will try to do more communication on the front end of the project instead of just communicating as we go. This time we will make our tasks more sequential so changes are being integrated in the code in a more logical order versus just whenever they get finished by the person assigned to them. We will hopefully be able to understand the tools better and be able to make changes faster. We will also be able to understand JavaScript a little more than we did last time. We did really well under our time constraints so if we keep up the pace like the last sprint we should have no problems*
 
