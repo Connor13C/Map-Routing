@@ -1,4 +1,94 @@
 import React, {Component} from 'react';
+import {Validator} from 'jsonschema';
+import defaults from 'json-schema-defaults';
+
+let optionsSchema = {
+    id: "/options",
+    type: "object",
+    properties: {
+        "distance": {
+            type: "string",
+            format: "miles|kilometers",
+
+        },
+        "optimization" : {
+            type: "string",
+            format: "none"
+        }
+    }
+};
+let placeSchema = {
+    id: "/place",
+    type: "object",
+    properties: {
+        "id": {
+            type: "string",
+            required: true
+        },
+        "name": {
+            type: "string",
+            required: true
+        },
+        "latitude": {
+            type: "string",
+            required: true
+        },
+        "longitude": {
+            type: "string",
+            required: true
+        }
+    }
+};
+
+let tffiSchema = {
+    id: "/tffi",
+    type: "object",
+    properties: {
+        "type": {
+            type: "string",
+            required: true
+        },
+        "title": {
+            type: "string"
+        },
+        "options": {
+            "$ref": "/options"
+        },
+        "places": {
+            type: "array",
+            items: {
+                "$ref": "/place"
+            },
+            "default": []
+        },
+        "distances": {
+            type: "array",
+            items: {
+                type:"integer"
+            },
+            "default": []
+        },
+        "map": {
+            type:"string",
+            "default": ""
+        }
+    }
+};
+let validator = new Validator();
+validator.addSchema(optionsSchema);
+validator.addSchema(placeSchema);
+validator.addSchema(tffiSchema);
+
+
+function setDefaults(tffi) {
+    let defaultTffi = defaults(tffiSchema);
+    for (let key in defaultTffi) {
+        if (defaultTffi.hasOwnProperty(key) && tffi[key] === undefined) {
+            tffi[key] = defaultTffi[key];
+        }
+    }
+}
+
 
 /* Destinations reside in the parent object so they may be shared
  * with the Trip object.
@@ -22,8 +112,14 @@ class Destinations extends Component {
     reader.onload = () => {
         try {
             let json = JSON.parse(reader.result);
-            this.setState({errorMessage:null});
-            this.props.updateTrip(json);
+            let validation = validator.validate(json, tffiSchema);
+            if (validation.valid) {
+                this.setState({errorMessage: null});
+                setDefaults(json);
+                this.props.updateTrip(json);
+            } else {
+                this.setState({errorMessage: "Invalid TFFI file."});
+            }
         } catch(exception) {
             this.setState({errorMessage: "Failed to parse " + fileName})
         }
