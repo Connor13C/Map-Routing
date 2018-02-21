@@ -36,6 +36,7 @@ Epics planned for this release.
 * *Show an itinerary of the round trip*
 * *Plan the trip in the destination order provided*
 * *Let the user save their trip*
+* *Give the user the option of miles or kilometers for the unit of distance*
 
 *We will try to do more communication on the front end of the project instead of just communicating as we go. This time we will make our tasks more sequential so changes are being integrated in the code in a more logical order versus just whenever they get finished by the person assigned to them. We will hopefully be able to understand the tools better and be able to make changes faster. We will also be able to understand JavaScript a little more than we did last time. We did really well under our time constraints so if we keep up the pace like the last sprint we should have no problems*
 
@@ -43,26 +44,37 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *14*   | *0* 
-Story Points |  *13*  | *0* 
+Tasks |  *30*   | *30* 
+Story Points |  *28*  | *28* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*date* | *@task only* | *@task only* | none
+*2/6* | *@task only* | *@task only* | none
+*2/8* | *@task only* | *@task only* | none
+*2/11* | *@task only* | *@task only* | none
+*2/13* | *@task only* | *@task only* | none
+*2/15* | *@task only* | *@task only* | none
+*2/18* | *@task only* | *@task only* | none
+*2/20* | *@task only* | *@task only* | none
  | | | 
  
 
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* *Build a responsive, mobile first web application*:  *comments*
+* *Let the user load a file with destinations*: *comments*
+* *Show a map of the round trip*: *comments*
+* *Plan trips in the state of Colorado*: *comments*
+* *Plan the trip in the destination order the user provided*: *comments*
+* *Show an Itinerary of the round trip*: *comments*
+* *Let the user save their trip*: *comments*
 
 #### Incomplete epics in Sprint Backlog 
-* *user story*: *explanation...*
-*
+* *none!*
+
 
 #### What went well
 * *something*
