@@ -51,13 +51,13 @@ Story Points |  *28*  | *28*
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*2/6* | *@task only* | *@task only* | none
-*2/8* | *@task only* | *@task only* | none
-*2/11* | *@task only* | *@task only* | none
-*2/13* | *@task only* | *@task only* | none
-*2/15* | *@task only* | *@task only* | none
-*2/18* | *@task only* | *@task only* | none
-*2/20* | *@task only* | *@task only* | none
+*2/6* | *none* | *still planning* | new code, trying to determine the goals, and rewriting tasks
+*2/8* | *none* | *@125 @124 @126 @114 @125,@113* | trying to separate epics into tasks
+*2/11* | *@113 @123 @114* | *@127 @124 @126 @125 @121* | figuring out the code
+*2/13* | *@124 @126 @127* | *@129 @115 @121 @106 @ 130* | waiting on dependencies
+*2/15* | *@129 @115 @106 @121 @130* | *@110 @111 @117 @122 @109* | tring to separate the new epics in smaller tasks
+*2/18* | *@110 @111 @ 117 @122 @109* | *@141 @138 @132 @142 @143 @149 @148 @ 103* | bug fixes and expanding functionality
+*2/20* | *@141 @138 @132 @142 @143 @149 @148 @103* | *@155 @161* | Km/Mi was listed out of order on Dave's zenhub so we did a epic out of order
  | | | 
  
 
@@ -77,18 +77,19 @@ Date | Tasks done  | Tasks in progress | Impediments
 
 
 #### What went well
-* *something*
-*
+* *Everyone had pretty good teamwork and banded together to get tasks done*
+* *All epics we set out to do were completed*
 
 #### Problems encountered and resolutions
-* *something*
-*
-
+* *Had to redo all task planned before the code was given to us, might have been more work then if we planned after*
+* *Was hard to assign tasks, we decided it was better for everyone to pick a task and grab new ones when ready*
+* *Start of the project we had idea how to implement code*
+* *Uploaded a commit that broke a section on master and had to revert the changes*
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | We will incorporate Slack more into our communication. |Next time we will be more organized in how we are going about splitting up epics more sequentially and assigning them based on that sequence. | We will use ZenHub more as we go instead of updating it all at once.
+What we did well | Good teamwork, communication, willingness help from everyone | Once we got started we cranked through tasks really quickly, pull requests were handled in timely manner | More usage of slack, implementing our old code successfully in the new system, and used ZenHub actively.
+What we need to work on | Not too much at all maybe more communication between team member and class if we get stuck on a problem | We need to produce more tests when we submit a commit | Adding more tests to the entire project to ensure we have no bugs
+What we will change next time | More communication with our fellow class members | We will be able to get started sooner because we understand the code now and have more incremental commits to let people see what they are working on | We will make more tests during the next sprint
