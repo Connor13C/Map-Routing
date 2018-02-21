@@ -16,7 +16,7 @@ class Itinerary extends Component {
     let units = this.props.trip.options.distance;
     let places = this.props.trip.places;
 
-    //uploading each destination name to the itineary
+    //uploading each destination name to the itinerary
     let dests = places.slice(0);
       dests = dests.map((item) => <td>{item.name}</td>);
       dests.push(dests[0]);
