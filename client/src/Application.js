@@ -34,7 +34,8 @@ class Application extends Component {
         trip: Object.assign(
             {},
             this.state.trip,
-            {options: options}
+            {options: options},
+            {distances: []}
         )
     });
   }

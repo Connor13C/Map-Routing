@@ -46,15 +46,16 @@ public class Trip {
   private ArrayList<Integer> legDistances() {
 
     ArrayList<Integer> dist = new ArrayList<>();
+    DistanceUnit distUnit = DistanceUnit.getDistanceUnit(options.distance);
 
     for(int i = 1; i < places.size(); i++){
       Coordinate previous = Coordinate.fromPlace(places.get(i-1));
       Coordinate current = Coordinate.fromPlace(places.get(i));
-      dist.add((int) previous.distanceTo(current));
+      dist.add((int) previous.distanceTo(current, distUnit));
       }
       Coordinate first = Coordinate.fromPlace(places.get(0));
       Coordinate last = Coordinate.fromPlace(places.get(places.size()-1));
-      dist.add((int) first.distanceTo(last));
+      dist.add((int) first.distanceTo(last, distUnit));
 
     return dist;
   }
