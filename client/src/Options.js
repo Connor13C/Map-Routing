@@ -9,15 +9,47 @@ class Options extends Component{
   constructor(props) {
     super(props);
     this.changeOption = this.changeOption.bind(this);
+    this.setMiles = this.setMiles.bind(this);
+    this.setKilo = this.setKilo.bind(this);
+    this.getKilometersClassName = this.getKilometersClassName.bind(this);
+    this.getMilesClassName = this.getMilesClassName.bind(this);
   }
 
   changeOption(arg) {
-    console.log(arg);
-    //this.props.updateOptions(arg);
+    let options={
+      distance: arg
+    };
+    this.props.updateOptions(options);
+  }
+
+  setMiles(){
+    this.changeOption("miles");
+  }
+
+  setKilo(){
+    this.changeOption("kilometers");
+
+  }
+
+  getMilesClassName(){
+    if(this.props.options.distance === "miles"){
+      return "btn btn-outline-dark active";
+    }
+    else{
+      return "btn btn-outline-dark ";
+    }
+  }
+
+  getKilometersClassName(){
+      if(this.props.options.distance === "kilometers"){
+          return "btn btn-outline-dark active";
+      }
+      else{
+          return "btn btn-outline-dark ";
+      }
   }
 
   render() {
-    // @todo need to update the options when a button is pressed
     return(
         <div id="options" className="card">
           <div className="card-header bg-info text-white">
@@ -26,11 +58,11 @@ class Options extends Component{
           <div className="card-body">
             <p>Highlight the options you wish to use.</p>
             <div className="btn-group btn-group-toggle" data-toggle="buttons">
-              <label className="btn btn-outline-dark active">
-                <input type="radio" id="miles" name="distance" autcomplete="off" defaultChecked/> Miles
+              <label className={this.getMilesClassName()}>
+                <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setMiles}/> Miles
               </label>
-              <label className="btn btn-outline-dark ">
-                <input type="radio" id="kilometers" name="distance" autcomplete="off"/> Kilometers
+              <label className={this.getKilometersClassName()}>
+                <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
               </label>
             </div>
           </div>

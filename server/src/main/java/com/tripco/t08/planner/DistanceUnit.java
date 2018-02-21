@@ -14,4 +14,13 @@ public enum DistanceUnit {
     public double getConversionFactor() {
         return conversionFactor;
     }
+
+    public static DistanceUnit getDistanceUnit(String dist){
+        if(dist.equals("miles")){
+            return DistanceUnit.MILES;
+        }
+        else{
+            return DistanceUnit.KILOMETERS;
+        }
+    }
 }
