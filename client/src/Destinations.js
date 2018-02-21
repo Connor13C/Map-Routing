@@ -9,7 +9,7 @@ let optionsSchema = {
         "distance": {
             type: "string",
             format: "miles|kilometers",
-
+            "default": "miles"
         },
         "optimization" : {
             type: "string",
@@ -52,7 +52,10 @@ let tffiSchema = {
             type: "string"
         },
         "options": {
-            "$ref": "/options"
+            "$ref": "/options",
+            "default": {
+                "distance": "miles"
+            }
         },
         "places": {
             type: "array",
@@ -81,10 +84,15 @@ validator.addSchema(tffiSchema);
 
 
 function setDefaults(tffi) {
-    let defaultTffi = defaults(tffiSchema);
-    for (let key in defaultTffi) {
-        if (defaultTffi.hasOwnProperty(key) && tffi[key] === undefined) {
-            tffi[key] = defaultTffi[key];
+    deepCopy(defaults(tffiSchema), tffi);
+}
+
+function deepCopy(from, to) {
+    for (let key in from) {
+        if (from.hasOwnProperty(key) && (to[key] === undefined || to[key] === null)) {
+            to[key] = from[key];
+        } else if (from.hasOwnProperty(key) && typeof(to[key]) === "object") {
+            deepCopy(from[key], to[key]);
         }
     }
 }
