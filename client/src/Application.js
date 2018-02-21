@@ -30,8 +30,13 @@ class Application extends Component {
   }
 
   updateOptions(options){
-    console.log(options);
-    // update the options in the trip.
+    this.setState({
+        trip: Object.assign(
+            {},
+            this.state.trip,
+            {options: options}
+        )
+    });
   }
 
   render() {

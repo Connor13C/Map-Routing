@@ -9,15 +9,28 @@ class Options extends Component{
   constructor(props) {
     super(props);
     this.changeOption = this.changeOption.bind(this);
+    this.setMiles = this.setMiles.bind(this);
+    this.setKilo = this.setKilo.bind(this);
   }
 
   changeOption(arg) {
     console.log(arg);
-    //this.props.updateOptions(arg);
+    let options={
+      distance: arg
+    };
+    this.props.updateOptions(options);
+  }
+
+  setMiles(){
+    this.changeOption("miles");
+  }
+
+  setKilo(){
+    this.changeOption("kilometers");
+
   }
 
   render() {
-    // @todo need to update the options when a button is pressed
     return(
         <div id="options" className="card">
           <div className="card-header bg-info text-white">
@@ -27,10 +40,10 @@ class Options extends Component{
             <p>Highlight the options you wish to use.</p>
             <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <label className="btn btn-outline-dark active">
-                <input type="radio" id="miles" name="distance" autcomplete="off" defaultChecked/> Miles
+                <input type="radio" id="miles" name="distance" autcomplete="off" defaultChecked onChange={this.setMiles}/> Miles
               </label>
               <label className="btn btn-outline-dark ">
-                <input type="radio" id="kilometers" name="distance" autcomplete="off"/> Kilometers
+                <input type="radio" id="kilometers" name="distance" autcomplete="off" onChange={this.setKilo}/> Kilometers
               </label>
             </div>
           </div>
