@@ -19,8 +19,10 @@ class Trip extends Component {
    * Receives a response containing the map and itinerary to update the
    * state for this object.
    */
+
+
   fetchResponse(){
-    return fetch(process.env.SERVICE_URL + '/plan', {
+    return fetch('http://' + location.host + '/plan', {
       method:"POST",
       body: JSON.stringify(this.props.trip)
     });
