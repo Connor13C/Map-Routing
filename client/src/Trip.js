@@ -59,14 +59,16 @@ class Trip extends Component {
           <div className="card-body">
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
+                <input type="text" className="form-control" placeholder="Make or change your plan name here"/>
               <span className="input-group-btn">
               <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
             </span>
-              <input type="text" className="form-control" placeholder="Trip title..."/>
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.saveTFFI} type="button">Save</button>
+              <button className="btn btn-secondary " onClick={this.saveTFFI} type="button">Save</button>
             </span>
             </div>
+            <p/>
+              <h5>{this.props.trip.title}</h5>
             <Map trip={this.props.trip} />
             <Itinerary trip={this.props.trip} />
           </div>
