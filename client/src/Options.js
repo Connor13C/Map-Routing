@@ -41,7 +41,7 @@ class Options extends Component{
   }
 
   setNautMiles(){
-        this.changeOption("nautmiles");
+        this.changeOption("nautical miles");
 
     }
   
@@ -64,7 +64,7 @@ class Options extends Component{
   }
   
   getNautMilesClassName(){
-        if(this.props.options.distance === "nautmiles"){
+        if(this.props.options.distance === "nautical miles"){
             return "btn btn-outline-dark active";
         }
         else{
