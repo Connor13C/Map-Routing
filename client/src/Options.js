@@ -11,8 +11,10 @@ class Options extends Component{
     this.changeOption = this.changeOption.bind(this);
     this.setMiles = this.setMiles.bind(this);
     this.setKilo = this.setKilo.bind(this);
+    this.setNautMiles = this.setNautMiles.bind(this);
     this.getKilometersClassName = this.getKilometersClassName.bind(this);
     this.getMilesClassName = this.getMilesClassName.bind(this);
+    this.getNautMilesClassName = this.getNautMilesClassName.bind(this);
   }
 
   changeOption(arg) {
@@ -31,6 +33,11 @@ class Options extends Component{
 
   }
 
+  setNautMiles(){
+        this.changeOption("nautmiles");
+
+    }
+  
   getMilesClassName(){
     if(this.props.options.distance === "miles"){
       return "btn btn-outline-dark active";
@@ -48,6 +55,15 @@ class Options extends Component{
           return "btn btn-outline-dark ";
       }
   }
+  
+  getNautMilesClassName(){
+        if(this.props.options.distance === "nautmiles"){
+            return "btn btn-outline-dark active";
+        }
+        else{
+            return "btn btn-outline-dark ";
+        }
+    }
 
   render() {
     return(
@@ -64,6 +80,9 @@ class Options extends Component{
               <label className={this.getKilometersClassName()}>
                 <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
               </label>
+              <label className={this.getNautMilesClassName()}>
+  <input type="radio" id="nautmiles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
+      </label>
             </div>
           </div>
         </div>
