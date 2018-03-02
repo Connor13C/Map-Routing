@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Validator} from 'jsonschema';
 import defaults from 'json-schema-defaults';
+import DestinationList from "./DestinationList";
 
 let optionsSchema = {
     id: "/options",
@@ -135,16 +136,19 @@ class Destinations extends Component {
     reader.readAsText(event.target.files[0]);
   }
 
+  getInfoMessage() {
+      let count = this.props.trip.places.length;
+      let infoMessage;
+      if (this.state.errorMessage != null) {
+          infoMessage = <div className="alert alert-danger">{this.state.errorMessage}</div>;
+      } else if (count > 0) {
+          infoMessage = <div className="alert alert-success">Loaded {count} destinations.</div>
+      } else {
+          infoMessage = "";
+      }
+  }
+
   render() {
-    let count = this.props.trip.places.length;
-    let infoMessage;
-    if (this.state.errorMessage != null) {
-        infoMessage = <div className="alert alert-danger">{this.state.errorMessage}</div>;
-    } else if (count > 0) {
-        infoMessage = <div className="alert alert-success">Loaded {count} destinations.</div>
-    } else {
-        infoMessage = "";
-    }
     return (
         <div id="destinations" className="card">
           <div className="card-header bg-info text-white">
@@ -157,7 +161,8 @@ class Destinations extends Component {
                     Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                 </label>
             </div>
-              {infoMessage}
+              {this.getInfoMessage()}
+              <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
           </div>
         </div>
     )
