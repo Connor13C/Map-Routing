@@ -1,8 +1,10 @@
 package com.tripco.t08.planner;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.tripco.t08.server.HTTP;
 import spark.Request;
 
@@ -17,7 +19,10 @@ import java.util.ArrayList;
  */
 public class Plan {
   // Gson is thread safe
-  private static final Gson GSON = new Gson();
+  private static final Gson GSON = new GsonBuilder()
+          .registerTypeAdapter(new TypeToken<Place>(){}.getType(), new Place.Serializer())
+          .create();
+
 
   private Trip trip;
 
@@ -43,7 +48,6 @@ public class Plan {
    * Does the conversion from a Java class to a Json string.*
    */
   public String getTrip () {
-    Gson gson = new Gson();
-    return gson.toJson(trip);
+    return GSON.toJson(trip);
   }
 }

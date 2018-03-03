@@ -25,8 +25,8 @@ public class SvgBuilder {
     private final List<MapObject> mapObjects = new ArrayList<>();
 
     //Constructor
-    public SvgBuilder(List<Coordinate> coordinates){
-        for (Coordinate coordinate : coordinates) {
+    public SvgBuilder(List<Place> coordinates){
+        for (Place coordinate : coordinates) {
             mapObjects.add(MapObject.coordinateToMap(coordinate));
         }
     }
@@ -72,7 +72,7 @@ public class SvgBuilder {
             return y;
         }
 
-        static MapObject coordinateToMap(Coordinate c){
+        static MapObject coordinateToMap(Place c){
             double percentX;
             double percentY;
 
