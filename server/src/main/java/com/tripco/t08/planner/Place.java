@@ -7,8 +7,6 @@ import com.tripco.t08.util.CoordinateParser;
 
 import java.io.IOException;
 
-import static java.lang.Math.*;
-
 /**
  * Describes the places to visit in a trip in TFFI format.
  * There may be other attributes of a place, but these are required to plan a trip.
@@ -28,7 +26,8 @@ public class Place {
    * @param longitude longitude of the place[-180,180]
    * @throws IllegalArgumentException if any of the parameters are null
    */
-  public Place(String id, String name, double latitude, double longitude) throws IllegalArgumentException {
+  public Place(String id, String name, double latitude, double longitude)
+          throws IllegalArgumentException {
     this.id = checkNull(id, "Id must be specified");
     this.name = checkNull(name, "Name must be specified");
     this.latitude = latitude;
@@ -58,17 +57,17 @@ public class Place {
     if (other == null) {
       return -1;
     } else {
-      double destLat = toRadians(other.getLatitude());
-      double destLong = toRadians(other.getLongitude());
-      double sourceLat = toRadians(this.getLatitude());
-      double sourceLong = toRadians(this.getLongitude());
-      double x = cos(destLat)* cos(destLong)- cos(sourceLat)* cos(sourceLong);
-      double y = cos(destLat)* sin(destLong)- cos(sourceLat)* sin(sourceLong);
-      double z = sin(destLat)- sin(sourceLat);
-      double c = sqrt(pow(x,2)+ pow(y,2)+ pow(z,2));
-      double rho = 2* asin(c/2);
-      double d = round(unit.getConversionFactor() * rho);
-      return (int)d;
+      double dstLat = Math.toRadians(other.getLatitude());
+      double dstLong = Math.toRadians(other.getLongitude());
+      double srcLat = Math.toRadians(this.getLatitude());
+      double srcLong = Math.toRadians(this.getLongitude());
+      double deltaX = Math.cos(dstLat)* Math.cos(dstLong)- Math.cos(srcLat)* Math.cos(srcLong);
+      double deltaY = Math.cos(dstLat)* Math.sin(dstLong)- Math.cos(srcLat)* Math.sin(srcLong);
+      double deltaZ = Math.sin(dstLat)- Math.sin(srcLat);
+      double chordLength = Math.sqrt(Math.pow(deltaX,2)+ Math.pow(deltaY,2)+ Math.pow(deltaZ,2));
+      double centralAngle = 2* Math.asin(chordLength/2);
+      double distance = Math.round(unit.getConversionFactor() * centralAngle);
+      return (int)distance;
     }
   }
 
@@ -133,8 +132,6 @@ public class Place {
         }
       }
       jsonReader.endObject();
-      checkNull(latitude, "Latitude must be specified");
-      checkNull(longitude, "Longitude must be specified.");
       return new Place(id, name, latitude, longitude);
     }
 

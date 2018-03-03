@@ -81,6 +81,16 @@ public class TestCoordinateParser {
         testParse(79.982 + 20.2/60D, "79.982 20.2");
     }
 
+    @Test
+    public void testDecimal() {
+        testParse(0.7, ".7");
+    }
+
+    @Test
+    public void testMultipleDecimal() {
+        testParse(0.7 + 0.6/60, ".7 .6");
+    }
+
     private static void testInvalid(String input) {
         Double coordinate = CoordinateParser.parse(input);
         assertNull(coordinate);
