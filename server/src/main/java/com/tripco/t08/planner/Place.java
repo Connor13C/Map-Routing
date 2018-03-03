@@ -19,9 +19,18 @@ public class Place {
   private final double latitude;
   private final double longitude;
 
-  public Place(String id, String name, double latitude, double longitude) {
-    this.id = id;
-    this.name = name;
+  /**
+   * Constructs a new place with the specified fields.
+   *
+   * @param id id of the place
+   * @param name name of the place
+   * @param latitude latitude of the place[-180,180]
+   * @param longitude longitude of the place[-180,180]
+   * @throws IllegalArgumentException if any of the parameters are null
+   */
+  public Place(String id, String name, double latitude, double longitude) throws IllegalArgumentException {
+    this.id = checkNull(id, "Id must be specified");
+    this.name = checkNull(name, "Name must be specified");
     this.latitude = latitude;
     this.longitude = longitude;
   }
@@ -38,10 +47,12 @@ public class Place {
 
   /**
    * Gets the distance between this Place and {@code other} in
-   * the specified {@code unit}
-   * @param other the non-null other Place
+   * the specified {@code unit}.
+   * @param other the other Place
    * @param unit the non-null unit to convert the output to
-   * @return
+   * @return the distance between this place and {@code other}, rounded to
+   *     the nearest integer. If {@code other} is null, then the distance
+   *     is -1.
    */
   public int distanceTo(Place other, DistanceUnit unit) {
     if (other == null) {
@@ -51,12 +62,12 @@ public class Place {
       double destLong = toRadians(other.getLongitude());
       double sourceLat = toRadians(this.getLatitude());
       double sourceLong = toRadians(this.getLongitude());
-      double x = cos(destLat)* cos(destLong)- cos(sourceLat)* cos(sourceLong);//cos(Theta2)*cos(Lamda2)- cos(Theta1)*cos(Lamda1)
-      double y = cos(destLat)* sin(destLong)- cos(sourceLat)* sin(sourceLong);//cos(Theta2)*sin(Lamda2)- cos(Theta1)*sin(Lamda1)
-      double z = sin(destLat)- sin(sourceLat);//sin(Theta2)-sin(Theta1)
-      double c = sqrt(pow(x,2)+ pow(y,2)+ pow(z,2));//sqrt(x^2+y^2+z^2)
-      double rho = 2* asin(c/2);//2arcsin(C/2)
-      double d = round(unit.getConversionFactor() * rho);//radius*central angle (in miles km would be 6371.0088)
+      double x = cos(destLat)* cos(destLong)- cos(sourceLat)* cos(sourceLong);
+      double y = cos(destLat)* sin(destLong)- cos(sourceLat)* sin(sourceLong);
+      double z = sin(destLat)- sin(sourceLat);
+      double c = sqrt(pow(x,2)+ pow(y,2)+ pow(z,2));
+      double rho = 2* asin(c/2);
+      double d = round(unit.getConversionFactor() * rho);
       return (int)d;
     }
   }
@@ -75,6 +86,14 @@ public class Place {
 
   public double getLongitude() {
     return longitude;
+  }
+
+
+  private static <T> T checkNull(T value, String message) {
+    if (value == null) {
+      throw new IllegalArgumentException(message);
+    }
+    return value;
   }
 
   public static class Serializer extends TypeAdapter<Place> {
@@ -98,24 +117,26 @@ public class Place {
       jsonReader.beginObject();
       while (jsonReader.hasNext()) {
         switch (jsonReader.nextName()) {
-          case "id": id = jsonReader.nextString(); break;
-          case "name": name = jsonReader.nextString(); break;
-          case "latitude": latitude = CoordinateParser.parse(jsonReader.nextString()); break;
-          case "longitude": longitude = CoordinateParser.parse(jsonReader.nextString()); break;
+          case "id":
+            id = jsonReader.nextString();
+            break;
+          case "name":
+            name = jsonReader.nextString();
+            break;
+          case "latitude":
+            latitude = CoordinateParser.parse(jsonReader.nextString());
+            break;
+          case "longitude":
+            longitude = CoordinateParser.parse(jsonReader.nextString());
+            break;
+          default: break;
         }
       }
       jsonReader.endObject();
-      checkNull(id, "Id must be specified");
-      checkNull(name, "Name must be specified");
       checkNull(latitude, "Latitude must be specified");
-      checkNull(longitude, "Longitude must be specified");
+      checkNull(longitude, "Longitude must be specified.");
       return new Place(id, name, latitude, longitude);
     }
 
-    private static void checkNull(Object value, String message) {
-      if (value == null) {
-        throw new IllegalArgumentException(message);
-      }
-    }
   }
 }

@@ -24,7 +24,12 @@ public class SvgBuilder {
     }
     private final List<MapObject> mapObjects = new ArrayList<>();
 
-    //Constructor
+    /**
+     * Creates an SvgBuilder that draws a route between all specified places in the order
+     * that they're provided.
+     *
+     * @param coordinates non-null list of places
+     */
     public SvgBuilder(List<Place> coordinates){
         for (Place coordinate : coordinates) {
             mapObjects.add(MapObject.coordinateToMap(coordinate));
@@ -72,12 +77,12 @@ public class SvgBuilder {
             return y;
         }
 
-        static MapObject coordinateToMap(Place c){
+        static MapObject coordinateToMap(Place place){
             double percentX;
             double percentY;
 
-            percentX = (c.getLongitude()- LEFT_LONG)/(RIGHT_LONG - LEFT_LONG);
-            percentY = (c.getLatitude()- TOP_LAT)/(BOTTOM_LAT - TOP_LAT);
+            percentX = (place.getLongitude()- LEFT_LONG)/(RIGHT_LONG - LEFT_LONG);
+            percentY = (place.getLatitude()- TOP_LAT)/(BOTTOM_LAT - TOP_LAT);
 
             return new MapObject(percentX*990, percentY*707);
         }

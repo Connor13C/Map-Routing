@@ -5,8 +5,6 @@ import com.tripco.t08.util.CoordinateParser;
 
 import org.junit.Test;
 
-
-
 import static org.junit.Assert.*;
 
 public class TestPlace {

@@ -27,6 +27,11 @@ public class TestCoordinateParser {
     }
 
     @Test
+    public void testCOSki2() {
+        testParse(-106 + -47/60D + -35/3600D, "106°47'35 W");
+    }
+
+    @Test
     public void testEmpty() {
         testInvalid("");
     }

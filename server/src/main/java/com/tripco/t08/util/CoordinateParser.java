@@ -5,8 +5,16 @@ import java.util.regex.Pattern;
 
 public final class CoordinateParser {
     // This is completely unreadable but it works.
-    private static final Pattern COORD = Pattern.compile("^\\s*(?:(\\d+(?:\\.\\d+)?)\\s*(?:[°\\s]|$))?\\s*(?:(\\d+(?:\\.\\d+)?)\\s*(?:[′'\\s]|$))?\\s*(?:(\\d+(?:\\.\\d+)?)\\s*[″\"]?)?\\s*([NESW])?\\s*$");
-    private static final Pattern FLOAT = Pattern.compile("^\\s*(-?(?:\\d+(?:\\.\\d+)?)|(?:\\.\\d+))\\s*$");
+    private static final Pattern COORD = Pattern.compile(
+            "^\\s*(?:(\\d+(?:\\.\\d+)?)\\s*(?:[°\\s]|$))?" +
+            "\\s*(?:(\\d+(?:\\.\\d+)?)\\s*(?:[′'\\s]|$))?" +
+            "\\s*(?:(\\d+(?:\\.\\d+)?)\\s*[″\"]?)?" +
+            "\\s*([NESW])?\\s*$"
+    );
+    private static final Pattern FLOAT = Pattern.compile(
+            "^\\s*(-?(?:\\d+(?:\\.\\d+)?)|(?:\\.\\d+))\\s*$"
+    );
+
     private CoordinateParser() {}
 
     /**
