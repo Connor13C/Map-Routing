@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Collapse, Button, CardBody, Card } from 'reactstrap';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -15,6 +16,12 @@ class Options extends Component{
     this.getKilometersClassName = this.getKilometersClassName.bind(this);
     this.getMilesClassName = this.getMilesClassName.bind(this);
     this.getNautMilesClassName = this.getNautMilesClassName.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.state = { collapse: false };
+  }
+
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
   }
 
   changeOption(arg) {
@@ -67,26 +74,28 @@ class Options extends Component{
 
   render() {
     return(
-        <div id="options" className="card">
-          <div className="card-header bg-info text-white">
-            Options
-          </div>
-          <div className="card-body">
-            <p>Highlight the options you wish to use.</p>
-            <div className="btn-group btn-group-toggle" data-toggle="buttons">
-              <label className={this.getMilesClassName()}>
-                <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setMiles}/> Miles
-              </label>
-              <label className={this.getKilometersClassName()}>
-                <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
-              </label>
-              <label className={this.getNautMilesClassName()}>
-  <input type="radio" id="nautical miles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
-      </label>
+      <div>
+        <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Options</Button>
+        <Collapse isOpen={this.state.collapse}>
+          <div id="options" className="card">
+            <div className="card-body">
+              <p>Highlight the options you wish to use.</p>
+              <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                <label className={this.getMilesClassName()}>
+                  <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setMiles}/> Miles
+                </label>
+                <label className={this.getKilometersClassName()}>
+                  <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
+                </label>
+                <label className={this.getNautMilesClassName()}>
+                  <input type="radio" id="nautmiles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-    )
+        </Collapse>
+      </div>
+    );
   }
 }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Validator} from 'jsonschema';
 import defaults from 'json-schema-defaults';
 import DestinationList from "./DestinationList";
+import Options from "./Options";
 
 let optionsSchema = {
     id: "/options",
@@ -163,6 +164,8 @@ class Destinations extends Component {
             </div>
               {this.getInfoMessage()}
               <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
+              <br/>
+              <Options options={this.props.trip.options} updateOptions={this.props.updateOptions}/>
           </div>
         </div>
     )
