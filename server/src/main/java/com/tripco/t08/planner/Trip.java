@@ -17,12 +17,15 @@ public class Trip {
   public ArrayList<Integer> distances;
   public String map;
 
+  /**
+   * Runs the chosen level of optimization on places
+   * @param opt double choice for opt choice 0 to 1
+   */
   public void optimization(double opt){
     if(opt==1){
       nearestNeighbor();
     }
   }
-
   /**
    * Code will start with the initial starting place which it will add to a new array,
    * then it will check every other place in the array and add the nearest place to the new array,
@@ -56,7 +59,7 @@ public class Trip {
    * It might need to reorder the places in the future.
    */
   public void plan() {
-    optimization(1);//1 for nearest neighbor any other number for no opt will be replaced by pulling from options
+    optimization(1);//1 for nearest neighbor any other number for no opt
     this.map = svg();
     this.distances = legDistances();
 
