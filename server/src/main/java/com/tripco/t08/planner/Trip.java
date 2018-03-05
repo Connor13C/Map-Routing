@@ -17,6 +17,12 @@ public class Trip {
   public ArrayList<Integer> distances;
   public String map;
 
+  /**
+   * Code will start with the initial starting place which it will add to a new array,
+   * then it will check every other place in the array and add the nearest place to the new array,
+   * then it will continue by checking the nearest place and adding them into the new array. When
+   * it is done it will reset place to be in nearest neighbor format
+   */
   public void nearestNeighbor(){
     int arraySize = places.size();
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
