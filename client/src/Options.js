@@ -92,6 +92,13 @@ class Options extends Component{
                 </label>
               </div>
             </div>
+              <br/>
+              <br/>
+              <p> Choose your optimization level.</p>
+              <div className="slidecontainer">
+                  <input type="range" min="0" max="1" defaultValue="0" className="slider" id="slider">
+                  </input>
+              </div>
           </div>
         </Collapse>
       </div>
