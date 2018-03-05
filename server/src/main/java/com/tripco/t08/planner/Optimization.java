@@ -2,15 +2,17 @@ package com.tripco.t08.planner;
 
 public class Optimization {
 
-    public void nearestNeighbor{
+    public Optimization(){}
+
+    public static void nearestNeighbor(){
 
     }
 
-    public void opt2{
+    public static void opt2(){
 
     }
 
-    public void opt3{
+    public static void opt3(){
 
     }
 }
