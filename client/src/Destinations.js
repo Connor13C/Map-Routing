@@ -153,13 +153,16 @@ class Destinations extends Component {
     return (
         <div id="destinations" className="card">
           <div className="card-header bg-info text-white">
-            Destinations
+            Get Started
           </div>
           <div className="card-body">
-            <p>Load destinations from a file.</p>
+            <p>Upload a file with planned destinations or manually plan your trip by adding destinations with coordinates.</p>
             <div className="form-group" role="group">
                 <label className="btn btn-primary">
                     Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
+                </label>
+                <label className="btn btn-primary">
+                      Manually Plan Trip
                 </label>
             </div>
               {this.getInfoMessage()}
