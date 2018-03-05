@@ -18,7 +18,7 @@ public class Trip {
   public String map;
 
   /**
-   * Runs the chosen level of optimization on places
+   * Runs the chosen level of optimization on places.
    * @param opt double choice for opt choice 0 to 1
    */
   public void optimization(double opt){
@@ -26,6 +26,7 @@ public class Trip {
       nearestNeighbor();
     }
   }
+
   /**
    * Code will start with the initial starting place which it will add to a new array,
    * then it will check every other place in the array and add the nearest place to the new array,
