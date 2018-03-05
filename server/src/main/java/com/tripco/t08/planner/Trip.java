@@ -17,6 +17,28 @@ public class Trip {
   public ArrayList<Integer> distances;
   public String map;
 
+  public void nearestNeighbor(){
+    int arraySize = places.size();
+    ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
+    replacementPlaces.add(places.get(0));
+    for(int replPlaceInd = 0; replPlaceInd < arraySize; ++replPlaceInd){
+      int indexOfMin = -1;
+      double min = Double.MAX_VALUE;
+      for(int i = 1; i < arraySize; ++i) {
+        if(places.get(i)!=null){
+          double dist = replacementPlaces.get(replPlaceInd).distanceTo(places.get(i));
+          if(dist < min){
+            min = dist;
+            indexOfMin = i;
+          }
+        }
+      }
+      replacementPlaces.add(places.get(indexOfMin));
+      places.set(indexOfMin, null);
+    }
+    places=replacementPlaces;
+  }
+
   /** The top level method that does planning.
    * At this point it just adds the map and distances for the places in order.
    * It might need to reorder the places in the future.
