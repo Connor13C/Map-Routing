@@ -21,13 +21,13 @@ public class Trip {
    * Code will start with the initial starting place which it will add to a new array,
    * then it will check every other place in the array and add the nearest place to the new array,
    * then it will continue by checking the nearest place and adding them into the new array. When
-   * it is done it will reset place to be in nearest neighbor format
+   * it is done it will reset places to be in nearest neighbor format
    */
   public void nearestNeighbor(){
     int arraySize = places.size();
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
     replacementPlaces.add(places.get(0));
-    for(int replPlaceInd = 0; replPlaceInd < arraySize; ++replPlaceInd){
+    for(int replPlaceInd = 0; replPlaceInd < arraySize-1; ++replPlaceInd){
       int indexOfMin = -1;
       double min = Double.MAX_VALUE;
       for(int i = 1; i < arraySize; ++i) {
