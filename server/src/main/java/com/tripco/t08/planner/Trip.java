@@ -17,13 +17,19 @@ public class Trip {
   public ArrayList<Integer> distances;
   public String map;
 
+  public void optimization(double opt){
+    if(opt==1){
+      nearestNeighbor();
+    }
+  }
+
   /**
    * Code will start with the initial starting place which it will add to a new array,
    * then it will check every other place in the array and add the nearest place to the new array,
    * then it will continue by checking the nearest place and adding them into the new array. When
    * it is done it will reset places to be in nearest neighbor format
    */
-  public void nearestNeighbor(){
+  private void nearestNeighbor(){
     int arraySize = places.size();
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
     replacementPlaces.add(places.get(0));
@@ -50,7 +56,7 @@ public class Trip {
    * It might need to reorder the places in the future.
    */
   public void plan() {
-
+    optimization(1);//1 for nearest neighbor any other number for no opt will be replaced by pulling from options
     this.map = svg();
     this.distances = legDistances();
 
