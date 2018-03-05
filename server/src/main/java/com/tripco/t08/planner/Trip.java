@@ -21,7 +21,7 @@ public class Trip {
    * Runs the chosen level of optimization on places.
    * @param opt double choice for opt choice 0 to 1
    */
-  public void optimization(double opt){
+  public void optimize(double opt){
     if(opt==1){
       nearestNeighbor();
     }
@@ -60,7 +60,7 @@ public class Trip {
    * It might need to reorder the places in the future.
    */
   public void plan() {
-    optimization(1);//1 for nearest neighbor any other number for no opt
+    optimize(1);//1 for nearest neighbor any other number for no opt
     this.map = svg();
     this.distances = legDistances();
 
