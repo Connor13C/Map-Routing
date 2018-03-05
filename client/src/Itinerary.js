@@ -39,7 +39,6 @@ class Itinerary extends Component {
 
   render() {
     let table = this.createTable();
-
     return(
         <div id="itinerary">
           <h4>Round trip distance of {table.distance} {table.units}. </h4>
