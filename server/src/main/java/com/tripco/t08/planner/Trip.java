@@ -33,9 +33,7 @@ public class Trip {
    * @return SVG
    */
   private String svg() {
-    List<Coordinate> coordinates = places.stream().map(Coordinate::fromPlace).collect(Collectors.toList());
-
-    return new SvgBuilder(coordinates).build();
+    return new SvgBuilder(places).build();
   }
 
   /**
@@ -44,18 +42,17 @@ public class Trip {
    * @return
    */
   private ArrayList<Integer> legDistances() {
-
     ArrayList<Integer> dist = new ArrayList<>();
     DistanceUnit distUnit = DistanceUnit.getDistanceUnit(options.distance);
 
     for(int i = 1; i < places.size(); i++){
-      Coordinate previous = Coordinate.fromPlace(places.get(i-1));
-      Coordinate current = Coordinate.fromPlace(places.get(i));
-      dist.add((int) previous.distanceTo(current, distUnit));
-      }
-      Coordinate first = Coordinate.fromPlace(places.get(0));
-      Coordinate last = Coordinate.fromPlace(places.get(places.size()-1));
-      dist.add((int) first.distanceTo(last, distUnit));
+      Place previous = places.get(i-1);
+      Place current = places.get(i);
+      dist.add(Math.round(previous.distanceTo(current, distUnit)));
+    }
+    Place first = places.get(0);
+    Place last = places.get(places.size()-1);
+    dist.add(Math.round(first.distanceTo(last, distUnit)));
 
     return dist;
   }
