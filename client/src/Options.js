@@ -84,6 +84,13 @@ class Options extends Component{
   <input type="radio" id="nautical miles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
       </label>
             </div>
+              <br/>
+              <br/>
+              <p> Choose your optimization level.</p>
+              <div className="slidecontainer">
+                  <input type="range" min="0" max="1" defaultValue="0" className="slider" id="slider">
+                  </input>
+              </div>
           </div>
         </div>
     )
