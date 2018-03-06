@@ -38,21 +38,24 @@ public class Trip {
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
     replacementPlaces.add(places.get(0));
     for(int replPlaceInd = 0; replPlaceInd < arraySize-1; ++replPlaceInd){
-      int indexOfMin = -1;
-      double min = Double.MAX_VALUE;
+      int[] indexOfMin = {-1};
+      double[] min = {Double.MAX_VALUE};
       for(int i = 1; i < arraySize; ++i) {
-        if(places.get(i)!=null){
-          double dist = replacementPlaces.get(replPlaceInd).distanceTo(places.get(i));
-          if(dist < min){
-            min = dist;
-            indexOfMin = i;
-          }
-        }
+        checkMin(min, indexOfMin, replacementPlaces.get(replPlaceInd).distanceTo(places.get(i)), i);
       }
-      replacementPlaces.add(places.get(indexOfMin));
-      places.set(indexOfMin, null);
+      replacementPlaces.add(places.get(indexOfMin[0]));
+      places.set(indexOfMin[0], null);
     }
     places=replacementPlaces;
+  }
+
+  private void checkMin(double[] min, int[] indexOfMin, double dist, int i){
+    if(places.get(i)!=null){
+      if(dist < min[0]){
+        min[0] = dist;
+        indexOfMin[0] = i;
+      }
+    }
   }
 
   /** The top level method that does planning.
