@@ -49,11 +49,11 @@ public class Trip {
     places=replacementPlaces;
   }
 
-  private void checkMin(double[] min, int[] indexOfMin, double dist, int i){
-    if(places.get(i)!=null){
+  private void checkMin(double[] min, int[] indexOfMin, double dist, int index){
+    if(places.get(index)!=null){
       if(dist < min[0]){
         min[0] = dist;
-        indexOfMin[0] = i;
+        indexOfMin[0] = index;
       }
     }
   }
