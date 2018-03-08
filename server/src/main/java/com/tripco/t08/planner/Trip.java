@@ -50,8 +50,8 @@ public class Trip {
   }
 
   /**
-   * Helper method for nearest neighbor since code climate is a bitch,
-   * determines if distance to current place is new min, if so keeps the min and its index
+   * Helper method for nearest neighbor since code climate is a bitch.
+   * Determines if distance to current place is new min, if so keeps the min and its index
    * @param min double array that stores min distance
    * @param indexOfMin index of current low min
    * @param dist distance between the current place and the place at the index in trip.places
