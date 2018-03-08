@@ -49,6 +49,14 @@ public class Trip {
     places=replacementPlaces;
   }
 
+  /**
+   * Helper method for nearest neighbor since code climate is a bitch,
+   * determines if distance to current place is new min, if so keeps the min and its index
+   * @param min double array that stores min distance
+   * @param indexOfMin index of current low min
+   * @param dist distance between the current place and the place at the index in trip.places
+   * @param index current index of trip.places
+   */
   private void checkMin(double[] min, int[] indexOfMin, double dist, int index){
     if(places.get(index)!=null){
       if(dist < min[0]){
@@ -63,7 +71,7 @@ public class Trip {
    * It might need to reorder the places in the future.
    */
   public void plan() {
-    optimize(1);//1 for nearest neighbor any other number for no opt
+    optimize(options.optimization);
     this.map = svg();
     this.distances = legDistances();
 

@@ -7,6 +7,6 @@ package com.tripco.t08.planner;
 public class Option {
 
   public String distance;
-  public String optimization;
+  public Double optimization = 0.0;
 
 }
