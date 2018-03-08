@@ -19,9 +19,9 @@ public class MicroServer {
   private final Jdbi jdbi;
 
   /** Creates a micro-server to load static files and provide REST APIs.
-   * @param port
-   * @param name
-   * @param jdbi
+   * @param port the port to run the server on
+   * @param name the team name
+   * @param jdbi a Jdbi instance to use for database connections
    */
   MicroServer(int port, Jdbi jdbi, String name) {
     this.port = port;

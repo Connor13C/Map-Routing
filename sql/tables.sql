@@ -7,6 +7,7 @@
 --
 -- Table structure for table `airports`
 --
+USE test;
 
 CREATE TABLE `airports` (
   `index` int(11) NOT NULL,

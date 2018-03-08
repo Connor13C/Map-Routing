@@ -2,6 +2,8 @@
 -- Dumping data for table `airports`
 --
 
+USE test;
+
 -- First 100 or so
 INSERT INTO `airports` VALUES 
 (3411,'KBJC','medium_airport','Rocky Mountain Metropolitan Airport','39.90879822','-105.1169968','5673','NA','US','US-CO','Denver','no','KBJC','BJC','BJC',NULL,'http://en.wikipedia.org/wiki/Rocky_Mountain_Metropolitan_Airport','Jefferson County Airport, Jeffco Airport'),

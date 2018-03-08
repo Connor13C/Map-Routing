@@ -4,7 +4,6 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
-import spark.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +16,20 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import spark.utils.IOUtils;
+
+
 public final class SqlUtils {
     private static final String CSU_DB = "jdbc:mysql://faure.cs.colostate.edu/cs314";
     private static final String LOCAL_DB = "jdbc:mysql://localhost/test";
     private static final List<DbSpecification> PLACES_TO_CHECK = Arrays.asList(
             new DbSpecification(CSU_DB, System.getenv("CSU_NAME"), System.getenv("CSU_ID")),
-            new DbSpecification(CSU_DB, System.getProperty("username"), System.getProperty("password")),
+            new DbSpecification(CSU_DB, System.getProperty("username"),
+                    System.getProperty("password")),
             new DbSpecification(LOCAL_DB, "travis", "")
     );
     private static Pattern DELIM = Pattern.compile("(;(\\r)?\\n)|(--\\n)");
+
     static {
         // Fail after 1 seconds
         DriverManager.setLoginTimeout(1);
@@ -34,7 +38,7 @@ public final class SqlUtils {
     private SqlUtils() {}
 
     /**
-     * Gets a Jdbi instance based on the current environment
+     * Gets a Jdbi instance based on the current environment.
      *
      * @return jdbi instance or null if a database can not be found
      */
@@ -65,6 +69,14 @@ public final class SqlUtils {
     }
 
 
+    /**
+     * Creates a HandleConsumer that will execute the specified sql files. While this method
+     * may not fully support MariaDB's dialect, it does fully support the output of Mariadb
+     * dumps.
+     *
+     * @param files the files to execute in order
+     * @return a HandleConsumer which may be passed to {@link Jdbi#useHandle(HandleConsumer)}.
+     */
     public static HandleConsumer<IOException> executeFiles(String... files) {
         return handle -> {
             for (String file : files) {
