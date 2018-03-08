@@ -1,5 +1,7 @@
 package com.tripco.t08.server;
 
+import com.tripco.t08.util.SqlUtils;
+
 /** The main class for the application.
  *
  * Command line arguments are of the form:
@@ -14,9 +16,8 @@ public class MyServer {
   /** Main program starts a web microserver on the specified network port
    ** @param args command line arguments optionally containing port and team name.
    */
-  public static void main(String[] args) {
-
-    MicroServer server = new MicroServer(getPort(args), getName(args));
+  public static void main(String[] args) throws Exception {
+    MicroServer server = new MicroServer(getPort(args), SqlUtils.getJdbi(), getName(args));
 
   }
 

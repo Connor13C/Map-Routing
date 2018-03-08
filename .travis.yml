@@ -1,11 +1,16 @@
 sudo: required
 language: java
+addons:
+  mariadb: '10.0'
 jdk:
   - oraclejdk8
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+  - mysql -u root -e 'CREATE DATABASE test;'
+  - mysql -u root < sql/tables.sql
+  - mysql -u root < sql/testData.sql
 script:
   - mvn prepare-package
 cache:

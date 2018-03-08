@@ -2,6 +2,7 @@ package com.tripco.t08.server;
 
 import com.tripco.t08.planner.Plan;
 
+import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
@@ -12,24 +13,25 @@ import static spark.Spark.*;
  *
  */
 public class MicroServer {
-
-  private int    port;
-  private String name;
-  private String path = "/public";
+  private static final String STATIC_FILES = "/public";
+  private final int    port;
+  private final String name;
+  private final Jdbi jdbi;
 
   /** Creates a micro-server to load static files and provide REST APIs.
-   *
    * @param port
    * @param name
+   * @param jdbi
    */
-  MicroServer(int port, String name) {
+  MicroServer(int port, Jdbi jdbi, String name) {
     this.port = port;
+    this.jdbi = jdbi;
     this.name = name;
 
     port(this.port);
 
     // serve the static files: index.html and bundle.js
-    Spark.staticFileLocation(this.path);
+    staticFileLocation(STATIC_FILES);
     get("/", (req, res) -> {res.redirect("index.html"); return null;});
 
     // register all micro-services and the function that services them.
