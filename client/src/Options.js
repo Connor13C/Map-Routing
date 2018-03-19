@@ -19,6 +19,7 @@ class Options extends Component{
     this.getNautMilesClassName = this.getNautMilesClassName.bind(this);
     this.toggle = this.toggle.bind(this);
     this.optimizationValue = this.optimizationValue.bind(this);
+    this.optimizationValueName = this.optimizationValueName.bind(this);
     this.state = { collapse: false };
   }
 
@@ -81,8 +82,19 @@ class Options extends Component{
 
     optimizationValue(){
       let slider = document.getElementById("rangeSlider");
-      console.log(slider.value);
-      this.changeOption({optimization: slider.value});
+      let value = (slider.value == "0") ? "0.0" : slider.value;
+      this.changeOption({optimization: value});
+
+  }
+  optimizationValueName(){
+        console.log("Optimization Value Name");
+        console.log(this.props);
+    if(this.props.options.optimization == "0.0"){
+        return (<h3>No Optimization</h3>);
+    }
+    else{
+        return (<h3>Short</h3>);
+    }
 
   }
 
@@ -108,9 +120,12 @@ class Options extends Component{
                   </div>
                   <div className="container-fluid">
                     <p> Choose your optimization level.</p>
-                    <input type="range" min="0.0" max="1.0" defaultValue="0" step="0.33" className="slider" id="rangeSlider" onChange={this.optimizationValue}>
-                    </input>
+                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue}>
+                      </input>
                   </div>
+                    <div className="container-fluid">
+                        {this.optimizationValueName()}
+                    </div>
                 </div>
               </Collapse>
             </div>
