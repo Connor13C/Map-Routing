@@ -90,10 +90,10 @@ class Options extends Component{
         console.log("Optimization Value Name");
         console.log(this.props);
     if(this.props.options.optimization == "0.0"){
-        return (<h3>No Optimization</h3>);
+        return ("No Optimization");
     }
     else{
-        return (<h3>Short</h3>);
+        return ("Nearest Neighbor");
     }
 
   }
@@ -119,13 +119,14 @@ class Options extends Component{
                     </div>
                   </div>
                   <div className="container-fluid">
-                    <p> Choose your optimization level.</p>
-                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue}>
+                      <p> Optimization level: {this.optimizationValueName()}</p>
+                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue} list="tickmarks">
                       </input>
+                      <datalist id="tickmarks">
+                          <option value="0.0" label="No optimization"></option>
+                          <option value="1.0" label="Nearest Neighbor"></option>
+                      </datalist>
                   </div>
-                    <div className="container-fluid">
-                        {this.optimizationValueName()}
-                    </div>
                 </div>
               </Collapse>
             </div>
