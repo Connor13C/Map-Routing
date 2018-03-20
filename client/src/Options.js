@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Collapse, Button, CardBody, Card } from 'reactstrap';
+//import './Options.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -17,6 +18,8 @@ class Options extends Component{
     this.getMilesClassName = this.getMilesClassName.bind(this);
     this.getNautMilesClassName = this.getNautMilesClassName.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.optimizationValue = this.optimizationValue.bind(this);
+    this.optimizationValueName = this.optimizationValueName.bind(this);
     this.state = { collapse: false };
   }
 
@@ -25,23 +28,28 @@ class Options extends Component{
   }
 
   changeOption(arg) {
-    let options={
-      distance: arg
-    };
+   let options = this.props.options;
+   var result = "";
+   for (var p in arg) {
+       if( arg.hasOwnProperty(p)) {
+           options[p] = arg[p];
+       }
+   }
+    console.log(result);
     this.props.updateOptions(options);
   }
 
   setMiles(){
-    this.changeOption("miles");
+    this.changeOption({distance : "miles"});
   }
 
   setKilo(){
-    this.changeOption("kilometers");
+    this.changeOption({distance: "kilometers"});
 
   }
 
   setNautMiles(){
-        this.changeOption("nautical miles");
+        this.changeOption({distance: "nautical miles"});
 
     }
   
@@ -72,38 +80,58 @@ class Options extends Component{
         }
     }
 
-  render() {
-    return(
-      <div>
-        <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Options</Button>
-        <Collapse isOpen={this.state.collapse}>
-          <div id="options" className="card">
-            <div className="card-body">
-              <p>Highlight the options you wish to use.</p>
-              <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                <label className={this.getMilesClassName()}>
-                  <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setMiles}/> Miles
-                </label>
-                <label className={this.getKilometersClassName()}>
-                  <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
-                </label>
-                <label className={this.getNautMilesClassName()}>
-                  <input type="radio" id="nautmiles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
-                </label>
-              </div>
-            </div>
-              <br/>
-              <br/>
-              <p> Choose your optimization level.</p>
-              <div className="slidecontainer">
-                  <input type="range" min="0" max="1" defaultValue="0" className="slider" id="slider">
-                  </input>
-              </div>
-          </div>
-        </Collapse>
-      </div>
-    );
+    optimizationValue(){
+      let slider = document.getElementById("rangeSlider");
+      let value = (slider.value == "0") ? "0.0" : slider.value;
+      this.changeOption({optimization: value});
+
   }
+  optimizationValueName(){
+        console.log("Optimization Value Name");
+        console.log(this.props);
+    if(this.props.options.optimization == "0.0"){
+        return (<h3>No Optimization</h3>);
+    }
+    else{
+        return (<h3>Short</h3>);
+    }
+
+  }
+
+    render() {
+        return(
+            <div>
+              <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Options</Button>
+              <Collapse isOpen={this.state.collapse}>
+                <div id="options" className="card">
+                  <div className="card-body">
+                    <p>Highlight the options you wish to use.</p>
+                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label className={this.getMilesClassName()}>
+                        <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setMiles}/> Miles
+                      </label>
+                      <label className={this.getKilometersClassName()}>
+                        <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
+                      </label>
+                      <label className={this.getNautMilesClassName()}>
+                        <input type="radio" id="nautmiles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
+                      </label>
+                    </div>
+                  </div>
+                  <div className="container-fluid">
+                    <p> Choose your optimization level.</p>
+                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue}>
+                      </input>
+                  </div>
+                    <div className="container-fluid">
+                        {this.optimizationValueName()}
+                    </div>
+                </div>
+              </Collapse>
+            </div>
+        );
+    }
 }
+
 
 export default Options;

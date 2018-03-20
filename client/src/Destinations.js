@@ -138,6 +138,7 @@ class Destinations extends Component {
   }
 
   getInfoMessage() {
+      console.log(this.props.trip);
       let count = this.props.trip.places.length;
       let infoMessage;
       if (this.state.errorMessage != null) {

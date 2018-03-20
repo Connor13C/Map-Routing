@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Destination from './Destination';
-import DestinationEditor from "./DestinationEditor";
+import SearchBar from "./SearchBar";
 
 //Generate Fake Data
 const getItems = count =>
@@ -49,6 +49,7 @@ export default class DestinationList extends Component {
         };
         this.onDragEnd = this.onDragEnd.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
+        this.addDestination.bind(this);
     }
 
 
@@ -73,9 +74,14 @@ export default class DestinationList extends Component {
 
     }
 
+    addDestination(place) {
+
+    }
+
     render() {
         return (
             <div>
+                <SearchBar addDestination={this.addDestination}/>
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <Droppable droppableId="droppable">
                         {(provided, snapshot) => (
