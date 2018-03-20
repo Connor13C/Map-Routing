@@ -47,7 +47,8 @@ export default class DestinationList extends Component {
         this.props.trip.places
         this.onDragEnd = this.onDragEnd.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
-        this.addDestination.bind(this);
+        this.addDestination = this.addDestination.bind(this);
+        this.renderItem = this.renderItem.bind(this);
     }
 
 
@@ -81,6 +82,28 @@ export default class DestinationList extends Component {
 
     }
 
+    renderItem(item, index) {
+        return (<Draggable key={item.id} draggableId={item.id} index={index}>
+                {(provided, snapshot) => (
+                    <div>
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={getItemStyle(
+                                snapshot.isDragging,
+                                provided.draggableProps.style
+                            )}
+                        >
+                            {item.name}
+                        </div>
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Draggable>
+        )
+    };
+
     render() {
         return (
             <div>
@@ -92,26 +115,8 @@ export default class DestinationList extends Component {
                                 ref={provided.innerRef}
                                 style={getListStyle(snapshot.isDraggingOver)}
                             >
-                                {this.props.trip.places.map((item, index) => (
-                                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                                        {(provided, snapshot) => (
-                                            <div>
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                    style={getItemStyle(
-                                                        snapshot.isDragging,
-                                                        provided.draggableProps.style
-                                                    )}
-                                                >
-                                                    {item.name}
-                                                </div>
-                                                {provided.placeholder}
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
+                                {this.props.trip.places.map(this.renderItem)}
+
                                 {provided.placeholder}
                             </div>
                         )}
