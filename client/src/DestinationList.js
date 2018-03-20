@@ -3,13 +3,6 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Destination from './Destination';
 import SearchBar from "./SearchBar";
 
-//Generate Fake Data
-const getItems = count =>
-    Array.from({ length: count }, (v, k) => k).map(k => ({
-        id: `item-${k}`,
-        content: `item ${k}`,
-    }));
-
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -21,32 +14,37 @@ const reorder = (list, startIndex, endIndex) => {
 
 const grid = 8;
 
-const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
-    userSelect: 'none',
-    padding: grid * 2,
-    margin: `0 0 ${grid}px 0`,
+const getItemStyle = (isDragging, draggableStyle) => {
+    let obj = {
+        // some basic styles to make the items look a bit nicer
+        userSelect: 'none',
+        padding: grid * 2,
+        margin: `0 0 ${grid}px 0`,
 
-    // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
+        // change background colour if dragging
+        background: isDragging ? 'lightgreen' : 'white',
 
+    };
+    for (let key in draggableStyle) {
+        if (draggableStyle.hasOwnProperty(key)){
+            obj[key] = draggableStyle[key];
+        }
+    }
+    return obj;
     // styles we need to apply on draggables
-    //...draggableStyle,
-});
+};
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
+    background: isDraggingOver ? 'lightgrey' : 'lightblue',
     padding: grid,
-    width: 250,
+    width: "auto",
 });
 
 
 export default class DestinationList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            items: getItems(10),
-        };
+        this.props.trip.places
         this.onDragEnd = this.onDragEnd.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.addDestination.bind(this);
@@ -60,14 +58,19 @@ export default class DestinationList extends Component {
         }
 
         const items = reorder(
-            this.state.items,
+            this.props.trip.places,
             result.source.index,
             result.destination.index
         );
 
-        this.setState({
-            items,
-        });
+        this.props.updateTrip(Object.assign(
+                {},
+                this.props.trip,
+                {map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"},
+                {places: items},
+                {distances: []}
+            )
+        );
     }
 
     onUpdate(place, oldIndex, newIndex) {
@@ -89,7 +92,7 @@ export default class DestinationList extends Component {
                                 ref={provided.innerRef}
                                 style={getListStyle(snapshot.isDraggingOver)}
                             >
-                                {this.state.items.map((item, index) => (
+                                {this.props.trip.places.map((item, index) => (
                                     <Draggable key={item.id} draggableId={item.id} index={index}>
                                         {(provided, snapshot) => (
                                             <div>
@@ -102,7 +105,7 @@ export default class DestinationList extends Component {
                                                         provided.draggableProps.style
                                                     )}
                                                 >
-                                                    {item.content}
+                                                    {item.name}
                                                 </div>
                                                 {provided.placeholder}
                                             </div>
