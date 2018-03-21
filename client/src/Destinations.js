@@ -177,9 +177,6 @@ class Destinations extends Component {
                 <label className="btn btn-primary">
                     Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                 </label>
-                <label className="btn btn-primary">
-                      Manually Plan Trip
-                </label>
             </div>
               {this.getInfoMessage()}
               <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
