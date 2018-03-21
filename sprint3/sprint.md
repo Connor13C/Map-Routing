@@ -45,15 +45,22 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *value*   | *value* 
-Story Points |  *value*  | *value* 
+Tasks |  *60*   | *value* 
+Story Points |  *64*  | *value* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*date* | *@task only* | *@task only* | none
- | | | 
+*2/22* | *@task only* | *@task only* | none
+*2/25* | *@task only* | *@task only* | none
+*2/27* | *@task only* | *@task only* | none
+*3/1* | *@task only* | *@task only* | none
+*3/4* | *@task only* | *@task only* | none
+*3/6* | *@task only* | *@task only* | none
+*3/8* | *@task only* | *@task only* | none
+*3/20* | *@task only* | *@task only* | none
+*3/22* | *@task only* | *@task only* | none
  
 
 ## Review
