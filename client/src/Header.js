@@ -9,10 +9,17 @@ class Header extends Component{
 
   render() {
     return(
-        <div id="header" className="jumbotron">
+        <div id="container">
+          <div class="row text-white" style={{backgroundColor:"#1E4D2B"}}>
+          <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5" style={{backgroundColor:"#1E4D2B"}}>
+          <img id="myImg" src="http://www.cs.colostate.edu/~cs314/images/CompSci-NS-CSU-1-Hrev.png" class="img-fluid"></img>
+            </div>
+            </div>
+          <div id="header" className="jumbotron">
           {this.title()}
+
           <p className="lead">"Want to travel far and wide?"</p>
-            <ol >
+            <ol>
               <li>
                 Choose options for trip planning, information to display about locations,
                 and how the trip map and itinerary should be saved.</li>
@@ -25,6 +32,7 @@ class Header extends Component{
                 Save the trip map and itinerary for future reference.</li>
             </ol>
         </div>
+      </div>
     )
   }
 
