@@ -60,7 +60,7 @@ export default class SearchBar extends Component {
         //https://github.com/JedWatson/react-select
         // Check that out if you need to add more properties
         return (
-            <div>
+            <div className="pb-2">
                 <DestinationEditor isOpen={this.state.editorOpen} onFinish={this.addDestination} initialId={this.state.value}/>
                 <AsyncCreatable valueKey="id"
                                 labelKey="query"
