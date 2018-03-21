@@ -17,10 +17,22 @@ class Application extends Component {
         places: [],
         distances: [],
         map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
+      },
+      query: {
+        version: 2,
+        type: "query",
+        query: "",
+        places: []
+      },
+      config: {
+      type: "config",
+      version: 2,
+      optimization: 3
       }
     }
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
   updateTrip(tffi){
@@ -38,6 +50,11 @@ class Application extends Component {
             {distances: []}
         )
     });
+  }
+
+  updateQuery(DBQuery){
+  console.log("updateQuery")
+    this.setState({query:DBQuery});
   }
 
   render() {

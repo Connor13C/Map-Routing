@@ -1,5 +1,6 @@
 package com.tripco.t08.server;
 
+import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Plan;
 
 import org.jdbi.v3.core.Jdbi;
@@ -42,6 +43,7 @@ public class MicroServer {
     get("/team", this::team);
     // client is sending data, so a HTTP POST is used instead of a GET
     post("/plan", this::plan);
+    post("/query", this::query);
 
     System.out.println("\n\nServer running on port: " + this.port + "\n\n");
   }
@@ -97,6 +99,20 @@ public class MicroServer {
     response.type("application/json");
 
     return (new Plan(request)).getTrip();
+  }
+
+  /**A REST API to support queries to MariaDB
+   *
+   * @param request
+   * @param response
+   * @return returns list of objects
+   */
+  private String query(Request request, Response response){
+
+    response.type("application/json");
+    Airports airport = jdbi.onDemand(Airports.class);
+    String input = request.body();
+    return airport.searchEverything(input).toString();
   }
 
   /** A REST API that returns the team information associated with the server.

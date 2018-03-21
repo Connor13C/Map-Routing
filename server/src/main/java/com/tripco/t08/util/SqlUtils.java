@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.tripco.t08.planner.Airport;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import spark.utils.IOUtils;
@@ -23,6 +25,7 @@ public final class SqlUtils {
     private static final String CSU_DB = "jdbc:mysql://faure.cs.colostate.edu/cs314";
     private static final String LOCAL_DB = "jdbc:mysql://localhost/test";
     private static final List<DbSpecification> PLACES_TO_CHECK = Arrays.asList(
+            new DbSpecification(CSU_DB, "natemort", "831106760"),
             new DbSpecification(CSU_DB, System.getenv("CSU_NAME"), System.getenv("CSU_ID")),
             new DbSpecification(CSU_DB, System.getProperty("username"),
                     System.getProperty("password")),
@@ -31,6 +34,11 @@ public final class SqlUtils {
     private static Pattern DELIM = Pattern.compile("(;(\\r)?\\n)|(--\\n)");
 
     static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         // Fail after 1 seconds
         DriverManager.setLoginTimeout(1);
     }
@@ -48,8 +56,10 @@ public final class SqlUtils {
         if (jdbi == null) {
             System.setProperty("socksProxyHost", "localhost");
             System.setProperty("socksProxyPort", "9008");
+            jdbi = findJdbi();
         }
-        return findJdbi();
+        jdbi.registerRowMapper(ConstructorMapper.factory(Airport.class));
+        return jdbi;
     }
 
     private static Jdbi findJdbi() {
@@ -64,6 +74,7 @@ public final class SqlUtils {
         try (Connection c = DriverManager.getConnection(url, username, password)) {
             return true;
         } catch (SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
