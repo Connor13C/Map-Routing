@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Collapse, Button, CardBody, Card } from 'reactstrap';
-//import './Options.css';
+import './Options.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -82,13 +82,13 @@ class Options extends Component{
 
     optimizationValue(){
       let slider = document.getElementById("rangeSlider");
-      let value = (slider.value == "0") ? "0.0" : slider.value;
+      let value = (slider.value == "0" ) ? "0.0" : slider.value;
       this.changeOption({optimization: value});
 
   }
   optimizationValueName(){
-        console.log("Optimization Value Name");
-        console.log(this.props);
+        //console.log("Optimization Value Name");
+        //console.log(this.props);
     if(this.props.options.optimization == "0.0"){
         return ("No Optimization");
     }
@@ -122,10 +122,7 @@ class Options extends Component{
                       <p> Optimization level: {this.optimizationValueName()}</p>
                       <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue} list="tickmarks">
                       </input>
-                      <datalist id="tickmarks">
-                          <option value="0.0" label="No optimization"></option>
-                          <option value="1.0" label="Nearest Neighbor"></option>
-                      </datalist>
+                     <br/>
                   </div>
                 </div>
               </Collapse>

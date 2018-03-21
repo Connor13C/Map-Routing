@@ -22,7 +22,7 @@ public class Trip {
    * @param opt double choice for opt choice 0 to 1
    */
   public void optimize(double opt){
-    if(opt==1.0){
+    if(opt>0.0){
       nearestNeighbor();
     }
   }
