@@ -50,7 +50,7 @@ public class TestTrip {
     trip.places.add(coordinate1);
     trip.places.add(coordinate2);
     trip.places.add(coordinate3);
-    trip.optimize(0.33);
+    trip.optimize(1);
     assertTrue(trip.places.get(0) == coordinate1);
     assertTrue(trip.places.get(1) == coordinate3);
     assertTrue(trip.places.get(2) == coordinate2);
@@ -64,7 +64,7 @@ public class TestTrip {
     trip.places.add(coordinate1);
     trip.places.add(coordinate2);
     trip.places.add(coordinate3);
-    trip.optimize(0.33);
+    trip.optimize(1);
     assertTrue(trip.places.get(0) == coordinate1);
     assertTrue(trip.places.get(1) == coordinate2);
     assertTrue(trip.places.get(2) == coordinate3);

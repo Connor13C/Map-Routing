@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Collapse, Button, CardBody, Card } from 'reactstrap';
-//import './Options.css';
+import './Options.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
@@ -82,18 +82,18 @@ class Options extends Component{
 
     optimizationValue(){
       let slider = document.getElementById("rangeSlider");
-      let value = (slider.value == "0") ? "0.0" : slider.value;
+      let value = (slider.value == "0" || slider.value =="none") ? "0.0" : slider.value;
       this.changeOption({optimization: value});
 
   }
   optimizationValueName(){
-        console.log("Optimization Value Name");
-        console.log(this.props);
+        //console.log("Optimization Value Name");
+        //console.log(this.props);
     if(this.props.options.optimization == "0.0"){
-        return (<h3>No Optimization</h3>);
+        return ("No Optimization");
     }
     else{
-        return (<h3>Short</h3>);
+        return ("Nearest Neighbor");
     }
 
   }
@@ -119,13 +119,12 @@ class Options extends Component{
                     </div>
                   </div>
                   <div className="container-fluid">
-                    <p> Choose your optimization level.</p>
-                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue}>
+                      <p> Optimization level: {this.optimizationValueName()}</p>
+                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue} list="tickmarks">
                       </input>
+                     <br/>
+                      <br/>
                   </div>
-                    <div className="container-fluid">
-                        {this.optimizationValueName()}
-                    </div>
                 </div>
               </Collapse>
             </div>
