@@ -114,6 +114,20 @@ class Destinations extends Component {
         errorMessage: null
     };
     this.loadTFFI = this.loadTFFI.bind(this);
+    this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
+  }
+
+  checkDuplicateIds(json){
+    var usedIds = new Set();
+    for(var place of json.places){
+        if (!usedIds.has(place.id)) {
+            usedIds.add(place.id);
+        }
+        else {
+            place.id = place.id+json.places.indexOf(place);
+            usedIds.add(place.id);
+        }
+    }
   }
 
   loadTFFI(event) {
@@ -126,7 +140,7 @@ class Destinations extends Component {
             if (validation.valid) {
                 this.setState({errorMessage: null});
                 setDefaults(json);
-                //Code For Checking Duplicate Id's Goes Here
+                this.checkDuplicateIds(json);
                 this.props.updateTrip(json);
             } else {
                 this.setState({errorMessage: "Invalid TFFI file."});
