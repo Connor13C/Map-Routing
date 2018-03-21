@@ -82,7 +82,7 @@ class Options extends Component{
 
     optimizationValue(){
       let slider = document.getElementById("rangeSlider");
-      let value = (slider.value == "0" ) ? "0.0" : slider.value;
+      let value = (slider.value == "0" || slider.value =="none") ? "0.0" : slider.value;
       this.changeOption({optimization: value});
 
   }
@@ -123,6 +123,7 @@ class Options extends Component{
                       <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue} list="tickmarks">
                       </input>
                      <br/>
+                      <br/>
                   </div>
                 </div>
               </Collapse>
