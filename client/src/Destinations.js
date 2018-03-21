@@ -126,6 +126,7 @@ class Destinations extends Component {
             if (validation.valid) {
                 this.setState({errorMessage: null});
                 setDefaults(json);
+                //Code For Checking Duplicate Id's Goes Here
                 this.props.updateTrip(json);
             } else {
                 this.setState({errorMessage: "Invalid TFFI file."});

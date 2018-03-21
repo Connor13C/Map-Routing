@@ -83,7 +83,8 @@ export default class DestinationList extends Component {
     }
 
     renderItem(item, index) {
-        return (<Draggable key={item.id} draggableId={item.id} index={index}>
+        return (
+            <Draggable key={item.id} draggableId={item.id} index={index}>
                 {(provided, snapshot) => (
                     <div>
                         <div
@@ -108,6 +109,7 @@ export default class DestinationList extends Component {
         return (
             <div>
                 <SearchBar addDestination={this.addDestination}/>
+                <div className="pre-scrollable">
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <Droppable droppableId="droppable">
                         {(provided, snapshot) => (
@@ -122,6 +124,7 @@ export default class DestinationList extends Component {
                         )}
                     </Droppable>
                 </DragDropContext>
+                </div>
             </div>
         );
     }
