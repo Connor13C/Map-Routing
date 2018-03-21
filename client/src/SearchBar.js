@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { AsyncCreatable } from 'react-select';
+import 'react-select/dist/react-select.css';
 import DestinationEditor from "./DestinationEditor";
 
 
@@ -8,51 +9,55 @@ export default class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: "",
-            editorOpen: false
+            placeName: "",
         };
-        this.onChange = this.onChange.bind(this);
         this.onNewDestinationClick = this.onNewDestinationClick.bind(this);
         this.addDestination = this.addDestination.bind(this);
         this.query = this.query.bind(this);
     }
 
-    onChange(value) {
-        // Called whenever they type something
-        this.setState({
-            value
-        })
-    }
-
-    onNewDestinationClick() {
+    onNewDestinationClick(option) {
         // Called when they click the button to add a destination
         this.setState({
-            editorOpen: true
-        })
+            placeName: option.query
+        });
     }
 
     addDestination(place) {
         // Called by the DestinationEditor Modal
         // If place is null then they cancelled the creation
         this.setState({
-            value: "",
-            editorOpen: false
-        })
+            placeName: "",
+        });
+        if (place != null) {
+            this.props.addDestination(place);
+        }
     }
 
 
 
     query(input) {
-        // Needs to call search endpoint
-        return Promise.resolve({ options: [] });
-        // Example from the demo:
-        /*
-        return fetch(`https://api.github.com/search/users?q=${input}`)
-		.then((response) => response.json())
-		.then((json) => {
-			return { options: json.items };
-		});
-        */
+        let options = {
+            method: "POST",
+            body: JSON.stringify({
+                version: 2,
+                type: "query",
+                query: input
+            })
+        };
+        return fetch('http://' + location.host + '/query', options)
+            .then(response => response.json())
+            .then(json => {
+                if (json === undefined) {
+                    console.log("Invalid response.");
+                    return [];
+                } else {
+                    return json.places;
+                }
+            }, err => {
+                console.log(err.message);
+                return [];
+            });
     }
 
 
@@ -61,13 +66,13 @@ export default class SearchBar extends Component {
         // Check that out if you need to add more properties
         return (
             <div className="pb-2">
-                <DestinationEditor isOpen={this.state.editorOpen} onFinish={this.addDestination} initialId={this.state.value}/>
+                <DestinationEditor isOpen={this.state.placeName.length !== 0}
+                                   onFinish={this.addDestination}
+                                   place={{name: this.state.placeName}}/>
                 <AsyncCreatable valueKey="id"
                                 labelKey="query"
-                                placeholder="Enter place name..."
+                                placeholder="Add a destination..."
                                 multi={false}
-                                value={this.state.value}
-                                onChange={this.onChange}
                                 loadOptions={this.query}
                                 promptTextCreator={(input) => "Create new destination " + input}
                                 onNewOptionClick={this.onNewDestinationClick}
