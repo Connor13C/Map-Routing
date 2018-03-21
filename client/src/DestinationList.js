@@ -79,7 +79,12 @@ export default class DestinationList extends Component {
     }
 
     addDestination(place) {
-
+        this.props.updateTrip(Object.assign(
+            {},
+            this.props.trip,
+            {places: this.props.trip.places.concat(place)}
+            )
+        );
     }
 
     renderItem(item, index) {
