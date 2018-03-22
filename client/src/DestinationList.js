@@ -90,7 +90,9 @@ export default class DestinationList extends Component {
     }
 
     removeDestination(place){
-        console.log(places.target.value);
+        console.log(this.props.trip.places.indexOf(place));
+        console.log(place);
+
         this.props.updateTrip(Object.assign(
             {},
             this.props.trip,
@@ -116,7 +118,7 @@ export default class DestinationList extends Component {
                         >
                             {item.name}
                     <div className="btn pull-right">
-                        <Button color="primary" onClick={()=>this.removeDestination()}>Remove</Button>
+                        <Button color="primary" onClick={()=>this.removeDestination(item.name)}>Remove</Button>
                      </div>
                         </div>
                         {provided.placeholder}
