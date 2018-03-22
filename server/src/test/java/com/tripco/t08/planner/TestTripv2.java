@@ -1,6 +1,7 @@
 package com.tripco.t08.planner;
 
 
+import com.tripco.t08.trip.Tripv2;
 import com.tripco.t08.util.CoordinateParser;
 
 import org.junit.Before;
@@ -9,21 +10,20 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static org.junit.Assert.*;
 
 /*
-  This class contains tests for the Trip class.
+  This class contains tests for the Tripv2 class.
  */
 @RunWith(JUnit4.class)
-public class TestTrip {
-  Trip trip;
+public class TestTripv2 {
+  Tripv2 trip;
 
   // Setup to be done before every test in TestPlan
   @Before
   public void initialize() {
-    trip = new Trip();
+    trip = new Tripv2();
     trip.places = new ArrayList<>();
     trip.distances = new ArrayList<>();
   }
