@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Destination from './Destination';
 import SearchBar from "./SearchBar";
+import { Button } from 'reactstrap';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -48,6 +49,7 @@ export default class DestinationList extends Component {
         this.onDragEnd = this.onDragEnd.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.addDestination = this.addDestination.bind(this);
+        this.removeDestination = this.removeDestination.bind(this);
         this.renderItem = this.renderItem.bind(this);
     }
 
@@ -87,6 +89,17 @@ export default class DestinationList extends Component {
         );
     }
 
+    removeDestination(place){
+        console.log(places.target.value);
+        this.props.updateTrip(Object.assign(
+            {},
+            this.props.trip,
+            {places: this.props.trip.places.splice(this.props.trip.places.indexOf(place), 1)}
+            )
+        );
+
+    }
+
     renderItem(item, index) {
         return (
             <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -102,6 +115,9 @@ export default class DestinationList extends Component {
                             )}
                         >
                             {item.name}
+                    <div className="btn pull-right">
+                        <Button color="primary" onClick={()=>this.removeDestination()}>Remove</Button>
+                     </div>
                         </div>
                         {provided.placeholder}
                     </div>
