@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 
 import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
-import com.tripco.t08.planner.Plan;
 import com.tripco.t08.planner.Query;
 
 import com.tripco.t08.trip.Trip;
