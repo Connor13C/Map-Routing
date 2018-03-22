@@ -133,7 +133,7 @@ class Destinations extends Component {
   }
 
   checkOptions(json){
-      if(json.options.optimization === undefined){
+      if(json.options.optimization === undefined || json.options.optimization === "none"){
           json.options.optimization = 0.0;
       }
   }
