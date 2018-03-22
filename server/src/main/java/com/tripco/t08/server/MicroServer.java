@@ -123,7 +123,7 @@ public class MicroServer {
     // convert the body of the request to a Java class.
     Query query = GSON.fromJson(request.body(), Query.class);
     Airports airport = jdbi.onDemand(Airports.class);
-    query.places = airport.searchEverything("%"+query+"%");
+    query.places = airport.searchEverything("%"+query.query+"%");
     return GSON.toJson(query);
   }
 
