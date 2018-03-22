@@ -176,7 +176,7 @@ class Destinations extends Component {
   render() {
     return (
         <div id="destinations" className="card">
-          <div className="card-header bg-info text-white">
+         <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
             Get Started
           </div>
           <div className="card-body">

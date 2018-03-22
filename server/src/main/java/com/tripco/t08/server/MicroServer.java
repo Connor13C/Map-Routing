@@ -1,11 +1,10 @@
 package com.tripco.t08.server;
 
-import com.tripco.t08.planner.Plan;
-
+import com.tripco.t08.trip.Trip;
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
-import spark.Spark;
+
 import static spark.Spark.*;
 
 
@@ -40,6 +39,7 @@ public class MicroServer {
     get("/echo", this::echo);
     get("/hello/:name", this::hello);
     get("/team", this::team);
+    get("/config", this::config);
     // client is sending data, so a HTTP POST is used instead of a GET
     post("/plan", this::plan);
 
@@ -96,7 +96,10 @@ public class MicroServer {
 
     response.type("application/json");
 
-    return (new Plan(request)).getTrip();
+    Trip trip = Trip.from(request);
+    trip.plan();
+
+    return trip.toJson();
   }
 
   /** A REST API that returns the team information associated with the server.
@@ -110,5 +113,11 @@ public class MicroServer {
     response.type("text/plain");
 
     return name;
+  }
+
+  private String config(Request request, Response response) {
+    response.type("application/json");
+
+    return "{\"type\": \"config\", \"version\": 2, \"optimization\": 1 }";
   }
 }
