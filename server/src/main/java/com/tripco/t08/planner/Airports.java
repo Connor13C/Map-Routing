@@ -14,7 +14,8 @@ public interface Airports {
     @SqlQuery("SELECT * FROM airports WHERE municipality LIKE :search LIMIT 20;")
     List<Airport> searchMunicipality(String search);
 
-    @SqlQuery("SELECT * FROM airports WHERE type LIKE :search OR name LIKE :search OR municipality LIKE :search LIMIT 20;")
+    @SqlQuery("SELECT * FROM airports WHERE type "
+            + "LIKE :search OR name LIKE :search OR municipality LIKE :search LIMIT 20;")
     List<Airport> searchEverything(String search);
 
 }
