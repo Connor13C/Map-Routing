@@ -53,7 +53,7 @@ class Trip extends Component {
   render(){
     return(
         <div id="trip" className="card">
-          <div className="card-header bg-info text-white">
+          <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
             Trip
           </div>
           <div className="card-body">
