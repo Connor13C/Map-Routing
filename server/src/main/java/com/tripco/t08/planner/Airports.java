@@ -1,9 +1,8 @@
 package com.tripco.t08.planner;
 
+import java.util.List;
 
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
-
-import java.util.List;
 
 public interface Airports {
     @SqlQuery("SELECT * FROM airports WHERE type LIKE :search LIMIT 20;")

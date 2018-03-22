@@ -8,6 +8,13 @@ public class Airport {
         private final String latitude;
         private final String longitude;
 
+    /**Airport Constructor.
+     *
+     * @param id
+     * @param name
+     * @param latitude
+     * @param longitude
+     */
         @ConstructorProperties({"id", "name", "latitude", "longitude"})
     public Airport(String id, String name, String latitude, String longitude) {
         this.id = id;
@@ -34,11 +41,11 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                '}';
+        return "Airport{"
+                + "id='" + id + '\''
+                + ", name='" + name + '\''
+                + ", latitude='" + latitude + '\''
+                + ", longitude='" + longitude + '\''
+                + '}';
     }
 }

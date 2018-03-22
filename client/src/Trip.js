@@ -39,7 +39,6 @@ class Trip extends Component {
     }
   }
 
-
   /* Saves the map and itinerary to the local file system.
    */
   saveTFFI(){

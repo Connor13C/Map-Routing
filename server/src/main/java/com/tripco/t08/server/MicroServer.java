@@ -106,7 +106,7 @@ public class MicroServer {
     return (new Plan(request)).getTrip();
   }
 
-  /**A REST API to support queries to MariaDB
+  /**A REST API to support queries to MariaDB.
    *
    * @param request
    * @param response
