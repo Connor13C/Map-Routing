@@ -168,13 +168,13 @@ class Destinations extends Component {
   render() {
     return (
         <div id="destinations" className="card">
-          <div className="card-header bg-info text-white">
+         <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
             Get Started
           </div>
           <div className="card-body">
             <p>Upload a file with planned destinations or manually plan your trip by adding destinations with coordinates.</p>
             <div className="form-group" role="group">
-                <label className="btn btn-primary">
+                <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
                     Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                 </label>
             </div>

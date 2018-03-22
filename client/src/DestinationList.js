@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Destination from './Destination';
 import SearchBar from "./SearchBar";
+import { Button } from 'reactstrap';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -35,7 +36,7 @@ const getItemStyle = (isDragging, draggableStyle) => {
 };
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightgrey' : 'lightblue',
+    background: isDraggingOver ? 'lightgrey' : '#A9DFBF',
     padding: grid,
     width: "auto",
 });
@@ -48,6 +49,7 @@ export default class DestinationList extends Component {
         this.onDragEnd = this.onDragEnd.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.addDestination = this.addDestination.bind(this);
+        this.removeDestination = this.removeDestination.bind(this);
         this.renderItem = this.renderItem.bind(this);
     }
 
@@ -87,6 +89,25 @@ export default class DestinationList extends Component {
         );
     }
 
+    removeDestination(place){
+        let places = this.props.trip.places;
+        let index;
+        for (let i = 0; i < places.length; i++){
+            if(place == places[i].name){
+                index = i;
+            }
+        }
+        places.splice(index, 1);
+
+        this.props.updateTrip(Object.assign(
+            {},
+            this.props.trip,
+            {places: places}
+            )
+        );
+
+    }
+
     renderItem(item, index) {
         return (
             <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -102,6 +123,9 @@ export default class DestinationList extends Component {
                             )}
                         >
                             {item.name}
+                    <div className="btn pull-right">
+                        <Button color="primary" onClick={()=>this.removeDestination(item.name)}>Remove</Button>
+                     </div>
                         </div>
                         {provided.placeholder}
                     </div>

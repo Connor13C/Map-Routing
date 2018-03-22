@@ -53,7 +53,7 @@ class Trip extends Component {
   render(){
     return(
         <div id="trip" className="card">
-          <div className="card-header bg-info text-white">
+          <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
             Trip
           </div>
           <div className="card-body">
@@ -61,10 +61,10 @@ class Trip extends Component {
             <div className="input-group" role="group">
                 <input type="text" className="form-control" placeholder="Make or change your plan name here"/>
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.plan} type="button">Plan</button>
+              <button className="btn btn-primary " onClick={this.plan} type="button" style={{backgroundColor:"#1E4D2B"}}>Plan</button>
             </span>
               <span className="input-group-btn">
-              <button className="btn btn-secondary " onClick={this.saveTFFI} type="button">Save</button>
+              <button className="btn btn-secondary " onClick={this.saveTFFI} type="button" style={{backgroundColor:"#1E4D2B"}}>Save</button>
             </span>
             </div>
             <p/>
