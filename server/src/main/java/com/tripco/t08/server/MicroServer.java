@@ -1,8 +1,13 @@
 package com.tripco.t08.server;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.tripco.t08.planner.Airports;
+import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.Plan;
 
+import com.tripco.t08.planner.Query;
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
@@ -110,9 +115,16 @@ public class MicroServer {
   private String query(Request request, Response response){
 
     response.type("application/json");
+    Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(new TypeToken<Place>(){}.getType(), new Place.Serializer())
+            .create();
+    // first print the request
+    System.out.println(HTTP.echoRequest(request));
+    // convert the body of the request to a Java class.
+    Query query = GSON.fromJson(request.body(), Query.class);
     Airports airport = jdbi.onDemand(Airports.class);
-    String input = request.body();
-    return airport.searchEverything(input).toString();
+    query.places = airport.searchEverything("%"+query+"%");
+    return GSON.toJson(query);
   }
 
   /** A REST API that returns the team information associated with the server.
