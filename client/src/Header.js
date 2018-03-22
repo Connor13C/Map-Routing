@@ -10,8 +10,8 @@ class Header extends Component{
   render() {
     return(
         <div id="container">
-          <div class="row text-white" style={{backgroundColor:"#1E4D2B"}}>
-          <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5" style={{backgroundColor:"#1E4D2B"}}>
+          <div className="row text-white" style={{backgroundColor:"#1E4D2B"}}>
+          <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5" style={{backgroundColor:"#1E4D2B"}}>
           <img id="myImg" src="http://www.cs.colostate.edu/~cs314/images/CompSci-NS-CSU-1-Hrev.png" className="img-fluid"></img>
             </div>
             </div>
