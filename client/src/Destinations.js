@@ -174,7 +174,7 @@ class Destinations extends Component {
           <div className="card-body">
             <p>Upload a file with planned destinations or manually plan your trip by adding destinations with coordinates.</p>
             <div className="form-group" role="group">
-                <label className="btn btn-primary">
+                <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
                     Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                 </label>
             </div>

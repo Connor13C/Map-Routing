@@ -101,7 +101,7 @@ class Options extends Component{
     render() {
         return(
             <div>
-              <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Options</Button>
+              <Button color="primary" onClick={this.toggle} style={{backgroundColor:"#1E4D2B"}}>Options</Button>
               <Collapse isOpen={this.state.collapse}>
                 <div id="options" className="card">
                   <div className="card-body">
