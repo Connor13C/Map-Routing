@@ -13,7 +13,6 @@ class Trip extends Component {
 
     this.plan = this.plan.bind(this);
     this.saveTFFI = this.saveTFFI.bind(this);
-    this.query = this.query.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -40,16 +39,6 @@ class Trip extends Component {
     }
   }
 
-  async query(){
-      try {
-        let serverResponse = await this.fetchResponse();
-        let query = await serverResponse.json();
-        console.log(query);
-        this.props.updateQuery(query);
-      } catch(err) {
-        console.error(err);
-      }
-    }
 
   /* Saves the map and itinerary to the local file system.
    */

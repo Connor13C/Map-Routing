@@ -15,6 +15,7 @@ export default class DestinationEditor extends Component {
         this.finish = this.finish.bind(this);
         this.cancel = this.cancel.bind(this);
         this.state = defaultState();
+        this.query = this.query.bind(this);
     }
 
     finish() {
@@ -38,6 +39,17 @@ export default class DestinationEditor extends Component {
             this.setState(obj);
         };
     }
+
+    async query(){
+        try {
+            let serverResponse = await this.fetchResponse();
+            let query = await serverResponse.json();
+            console.log(query);
+            this.props.updateQuery(query);
+          } catch(err) {
+            console.error(err);
+          }
+        }
 
     createInput(name, id) {
         return (
