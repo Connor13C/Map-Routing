@@ -59,7 +59,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 *3/4* | *@212 @172 @221 @185 @186 @184* | *@205 @210 @214 @207* | none
 *3/6* | *@205 @210 @214 @207* | *@224 @226 @191* | none
 *3/8* | *@224 @191* | *@226 @191* | Midterm Week
-*3/20* | *@226 @191 @234 @173 @229 @228 @232 @197 @257 @248* | *@* | none
+*3/20* | *@226 @191 @234 @173 @229 @228 @232 @197 @257 @248* | *@188* | none
  
 
 ## Review
@@ -88,7 +88,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | More Team Lunches | No spring break | Better use of zenhub
+What we did well | Creative team design | Once we got started we worked through tasks quickly  | We used multiple extra libraries
+What we need to work on | Distribution of work | Time management | Zenhub
+What we will change next time | Distribution of work | Our use of team time | Use zenhub better
