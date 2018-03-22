@@ -10,10 +10,10 @@ public class Airport {
 
     /**Airport Constructor.
      *
-     * @param id
-     * @param name
-     * @param latitude
-     * @param longitude
+     * @param id the id
+     * @param name the name
+     * @param latitude the lat
+     * @param longitude the long
      */
         @ConstructorProperties({"id", "name", "latitude", "longitude"})
     public Airport(String id, String name, String latitude, String longitude) {
