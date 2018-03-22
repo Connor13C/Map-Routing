@@ -94,13 +94,10 @@ export default class DestinationList extends Component {
         let index;
         for (let i = 0; i < places.length; i++){
             if(place == places[i].name){
-                console.log("Same name");
                 index = i;
             }
         }
-        console.log(index);
-        //places.splice(index, 1);
-        //console.log(places);
+        places.splice(index, 1);
 
         this.props.updateTrip(Object.assign(
             {},
