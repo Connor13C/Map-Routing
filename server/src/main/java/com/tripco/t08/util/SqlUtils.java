@@ -38,7 +38,7 @@ public final class SqlUtils {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         // Fail after 1 seconds
         DriverManager.setLoginTimeout(1);
@@ -59,7 +59,9 @@ public final class SqlUtils {
             System.setProperty("socksProxyPort", "9008");
             jdbi = findJdbi();
         }
-        jdbi.registerRowMapper(ConstructorMapper.factory(Airport.class));
+        if (jdbi != null ) {
+            jdbi.registerRowMapper(ConstructorMapper.factory(Airport.class));
+        }
         return jdbi;
     }
 
