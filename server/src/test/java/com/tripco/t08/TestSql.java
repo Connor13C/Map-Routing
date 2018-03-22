@@ -1,8 +1,12 @@
 package com.tripco.t08;
 
+import com.tripco.t08.planner.Airport;
+import com.tripco.t08.planner.Airports;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.junit.ClassRule;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -22,11 +26,35 @@ public class TestSql {
     public void testTableExistsDao() {
         Airports airports = SQL.onDemand(Airports.class);
 
-        assertTrue(airports.getCount() > 0);
     }
 
-    public interface Airports {
-        @SqlQuery("select COUNT(*) from airports")
-        int getCount();
+    @Test
+    public void testSearchName(){
+        Airports airport = SQL.onDemand(Airports.class);
+        List a = airport.searchName("%denver%");
+        assertTrue(a.size()>0);
     }
+
+    @Test
+    public void testSearchType(){
+        Airports airport = SQL.onDemand(Airports.class);
+        List a = airport.searchType("%large%");
+        assertTrue(a.size()>0);
+    }
+
+    @Test
+    public void testSearchMunicipality(){
+        Airports airport = SQL.onDemand(Airports.class);
+        List a = airport.searchMunicipality("%victor%");
+        assertTrue(a.size()>0);
+    }
+
+    @Test
+    public void testSearchEverything() {
+        Airports airport = SQL.onDemand(Airports.class);
+        List a = airport.searchEverything("%denver%");
+        assertTrue(a.size()>0);
+    }
+
+
 }

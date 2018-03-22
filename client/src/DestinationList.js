@@ -137,7 +137,7 @@ export default class DestinationList extends Component {
     render() {
         return (
             <div>
-                <SearchBar addDestination={this.addDestination}/>
+                <SearchBar places={this.props.trip.places} addDestination={this.addDestination}/>
                 <div className="pre-scrollable">
                 <DragDropContext onDragEnd={this.onDragEnd}>
                     <Droppable droppableId="droppable">

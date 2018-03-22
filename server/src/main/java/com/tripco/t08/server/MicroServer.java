@@ -1,6 +1,15 @@
 package com.tripco.t08.server;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import com.tripco.t08.planner.Airports;
+import com.tripco.t08.planner.Place;
+import com.tripco.t08.planner.Query;
+
 import com.tripco.t08.trip.Trip;
+
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
@@ -42,6 +51,7 @@ public class MicroServer {
     get("/config", this::config);
     // client is sending data, so a HTTP POST is used instead of a GET
     post("/plan", this::plan);
+    post("/query", this::query);
 
     System.out.println("\n\nServer running on port: " + this.port + "\n\n");
   }
@@ -100,6 +110,27 @@ public class MicroServer {
     trip.plan();
 
     return trip.toJson();
+  }
+
+  /**A REST API to support queries to MariaDB.
+   *
+   * @param request
+   * @param response
+   * @return returns list of objects
+   */
+  private String query(Request request, Response response){
+
+    response.type("application/json");
+    Gson GSON = new GsonBuilder()
+            .registerTypeAdapter(new TypeToken<Place>(){}.getType(), new Place.Serializer())
+            .create();
+    // first print the request
+    System.out.println(HTTP.echoRequest(request));
+    // convert the body of the request to a Java class.
+    Query query = GSON.fromJson(request.body(), Query.class);
+    Airports airport = jdbi.onDemand(Airports.class);
+    query.places = airport.searchEverything("%"+query.query+"%");
+    return GSON.toJson(query);
   }
 
   /** A REST API that returns the team information associated with the server.
