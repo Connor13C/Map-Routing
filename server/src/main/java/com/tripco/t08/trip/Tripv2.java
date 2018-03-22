@@ -9,8 +9,8 @@ import java.util.ArrayList;
  *
  */
 public class Tripv2 extends TripCommon {
-
   public Optionsv2 options;
+  public int version = 2;
 
 
   /**
@@ -62,10 +62,6 @@ public class Tripv2 extends TripCommon {
     }
   }
 
-  /** The top level method that does planning.
-   * At this point it just adds the map and distances for the places in order.
-   * It might need to reorder the places in the future.
-   */
   @Override
   public void plan() {
     optimize(options.optimization);

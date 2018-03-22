@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
   This class contains tests for the Tripv2 class.
  */
 @RunWith(JUnit4.class)
-public class TestTrip {
+public class TestTripv2 {
   Tripv2 trip;
 
   // Setup to be done before every test in TestPlan

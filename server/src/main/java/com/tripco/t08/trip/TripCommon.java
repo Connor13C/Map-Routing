@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class TripCommon implements Trip {
     // The variables in this class should reflect TFFI.
-    public String type;
+    public String type = "trip";
     public String title;
     public ArrayList<Place> places;
     public ArrayList<Integer> distances;

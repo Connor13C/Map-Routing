@@ -10,6 +10,13 @@ public interface Trip {
     Gson GSON = new GsonBuilder()
             .registerTypeAdapter(new TypeToken<Place>(){}.getType(), new Place.Serializer())
             .create();
+
+    /**
+     * Plans the trip, modifying it based on its options and state.
+     * This minimally will calculate the distances between places,
+     * and generate an SVG representation of the trip.  Depending
+     * on the version and options it may optimize the trip.
+     */
     void plan();
 
 
@@ -18,6 +25,12 @@ public interface Trip {
     }
 
 
+    /**
+     * Creates a Trip from the body of the provided request based
+     * on the version of the Trip.
+     * @param request request to extract Trip from
+     * @return
+     */
     static Trip from(Request request) {
         JsonElement element = PARSER.parse(request.body());
         if (!(element instanceof JsonObject)) {
