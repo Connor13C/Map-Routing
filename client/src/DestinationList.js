@@ -90,13 +90,22 @@ export default class DestinationList extends Component {
     }
 
     removeDestination(place){
-        console.log(this.props.trip.places.indexOf(place));
-        console.log(place);
+        let places = this.props.trip.places;
+        let index;
+        for (let i = 0; i < places.length; i++){
+            if(place == places[i].name){
+                console.log("Same name");
+                index = i;
+            }
+        }
+        console.log(index);
+        //places.splice(index, 1);
+        //console.log(places);
 
         this.props.updateTrip(Object.assign(
             {},
             this.props.trip,
-            {places: this.props.trip.places.splice(this.props.trip.places.indexOf(place), 1)}
+            {places: places}
             )
         );
 
