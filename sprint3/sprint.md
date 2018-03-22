@@ -35,9 +35,9 @@ Epics planned for this release.
 * *Code Coverage*
 * *Build a trip from Existing Information*
 * *Design a trip from Scatch/manually*
-* *Let the user reverse the order of the trip*
 * *Let the user choose a new starting location*
 * *Give the user the option to choose what information to display in the itinerary*
+* *Let the user save their trip*
 
 *We decided to take on more epics than the last sprint because we were able to complete all of them on the last sprint and many of these epics go together so we decided to tackle all of them at once. 
 
@@ -45,41 +45,44 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *60*   | *value* 
-Story Points |  *64*  | *value* 
+Tasks |  *50*   | *36* 
+Story Points |  *64*  | *48* 
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-*2/22* | *@task only* | *@task only* | none
-*2/25* | *@task only* | *@task only* | none
-*2/27* | *@task only* | *@task only* | none
-*3/1* | *@task only* | *@task only* | none
-*3/4* | *@task only* | *@task only* | none
-*3/6* | *@task only* | *@task only* | none
-*3/8* | *@task only* | *@task only* | none
-*3/20* | *@task only* | *@task only* | none
-*3/22* | *@task only* | *@task only* | none
+*2/22* | *none* | *still plainning* | new code, trying to determine the goals, and rewriting tasks
+*2/25* | *none* | *@175 @178 @204* | none
+*2/27* | *@175 @178 @204* | *@176 @212* | none
+*3/1* | *@176* | *@212 @172 @221 @185 @186 @184* | none
+*3/4* | *@212 @172 @221 @185 @186 @184* | *@205 @210 @214 @207* | none
+*3/6* | *@205 @210 @214 @207* | *@224 @226 @191* | none
+*3/8* | *@224 @191* | *@226 @191* | Midterm Week
+*3/20* | *@226 @191 @234 @173 @229 @228 @232 @197 @257 @248* | *@* | none
  
 
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* *Give the user an option to view a shorter trip*:  *Done*
+* *Clean Code*:  *As of last check codeclimate was an A*
+* *Code Coverage*:  *We could increase it more, but we increased from low 10% to high 30%*
+* *Build a trip from Existing Information*:  *Was done last sprint*
+* *Design a trip from Scatch/manually*:  *Was done with a great UI*
+* *Let the user choose a new starting location*:  *Added with drag and drop*
+* *Let the user save their trip*: *Was done last sprint*
 
 #### Incomplete epics in Sprint Backlog 
-* *user story*: *explanation...*
-*
+* *Give the user an option to choose what information to display in the itinerary*: *The other epics took longer than expected*
 
 #### What went well
-* *something*
-*
+* *Our group communicated well and even with spring break finished almost all the epics we planned*
+* *Our site looks amazing and functions just as good*
 
 #### Problems encountered and resolutions
-* *something*
-*
+* *Spring break definetly got in the way of us finishing all our epics. Our solution was to work harder than planned when we came back from it.*
+* *There were typical computer science problems encountered, like the spread opperator not functioning. To solve this we used our combined knowledge to find a work around.*
 
 ## Retrospective
 
