@@ -26,13 +26,13 @@ public abstract class TripCommon implements Trip {
     /**
      * Returns the distances between consecutive places,
      * including the return to the starting point to make a round trip.
-     * @return
+     * @return list of leg distances based on the ordere of places
      */
     protected ArrayList<Integer> legDistances() {
         ArrayList<Integer> dist = new ArrayList<>();
         DistanceUnit distUnit = getOptions().getDistanceUnit();
 
-        for(int i = 1; i < places.size(); i++){
+        for (int i = 1; i < places.size(); i++) {
             Place previous = places.get(i-1);
             Place current = places.get(i);
             dist.add(Math.round(previous.distanceTo(current, distUnit)));

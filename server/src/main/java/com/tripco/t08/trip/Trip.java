@@ -1,6 +1,10 @@
 package com.tripco.t08.trip;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.tripco.t08.planner.Place;
 import spark.Request;
@@ -29,7 +33,7 @@ public interface Trip {
      * Creates a Trip from the body of the provided request based
      * on the version of the Trip.
      * @param request request to extract Trip from
-     * @return
+     * @return Versioned Trip object
      */
     static Trip from(Request request) {
         JsonElement element = PARSER.parse(request.body());
