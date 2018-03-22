@@ -64,6 +64,7 @@ public class Tripv2 extends TripCommon {
 
   @Override
   public void plan() {
+    System.out.println(options.optimization);
     optimize(options.optimization);
     super.plan();
   }

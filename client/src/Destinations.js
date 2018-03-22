@@ -116,6 +116,7 @@ class Destinations extends Component {
     this.loadTFFI = this.loadTFFI.bind(this);
     this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
     this.checkOptions = this.checkOptions.bind(this);
+    this.checkVersion = this.checkVersion.bind(this);
   }
 
   checkDuplicateIds(json){
@@ -137,6 +138,12 @@ class Destinations extends Component {
       }
   }
 
+  checkVersion(json){
+      if(json.version === undefined){
+          json.version = 2;
+      }
+  }
+
   loadTFFI(event) {
     let reader = new FileReader();
     let fileName = event.target.files[0].name;
@@ -149,6 +156,7 @@ class Destinations extends Component {
                 setDefaults(json);
                 this.checkDuplicateIds(json);
                 this.checkOptions(json);
+                this.checkVersion(json);
                 this.props.updateTrip(json);
             } else {
                 this.setState({errorMessage: "Invalid TFFI file."});
