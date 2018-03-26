@@ -91,8 +91,6 @@ class Options extends Component{
 
   }
   optimizationValueName(){
-        //console.log("Optimization Value Name");
-        //console.log(this.props);
     if(this.props.options.optimization == 0.0){
         return ("No Optimization");
     }
@@ -103,24 +101,27 @@ class Options extends Component{
   }
 
   renderSlider(){
-      console.log(this.state.optimization);
    return(
           <input type="range" min={0.0} max={1.0} className="slider" id="rangeSlider" onChange={this.optimizationValue}
-                 value={this.props.options.optimization} step={this.state.optimization}>
+                 value={this.props.options.optimization} step={this.sliderSteps()}>
           </input>
    )
   }
 
   sliderSteps(){
-    let steps = this.state.optimization;
-
+      console.log("Slider steps called");
+    let opt = this.state.optimization;
+    let step = 1 / opt;
+    step.toFixed(2);
+    let returnValue = "" + step;
+    return returnValue;
   }
 
 
   componentDidMount(){
     fetch('http://' + location.host + '/config')
         .then((res) => res.json())
-        .then((config) => this.setState({optimization: config["optimization"]});
+        .then((config) => this.setState({optimization: config["optimization"]}));
 
   }
 
