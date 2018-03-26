@@ -20,7 +20,9 @@ class Options extends Component{
     this.toggle = this.toggle.bind(this);
     this.optimizationValue = this.optimizationValue.bind(this);
     this.optimizationValueName = this.optimizationValueName.bind(this);
-    this.state = { collapse: false
+    this.renderSlider = this.renderSlider.bind(this);
+    this.state = {collapse: false
+        optimization:
     };
   }
 
@@ -97,6 +99,24 @@ class Options extends Component{
         return ("Nearest Neighbor");
     }
 
+  }
+
+  renderSlider(){
+
+  }
+
+  componentWillMount(){
+      let optimization;
+
+    this.setState{
+
+      }
+  }
+
+  componentDidMount(){
+    fetch('http://' + location.host + '/config',{
+        method:"GET",
+    }
   }
 
     render() {

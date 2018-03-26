@@ -198,7 +198,7 @@ class Destinations extends Component {
               {this.getInfoMessage()}
               <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
               <br/>
-              <Options options={this.props.trip.options} updateOptions={this.props.updateOptions}/>
+              <Options trip={this.props.trip} options={this.props.trip.options} updateOptions={this.props.updateOptions}/>
               <FilteredSearch trip={this.props.trip}/>
           </div>
         </div>
