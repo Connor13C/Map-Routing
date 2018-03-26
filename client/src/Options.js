@@ -102,7 +102,8 @@ class Options extends Component{
   }
 
   renderSlider(){
-
+      <input type="range" min={0.0} max={1.0} className="slider" id="rangeSlider" onChange={this.optimizationValue} value={this.props.options.optimization}>
+      </input>
   }
 
   componentWillMount(){
@@ -141,8 +142,7 @@ class Options extends Component{
                   </div>
                   <div className="container-fluid">
                       <p> Optimization level: {this.optimizationValueName()}</p>
-                      <input type="range" min={0.0} max={1.0} className="slider" id="rangeSlider" onChange={this.optimizationValue} value={this.props.options.optimization}>
-                      </input>
+                      {this.renderSlider()}
                      <br/>
                       <br/>
                   </div>
