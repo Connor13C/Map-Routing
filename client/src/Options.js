@@ -20,7 +20,8 @@ class Options extends Component{
     this.toggle = this.toggle.bind(this);
     this.optimizationValue = this.optimizationValue.bind(this);
     this.optimizationValueName = this.optimizationValueName.bind(this);
-    this.state = { collapse: false };
+    this.state = { collapse: false
+    };
   }
 
   toggle() {
@@ -80,16 +81,16 @@ class Options extends Component{
         }
     }
 
-    optimizationValue(){
-      let slider = document.getElementById("rangeSlider");
-      let value = (slider.value == "0" || slider.value =="none") ? "0.0" : slider.value;
+    optimizationValue(e){
+      let value = e.target.value;
+      console.log(value);
       this.changeOption({optimization: value});
 
   }
   optimizationValueName(){
         //console.log("Optimization Value Name");
         //console.log(this.props);
-    if(this.props.options.optimization == "0.0"){
+    if(this.props.options.optimization == 0.0){
         return ("No Optimization");
     }
     else{
@@ -120,7 +121,7 @@ class Options extends Component{
                   </div>
                   <div className="container-fluid">
                       <p> Optimization level: {this.optimizationValueName()}</p>
-                      <input type="range" min="0.0" max="1.0" defaultValue="0.0" className="slider" id="rangeSlider" onChange={this.optimizationValue} list="tickmarks">
+                      <input type="range" min={0.0} max={1.0} className="slider" id="rangeSlider" onChange={this.optimizationValue} value={this.props.options.optimization}>
                       </input>
                      <br/>
                       <br/>
