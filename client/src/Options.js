@@ -21,8 +21,9 @@ class Options extends Component{
     this.optimizationValue = this.optimizationValue.bind(this);
     this.optimizationValueName = this.optimizationValueName.bind(this);
     this.renderSlider = this.renderSlider.bind(this);
-    this.state = {collapse: false
-        optimization:
+    this.sliderSteps = this.sliderSteps.bind(this);
+    this.state = {collapse: false,
+        optimization: 0
     };
   }
 
@@ -102,22 +103,25 @@ class Options extends Component{
   }
 
   renderSlider(){
-      <input type="range" min={0.0} max={1.0} className="slider" id="rangeSlider" onChange={this.optimizationValue} value={this.props.options.optimization}>
-      </input>
+      console.log(this.state.optimization);
+   return(
+          <input type="range" min={0.0} max={1.0} className="slider" id="rangeSlider" onChange={this.optimizationValue}
+                 value={this.props.options.optimization} step={this.state.optimization}>
+          </input>
+   )
   }
 
-  componentWillMount(){
-      let optimization;
+  sliderSteps(){
+    let steps = this.state.optimization;
 
-    this.setState{
-
-      }
   }
+
 
   componentDidMount(){
-    fetch('http://' + location.host + '/config',{
-        method:"GET",
-    }
+    fetch('http://' + location.host + '/config')
+        .then((res) => res.json())
+        .then((config) => this.setState({optimization: config["optimization"]});
+
   }
 
     render() {
