@@ -109,7 +109,6 @@ class Options extends Component{
   }
 
   sliderSteps(){
-      console.log("Slider steps called");
     let opt = this.state.optimization;
     let step = 1 / opt;
     step.toFixed(2);
