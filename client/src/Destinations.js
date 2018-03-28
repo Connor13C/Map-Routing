@@ -14,8 +14,14 @@ let optionsSchema = {
             "default": "miles"
         },
         "optimization" : {
-            type: "string",
-            format: "none"
+            anyOf: [
+                {
+                    type: "string",
+                    format:"none"
+                },{
+                    type: "number"
+                }
+            ]
         }
     }
 };
