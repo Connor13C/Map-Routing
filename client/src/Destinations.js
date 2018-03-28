@@ -176,7 +176,7 @@ class Destinations extends Component {
 
   getInfoMessage() {
       console.log(this.props.trip);
-      let count = this.props.trip.places.length;
+      let count = this.props.trip.places ? this.props.trip.places.length : 0;
       let infoMessage;
       if (this.state.errorMessage != null) {
           infoMessage = <div className="alert alert-danger">{this.state.errorMessage}</div>;
@@ -185,6 +185,7 @@ class Destinations extends Component {
       } else {
           infoMessage = "";
       }
+      return infoMessage;
   }
 
   render() {

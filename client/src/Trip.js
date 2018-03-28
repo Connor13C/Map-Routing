@@ -13,6 +13,7 @@ class Trip extends Component {
 
     this.plan = this.plan.bind(this);
     this.saveTFFI = this.saveTFFI.bind(this);
+    this.setName = this.setName.bind(this);
   }
 
   /* Sends a request to the server with the destinations and options.
@@ -47,6 +48,10 @@ class Trip extends Component {
       fileDownload(data, 'trip.json');
   }
 
+  setName(event) {
+    this.props.updateTrip(Object.assign({}, this.props.trip, {title: event.target.value}))
+  }
+
   /* Renders the buttons, map, and itinerary.
    * The title should be specified before the plan or save buttons are valid.
    */
@@ -59,13 +64,13 @@ class Trip extends Component {
           <div className="card-body">
             <p>Give your trip a title before planning or saving.</p>
             <div className="input-group" role="group">
-                <input type="text" className="form-control" placeholder="Make or change your plan name here"/>
+              <input type="text" className="form-control" placeholder="Make or change your plan name here" value={this.props.trip.title} onChange={this.setName}/>
               <span className="input-group-btn">
-              <button className="btn btn-primary " onClick={this.plan} type="button" style={{backgroundColor:"#1E4D2B"}}>Plan</button>
-            </span>
+                <button className="btn btn-primary " onClick={this.plan} type="button" style={{backgroundColor:"#1E4D2B"}}>Plan</button>
+              </span>
               <span className="input-group-btn">
-              <button className="btn btn-secondary " onClick={this.saveTFFI} type="button" style={{backgroundColor:"#1E4D2B"}}>Save</button>
-            </span>
+                <button className="btn btn-secondary " onClick={this.saveTFFI} type="button" style={{backgroundColor:"#1E4D2B"}}>Save</button>
+              </span>
             </div>
             <p/>
               <h5>{this.props.trip.title}</h5>
