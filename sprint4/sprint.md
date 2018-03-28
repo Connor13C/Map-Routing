@@ -54,7 +54,7 @@ Story Points |  *value*  | *value*
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
-3/28/18 |  | #267 #274 #298| Awaiting TFFIv3
+3/28/18 |  | #267 #274 #298 #282| Awaiting TFFIv3
  | | | 
  
 
