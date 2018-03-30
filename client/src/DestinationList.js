@@ -124,7 +124,7 @@ export default class DestinationList extends Component {
                         >
                             {item.name}
                     <div className="btn pull-right">
-                        <Button color="primary" onClick={()=>this.removeDestination(item.name)}>Remove</Button>
+                        <Button style={{backgroundColor:"#E25345"}} onClick={()=>this.removeDestination(item.name)}>Remove</Button>
                      </div>
                         </div>
                         {provided.placeholder}
