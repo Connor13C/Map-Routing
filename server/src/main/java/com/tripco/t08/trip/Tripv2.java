@@ -3,6 +3,7 @@ package com.tripco.t08.trip;
 import com.tripco.t08.planner.Place;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 
 /**
  * The Tripv2 class supports TFFI so it can easily be converted to/from Json by Gson.
@@ -60,6 +61,55 @@ public class Tripv2 extends TripCommon {
         indexOfMin[0] = index;
       }
     }
+  }
+
+  private void nearestNeighbor2(){
+    int arraySize = places.size();
+    int[][] distTable = new int[arraySize][arraySize];
+    setDistTable(distTable, arraySize);
+    int[] optimalPath = new int[arraySize];
+    getBestPath(distTable, optimalPath, arraySize);
+  }
+
+  private void setDistTable(int[][] distTable, int arraySize){
+    for(int i=0; i<arraySize; ++i){
+      for(int j=0; j<arraySize; ++j){
+        if(i!=j&&distTable[i][j]==0){
+          distTable[i][j] = (int)places.get(i).distanceTo(places.get(j));
+          distTable[j][i] = distTable [i][j];
+        }
+      }
+    }
+  }
+
+  private void getBestPath(int[][] distTable, int[] optimalPath, int arraySize){
+    BitSet explored = new BitSet(arraySize);
+    int[] currentPath = new int[arraySize];
+    int currentMinDist = Integer.MAX_VALUE;
+    for(int i=0; i<arraySize; ++i){
+      currentPath[0]=i;
+      explored.set(i);
+      currentMinDist = getNearest(explored, currentPath, optimalPath, currentMinDist, distTable);
+    }
+  }
+
+  private int getNearest(BitSet explored, int[] currentPath, int[] optimalPath, int currentMinDist, int[][] distTable){
+    int cumulativeDist = 0;
+    for(int i = 1; i<currentPath.length; ++i){
+      getMin(i, distTable, explored);
+    }
+  }
+
+  private int getMin(int index, int[][] distTable, BitSet explored){
+    int min = Integer.MAX_VALUE;
+    for(int i = 0; i<places.size(); ++i){
+      if(!explored.get(i)){
+        if(min > distTable[index][i]){
+          min = distTable[index][i];
+        }
+      }
+    }
+    return min;
   }
 
   @Override
