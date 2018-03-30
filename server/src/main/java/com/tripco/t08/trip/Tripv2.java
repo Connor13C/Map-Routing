@@ -40,12 +40,16 @@ public class Tripv2 extends TripCommon {
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
     boolean beginPoint = false;
     for(int i=0; i<arraySize; ++i){
-      if(optimalPath[i]==0) beginPoint = true;
-      if(beginPoint)
+      if(optimalPath[i]==0){
+        beginPoint = true;
+      }
+      if(beginPoint) {
+        replacementPlaces.add(places.get(optimalPath[i]));
+      }
+    }
+    for(int i=0; optimalPath[i]!=0; ++i) {
       replacementPlaces.add(places.get(optimalPath[i]));
     }
-    for(int i=0; optimalPath[i]!=0; ++i)
-      replacementPlaces.add(places.get(optimalPath[i]));
     places=replacementPlaces;
   }
 
@@ -88,27 +92,28 @@ public class Tripv2 extends TripCommon {
    * Actual nearest neighbor algorithm.
    * Find nearest place and adds it to array.
    * @param explored array of boolean values to determine if place already used
-   * @param currentPath int array containing choices for current nearest neighbor
-   * @param optimalPath int array containing choice for best nearest neighbor so far
-   * @param currentMinDist value of cumulative distance for best nearest neighbor so far
-   * @param distTable 2-D int array of distances
+   * @param currPath int array containing choices for current nearest neighbor
+   * @param optPath int array containing choice for best nearest neighbor so far
+   * @param minDist value of cumulative distance for best nearest neighbor so far
+   * @param distT 2-D int array of distances
    * @return returns lowest min between current min or overall min
    */
-  public int getNearest(BitSet explored, int[] currentPath, int[] optimalPath, int currentMinDist, int[][] distTable){
+  public int getNearest(BitSet explored, int[] currPath, int[] optPath, int minDist, int[][] distT){
     int cumulativeDist = 0;
     int min = 0;
-    for(int i = 0; i<currentPath.length-1; ++i){
-      min = getMin(currentPath[i], distTable, explored);
-      cumulativeDist+=distTable[currentPath[i]][min];
-      currentPath[i+1]=min;
+    for(int i = 0; i<currPath.length-1; ++i){
+      min = getMin(currPath[i], distT, explored);
+      cumulativeDist+=distT[currPath[i]][min];
+      currPath[i+1]=min;
     }
-    if(cumulativeDist<currentMinDist){
-      for(int i = 0; i<optimalPath.length; ++i)
-      optimalPath[i]=currentPath[i];
+    if(cumulativeDist<minDist){
+      for(int i = 0; i<optPath.length; ++i) {
+        optPath[i] = currPath[i];
+      }
       return cumulativeDist;
     }
     else{
-      return currentMinDist;
+      return minDist;
     }
   }
 
