@@ -20,7 +20,7 @@ public class Tripv2 extends TripCommon {
    */
   public void optimize(double opt){
     if(opt>0.0){
-      nearestNeighbor();
+      nearestNeighbor2();
     }
   }
 
@@ -69,9 +69,14 @@ public class Tripv2 extends TripCommon {
     setDistTable(distTable, arraySize);
     int[] optimalPath = new int[arraySize];
     getBestPath(distTable, optimalPath, arraySize);
+    ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
+    for(int i=0; i<arraySize; ++i){
+      replacementPlaces.add(places.get(optimalPath[i]));
+    }
+    places=replacementPlaces;
   }
 
-  private void setDistTable(int[][] distTable, int arraySize){
+  public void setDistTable(int[][] distTable, int arraySize){
     for(int i=0; i<arraySize; ++i){
       for(int j=0; j<arraySize; ++j){
         if(i!=j&&distTable[i][j]==0){
@@ -82,7 +87,7 @@ public class Tripv2 extends TripCommon {
     }
   }
 
-  private void getBestPath(int[][] distTable, int[] optimalPath, int arraySize){
+  public void getBestPath(int[][] distTable, int[] optimalPath, int arraySize){
     BitSet explored = new BitSet(arraySize);
     int[] currentPath = new int[arraySize];
     int currentMinDist = Integer.MAX_VALUE;
@@ -90,26 +95,42 @@ public class Tripv2 extends TripCommon {
       currentPath[0]=i;
       explored.set(i);
       currentMinDist = getNearest(explored, currentPath, optimalPath, currentMinDist, distTable);
+      explored.clear();
     }
   }
 
-  private int getNearest(BitSet explored, int[] currentPath, int[] optimalPath, int currentMinDist, int[][] distTable){
+  public int getNearest(BitSet explored, int[] currentPath, int[] optimalPath, int currentMinDist, int[][] distTable){
     int cumulativeDist = 0;
-    for(int i = 1; i<currentPath.length; ++i){
-      getMin(i, distTable, explored);
+    int min = 0;
+    for(int i = 0; i<currentPath.length-1; ++i){
+      min = getMin(currentPath[i], distTable, explored);
+      System.out.print(min+" ");
+      cumulativeDist+=distTable[i][min];
+      currentPath[i+1]=min;
+    }
+    if(cumulativeDist<currentMinDist){
+      for(int i = 0; i<optimalPath.length; ++i)
+      optimalPath[i]=currentPath[i];
+      return cumulativeDist;
+    }
+    else{
+      return currentMinDist;
     }
   }
 
-  private int getMin(int index, int[][] distTable, BitSet explored){
+  public int getMin(int index, int[][] distTable, BitSet explored){
     int min = Integer.MAX_VALUE;
+    int indexOfMin = 0;
     for(int i = 0; i<places.size(); ++i){
       if(!explored.get(i)){
         if(min > distTable[index][i]){
           min = distTable[index][i];
+          indexOfMin = i;
         }
       }
     }
-    return min;
+    explored.set(indexOfMin);
+    return indexOfMin;
   }
 
   @Override

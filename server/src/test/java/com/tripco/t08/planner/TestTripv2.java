@@ -4,12 +4,15 @@ package com.tripco.t08.planner;
 import com.tripco.t08.trip.Tripv2;
 import com.tripco.t08.util.CoordinateParser;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.BitSet;
 
 import static org.junit.Assert.*;
 
@@ -68,6 +71,56 @@ public class TestTripv2 {
     assertTrue(trip.places.get(0) == coordinate1);
     assertTrue(trip.places.get(1) == coordinate2);
     assertTrue(trip.places.get(2) == coordinate3);
+  }
+
+  @Test
+  public void testSetDistanceTable(){
+    Place coordinate1 = place("1.0","0.0");
+    Place coordinate2 = place("2.0","0.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    int[][] distTable = new int[trip.places.size()][trip.places.size()];
+    trip.setDistTable(distTable, trip.places.size());
+    assertEquals(0, distTable[0][0]);
+    assertEquals(69, distTable[0][1]);
+    assertEquals(69, distTable[1][0]);
+    assertEquals(0, distTable[1][1]);
+  }
+
+  @Test
+  public void testGetNearest(){
+    Place coordinate1 = place("0.0","0.0");
+    Place coordinate2 = place("2.0","0.0");
+    Place coordinate3 = place("1.0","0.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    trip.places.add(coordinate3);
+    int[][] distTable = new int[trip.places.size()][trip.places.size()];
+    trip.setDistTable(distTable, trip.places.size());
+    BitSet explored = new BitSet(trip.places.size());
+    int[] currentPath = new int[trip.places.size()];
+    int[] optimalPath = new int[trip.places.size()];
+    int currentMinDist = 4000;
+    explored.set(0);
+    System.out.println(coordinate1.distanceTo(coordinate3));
+    System.out.println(coordinate3.distanceTo(coordinate2));
+    System.out.println(trip.getNearest(explored, currentPath, optimalPath ,currentMinDist, distTable));
+  }
+
+  @Test
+  public void testGetMin(){
+    Place coordinate1 = place("40.0","0.0");
+    Place coordinate2 = place("100.0","0.0");
+    Place coordinate3 = place("220.0","0.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    trip.places.add(coordinate3);
+    int[][] distTable = new int[trip.places.size()][trip.places.size()];
+    trip.setDistTable(distTable, trip.places.size());
+    BitSet explored = new BitSet(trip.places.size());
+    explored.set(0);
+    assertEquals(1,trip.getMin(0, distTable, explored));
+    assertEquals(2,trip.getMin(0, distTable, explored));
   }
 /*
   @Test
