@@ -20,7 +20,7 @@ public class Tripv2 extends TripCommon {
    */
   public void optimize(double opt){
     if(opt>0.0){
-      nearestNeighbor2();
+      nearestNeighbor();
     }
   }
 
@@ -32,47 +32,19 @@ public class Tripv2 extends TripCommon {
    */
   private void nearestNeighbor(){
     int arraySize = places.size();
-    ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
-    replacementPlaces.add(places.get(0));
-    for(int replPlaceInd = 0; replPlaceInd < arraySize-1; ++replPlaceInd){
-      int[] indexOfMin = {-1};
-      double[] min = {Double.MAX_VALUE};
-      for(int i = 1; i < arraySize; ++i) {
-        checkMin(min, indexOfMin, replacementPlaces.get(replPlaceInd).distanceTo(places.get(i)), i);
-      }
-      replacementPlaces.add(places.get(indexOfMin[0]));
-      places.set(indexOfMin[0], null);
-    }
-    places=replacementPlaces;
-  }
-
-  /**
-   * Helper method for nearest neighbor since code climate is a bitch.
-   * Determines if distance to current place is new min, if so keeps the min and its index
-   * @param min double array that stores min distance
-   * @param indexOfMin index of current low min
-   * @param dist distance between the current place and the place at the index in trip.places
-   * @param index current index of trip.places
-   */
-  private void checkMin(double[] min, int[] indexOfMin, double dist, int index){
-    if(places.get(index)!=null){
-      if(dist < min[0]){
-        min[0] = dist;
-        indexOfMin[0] = index;
-      }
-    }
-  }
-
-  private void nearestNeighbor2(){
-    int arraySize = places.size();
     int[][] distTable = new int[arraySize][arraySize];
     setDistTable(distTable, arraySize);
     int[] optimalPath = new int[arraySize];
     getBestPath(distTable, optimalPath, arraySize);
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
+    boolean beginPoint = false;
     for(int i=0; i<arraySize; ++i){
+      if(optimalPath[i]==0) beginPoint = true;
+      if(beginPoint)
       replacementPlaces.add(places.get(optimalPath[i]));
     }
+    for(int i=0; optimalPath[i]!=0; ++i)
+      replacementPlaces.add(places.get(optimalPath[i]));
     places=replacementPlaces;
   }
 
@@ -104,8 +76,7 @@ public class Tripv2 extends TripCommon {
     int min = 0;
     for(int i = 0; i<currentPath.length-1; ++i){
       min = getMin(currentPath[i], distTable, explored);
-      System.out.print(min+" ");
-      cumulativeDist+=distTable[i][min];
+      cumulativeDist+=distTable[currentPath[i]][min];
       currentPath[i+1]=min;
     }
     if(cumulativeDist<currentMinDist){

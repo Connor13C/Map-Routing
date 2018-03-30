@@ -69,8 +69,8 @@ public class TestTripv2 {
     trip.places.add(coordinate3);
     trip.optimize(1);
     assertTrue(trip.places.get(0) == coordinate1);
-    assertTrue(trip.places.get(1) == coordinate2);
-    assertTrue(trip.places.get(2) == coordinate3);
+    assertTrue(trip.places.get(1) == coordinate3);
+    assertTrue(trip.places.get(2) == coordinate2);
   }
 
   @Test
@@ -88,9 +88,14 @@ public class TestTripv2 {
   }
 
   @Test
+  public void testGetBestPath(){
+
+  }
+
+  @Test
   public void testGetNearest(){
     Place coordinate1 = place("0.0","0.0");
-    Place coordinate2 = place("2.0","0.0");
+    Place coordinate2 = place("3.0","0.0");
     Place coordinate3 = place("1.0","0.0");
     trip.places.add(coordinate1);
     trip.places.add(coordinate2);
@@ -102,9 +107,11 @@ public class TestTripv2 {
     int[] optimalPath = new int[trip.places.size()];
     int currentMinDist = 4000;
     explored.set(0);
-    System.out.println(coordinate1.distanceTo(coordinate3));
-    System.out.println(coordinate3.distanceTo(coordinate2));
-    System.out.println(trip.getNearest(explored, currentPath, optimalPath ,currentMinDist, distTable));
+    assertEquals(207,trip.getNearest(explored, currentPath, optimalPath ,currentMinDist, distTable));
+    int[] check = {0,2,1};
+    assertTrue(check[0]==optimalPath[0]);
+    assertTrue(check[1]==optimalPath[1]);
+    assertTrue(check[2]==optimalPath[2]);
   }
 
   @Test
