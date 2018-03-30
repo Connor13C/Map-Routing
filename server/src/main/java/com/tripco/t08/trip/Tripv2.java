@@ -25,10 +25,11 @@ public class Tripv2 extends TripCommon {
   }
 
   /**
-   * Code will start with the initial starting place which it will add to a new array,
-   * then it will check every other place in the array and add the nearest place to the new array,
-   * then it will continue by checking the nearest place and adding them into the new array. When
-   * it is done it will reset places to be in nearest neighbor format
+   * NearestNeighbor will rearrange all the places in trip to get an optimal trip.
+   * It does this by starting with a place and grabbing the closest place to it and
+   * repeating until all places have been grabbed.
+   * It will repeat this with every possible starting point to get the best choice.
+   * It will keep original starting place at beginning of trip.places.
    */
   private void nearestNeighbor(){
     int arraySize = places.size();
@@ -48,6 +49,11 @@ public class Tripv2 extends TripCommon {
     places=replacementPlaces;
   }
 
+  /**
+   * Intializes 2-D array with distances between every place.
+   * @param distTable 2-D distance array
+   * @param arraySize int size of trip.places
+   */
   public void setDistTable(int[][] distTable, int arraySize){
     for(int i=0; i<arraySize; ++i){
       for(int j=0; j<arraySize; ++j){
@@ -59,6 +65,13 @@ public class Tripv2 extends TripCommon {
     }
   }
 
+  /**
+   * This will check every possible starting point to find optimal trip.
+   * Calls actual nearest neighbor algorithm.
+   * @param distTable 2-D int array of distances
+   * @param optimalPath int array containing best choice for opt trip
+   * @param arraySize int size of trip.places
+   */
   public void getBestPath(int[][] distTable, int[] optimalPath, int arraySize){
     BitSet explored = new BitSet(arraySize);
     int[] currentPath = new int[arraySize];
@@ -71,6 +84,16 @@ public class Tripv2 extends TripCommon {
     }
   }
 
+  /**
+   * Actual nearest neighbor algorithm.
+   * Find nearest place and adds it to array.
+   * @param explored array of boolean values to determine if place already used
+   * @param currentPath int array containing choices for current nearest neighbor
+   * @param optimalPath int array containing choice for best nearest neighbor so far
+   * @param currentMinDist value of cumulative distance for best nearest neighbor so far
+   * @param distTable 2-D int array of distances
+   * @return returns lowest min between current min or overall min
+   */
   public int getNearest(BitSet explored, int[] currentPath, int[] optimalPath, int currentMinDist, int[][] distTable){
     int cumulativeDist = 0;
     int min = 0;
@@ -89,6 +112,13 @@ public class Tripv2 extends TripCommon {
     }
   }
 
+  /**
+   * Finds the lowest distance between 2 places and returns index of nearest neighbor.
+   * @param index int index for the place to find it's neighbor
+   * @param distTable 2-D int array of distances
+   * @param explored array of boolean values to determine if place already used
+   * @return int of index of closest neighbor
+   */
   public int getMin(int index, int[][] distTable, BitSet explored){
     int min = Integer.MAX_VALUE;
     int indexOfMin = 0;

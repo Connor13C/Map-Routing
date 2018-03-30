@@ -89,7 +89,23 @@ public class TestTripv2 {
 
   @Test
   public void testGetBestPath(){
-
+    Place coordinate1 = place("0.0","0.0");
+    Place coordinate2 = place("1.0","4.0");
+    Place coordinate3 = place("1.0","2.0");
+    Place coordinate4 = place("3.0","3.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    trip.places.add(coordinate3);
+    trip.places.add(coordinate4);
+    int arraySize = trip.places.size();
+    int[] optimalPath = new int[arraySize];
+    int[][] distTable = new int[arraySize][arraySize];
+    trip.setDistTable(distTable, arraySize);
+    trip.getBestPath(distTable, optimalPath, arraySize);
+    assertEquals(0, optimalPath[0]);
+    assertEquals(2, optimalPath[1]);
+    assertEquals(1, optimalPath[2]);
+    assertEquals(3, optimalPath[3]);
   }
 
   @Test
