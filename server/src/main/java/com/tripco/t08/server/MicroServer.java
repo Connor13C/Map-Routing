@@ -149,6 +149,6 @@ public class MicroServer {
   private String config(Request request, Response response) {
     response.type("application/json");
 
-    return "{\"type\": \"config\", \"version\": 2, \"optimization\": 1 }";
+    return "{\"type\": \"config\", \"version\": 3, \"optimization\": 2 }";
   }
 }
