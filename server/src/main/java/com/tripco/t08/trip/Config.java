@@ -17,7 +17,7 @@ public class Config {
     /**
      *
      */
-    public static void queryAttributes() {
+    public void queryAttributes() {
         for (Filter filter: filters
              ) {
             queryFilters(filter);

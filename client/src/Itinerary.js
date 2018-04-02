@@ -11,25 +11,21 @@ class Itinerary extends Component {
 
       let units = this.props.trip.options.distance;
       let places = this.props.trip.places;
-
-      //uploading each destination name to the itinerary
-      let dests = places.slice(0);
-      dests = dests.map((item) => <td>{item.name}</td>);
-      dests.push(dests[0]);
-      console.log(dests);
-
-      //distance for each destination
+      let dests=[];
       let distance = 0;
       let dists = [];
       let initial = 0;
       let cumulative = [];
       if(this.props.trip.distances.length > 0){
-          cumulative = [<td>{0}</td>];
-          dists = [<td>{0}</td>];
+          dests = places.map((item, index) => <td key={index + 1}>{item.name}</td>);
+          dests.push(<td key={places.size + 1}>{places[0].name}</td>);
+          cumulative = [<td key={0}>{0}</td>];
+          dists = [<td key={0}>{0}</td>];
       }
       for (let i = 0; i < this.props.trip.distances.length; i++){
-          dists.push(<td>{this.props.trip.distances[i]}</td>);
-          cumulative.push(<td>{initial+=this.props.trip.distances[i]}</td>);
+          dists.push(<td key={i+1}>{this.props.trip.distances[i]}</td>);
+          cumulative.push(<td key={i+1}>{initial+=this.props.trip.distances[i]}</td>);
+
           distance += this.props.trip.distances[i];
 
       }

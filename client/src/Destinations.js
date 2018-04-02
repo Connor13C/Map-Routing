@@ -3,8 +3,7 @@ import {Validator} from 'jsonschema';
 import defaults from 'json-schema-defaults';
 import DestinationList from "./DestinationList";
 import Options from "./Options";
-import FilertedSearch from "/.FilterdSearch";
-import FilteredSearch from "./FilteredSearch";
+
 
 let optionsSchema = {
     id: "/options",
@@ -207,7 +206,6 @@ class Destinations extends Component {
               <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
               <br/>
               <Options options={this.props.trip.options} updateOptions={this.props.updateOptions}/>
-              <FilteredSearch filters={this.props.trip.}/>
           </div>
         </div>
     )
