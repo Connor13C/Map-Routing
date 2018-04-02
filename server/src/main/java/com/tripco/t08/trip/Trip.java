@@ -30,10 +30,10 @@ public interface Trip {
 
 
     /**
-     * Creates a Trip from the body of the provided request based
-     * on the version of the Trip.
-     * @param request request to extract Trip from
-     * @return Versioned Trip object
+     * Creates a trip from the body of the provided request based
+     * on the version of the trip.
+     * @param request request to extract trip from
+     * @return Versioned trip object
      */
     static Trip from(Request request) {
         JsonElement element = PARSER.parse(request.body());

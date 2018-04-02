@@ -2,6 +2,8 @@ package com.tripco.t08.trip;
 
 
 import java.sql.*;
+import java.util.Arrays;
+
 public class Config {
 
     public String type = "config";
@@ -15,7 +17,7 @@ public class Config {
     public String units = "[\"kilometers\",\"miles\",\"nautical miles\",\"user defined\"]";
 
     /**
-     *
+     *Loops through each filter and queries them
      */
     public void queryAttributes() {
         for (Filter filter: filters
@@ -61,6 +63,12 @@ public class Config {
         while (rsQuery1.next()) {
             filter.values.add(rsQuery1.getString(filter.column));
         }
+    }
+
+    public static void main(String[] args) {
+        Config config = new Config();
+        config.queryAttributes();
+        System.out.println(Arrays.toString(filters));
     }
 
 }

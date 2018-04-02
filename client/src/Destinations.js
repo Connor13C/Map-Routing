@@ -108,7 +108,7 @@ function deepCopy(from, to) {
 
 
 /* Destinations reside in the parent object so they may be shared
- * with the Trip object.
+ * with the trip object.
  * Renders the current destination list.
  * Loads destinations from files.
  * Finds destinations in a database.

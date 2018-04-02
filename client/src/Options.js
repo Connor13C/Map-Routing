@@ -4,7 +4,7 @@ import './Options.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
- * The options reside in the parent object so they may be shared with the Trip object.
+ * The options reside in the parent object so they may be shared with the trip object.
  * Allows the user to set the options used by the application via a set of buttons.
  */
 class Options extends Component{
