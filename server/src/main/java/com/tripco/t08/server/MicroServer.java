@@ -8,12 +8,14 @@ import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.Query;
 
+import com.tripco.t08.trip.Config;
 import com.tripco.t08.trip.Trip;
 
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
 
+import static com.tripco.t08.trip.Trip.GSON;
 import static spark.Spark.*;
 
 
@@ -148,7 +150,8 @@ public class MicroServer {
 
   private String config(Request request, Response response) {
     response.type("application/json");
-
-    return "{\"type\": \"config\", \"version\": 3, \"optimization\": 2 }";
+    Config config = new Config();
+    config.queryAttributes();
+    return GSON.toJson(config);
   }
 }
