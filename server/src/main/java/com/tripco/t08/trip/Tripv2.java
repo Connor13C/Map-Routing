@@ -3,6 +3,7 @@ package com.tripco.t08.trip;
 import com.tripco.t08.planner.Place;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 
 /**
  * The Tripv2 class supports TFFI so it can easily be converted to/from Json by Gson.
@@ -24,42 +25,118 @@ public class Tripv2 extends TripCommon {
   }
 
   /**
-   * Code will start with the initial starting place which it will add to a new array,
-   * then it will check every other place in the array and add the nearest place to the new array,
-   * then it will continue by checking the nearest place and adding them into the new array. When
-   * it is done it will reset places to be in nearest neighbor format
+   * NearestNeighbor will rearrange all the places in trip to get an optimal trip.
+   * It does this by starting with a place and grabbing the closest place to it and
+   * repeating until all places have been grabbed.
+   * It will repeat this with every possible starting point to get the best choice.
+   * It will keep original starting place at beginning of trip.places.
    */
   private void nearestNeighbor(){
     int arraySize = places.size();
+    int[][] distTable = new int[arraySize][arraySize];
+    setDistTable(distTable, arraySize);
+    int[] optimalPath = new int[arraySize];
+    getBestPath(distTable, optimalPath, arraySize);
     ArrayList<Place> replacementPlaces = new ArrayList<>(arraySize);
-    replacementPlaces.add(places.get(0));
-    for(int replPlaceInd = 0; replPlaceInd < arraySize-1; ++replPlaceInd){
-      int[] indexOfMin = {-1};
-      double[] min = {Double.MAX_VALUE};
-      for(int i = 1; i < arraySize; ++i) {
-        checkMin(min, indexOfMin, replacementPlaces.get(replPlaceInd).distanceTo(places.get(i)), i);
+    boolean beginPoint = false;
+    for(int i=0; i<arraySize; ++i){
+      if(optimalPath[i]==0){
+        beginPoint = true;
       }
-      replacementPlaces.add(places.get(indexOfMin[0]));
-      places.set(indexOfMin[0], null);
+      if(beginPoint) {
+        replacementPlaces.add(places.get(optimalPath[i]));
+      }
+    }
+    for(int i=0; optimalPath[i]!=0; ++i) {
+      replacementPlaces.add(places.get(optimalPath[i]));
     }
     places=replacementPlaces;
   }
 
   /**
-   * Helper method for nearest neighbor since code climate is a bitch.
-   * Determines if distance to current place is new min, if so keeps the min and its index
-   * @param min double array that stores min distance
-   * @param indexOfMin index of current low min
-   * @param dist distance between the current place and the place at the index in trip.places
-   * @param index current index of trip.places
+   * Intializes 2-D array with distances between every place.
+   * @param distTable 2-D distance array
+   * @param arraySize int size of trip.places
    */
-  private void checkMin(double[] min, int[] indexOfMin, double dist, int index){
-    if(places.get(index)!=null){
-      if(dist < min[0]){
-        min[0] = dist;
-        indexOfMin[0] = index;
+  public void setDistTable(int[][] distTable, int arraySize){
+    for(int i=0; i<arraySize; ++i){
+      for(int j=0; j<arraySize; ++j){
+        if(i!=j&&distTable[i][j]==0){
+          distTable[i][j] = (int)places.get(i).distanceTo(places.get(j));
+          distTable[j][i] = distTable [i][j];
+        }
       }
     }
+  }
+
+  /**
+   * This will check every possible starting point to find optimal trip.
+   * Calls actual nearest neighbor algorithm.
+   * @param distTable 2-D int array of distances
+   * @param optimalPath int array containing best choice for opt trip
+   * @param arraySize int size of trip.places
+   */
+  public void getBestPath(int[][] distTable, int[] optimalPath, int arraySize){
+    BitSet explored = new BitSet(arraySize);
+    int[] currentPath = new int[arraySize];
+    int currentMinDist = Integer.MAX_VALUE;
+    for(int i=0; i<arraySize; ++i){
+      currentPath[0]=i;
+      explored.set(i);
+      currentMinDist = getNearest(explored, currentPath, optimalPath, currentMinDist, distTable);
+      explored.clear();
+    }
+  }
+
+  /**
+   * Actual nearest neighbor algorithm.
+   * Find nearest place and adds it to array.
+   * @param explored array of boolean values to determine if place already used
+   * @param currPath int array containing choices for current nearest neighbor
+   * @param optPath int array containing choice for best nearest neighbor so far
+   * @param minDist value of cumulative distance for best nearest neighbor so far
+   * @param distT 2-D int array of distances
+   * @return returns lowest min between current min or overall min
+   */
+  public int getNearest(BitSet explored, int[] currPath, int[] optPath, int minDist, int[][] distT){
+    int cumulativeDist = 0;
+    int min = 0;
+    for(int i = 0; i<currPath.length-1; ++i){
+      min = getMin(currPath[i], distT, explored);
+      cumulativeDist+=distT[currPath[i]][min];
+      currPath[i+1]=min;
+    }
+    if(cumulativeDist<minDist){
+      for(int i = 0; i<optPath.length; ++i) {
+        optPath[i] = currPath[i];
+      }
+      return cumulativeDist;
+    }
+    else{
+      return minDist;
+    }
+  }
+
+  /**
+   * Finds the lowest distance between 2 places and returns index of nearest neighbor.
+   * @param index int index for the place to find it's neighbor
+   * @param distTable 2-D int array of distances
+   * @param explored array of boolean values to determine if place already used
+   * @return int of index of closest neighbor
+   */
+  public int getMin(int index, int[][] distTable, BitSet explored){
+    int min = Integer.MAX_VALUE;
+    int indexOfMin = 0;
+    for(int i = 0; i<places.size(); ++i){
+      if(!explored.get(i)){
+        if(min > distTable[index][i]){
+          min = distTable[index][i];
+          indexOfMin = i;
+        }
+      }
+    }
+    explored.set(indexOfMin);
+    return indexOfMin;
   }
 
   @Override

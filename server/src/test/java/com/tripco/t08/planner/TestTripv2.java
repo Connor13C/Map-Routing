@@ -4,12 +4,15 @@ package com.tripco.t08.planner;
 import com.tripco.t08.trip.Tripv2;
 import com.tripco.t08.util.CoordinateParser;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.BitSet;
 
 import static org.junit.Assert.*;
 
@@ -66,8 +69,81 @@ public class TestTripv2 {
     trip.places.add(coordinate3);
     trip.optimize(1);
     assertTrue(trip.places.get(0) == coordinate1);
-    assertTrue(trip.places.get(1) == coordinate2);
-    assertTrue(trip.places.get(2) == coordinate3);
+    assertTrue(trip.places.get(1) == coordinate3);
+    assertTrue(trip.places.get(2) == coordinate2);
+  }
+
+  @Test
+  public void testSetDistanceTable(){
+    Place coordinate1 = place("1.0","0.0");
+    Place coordinate2 = place("2.0","0.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    int[][] distTable = new int[trip.places.size()][trip.places.size()];
+    trip.setDistTable(distTable, trip.places.size());
+    assertEquals(0, distTable[0][0]);
+    assertEquals(69, distTable[0][1]);
+    assertEquals(69, distTable[1][0]);
+    assertEquals(0, distTable[1][1]);
+  }
+
+  @Test
+  public void testGetBestPath(){
+    Place coordinate1 = place("0.0","0.0");
+    Place coordinate2 = place("1.0","4.0");
+    Place coordinate3 = place("1.0","2.0");
+    Place coordinate4 = place("3.0","3.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    trip.places.add(coordinate3);
+    trip.places.add(coordinate4);
+    int arraySize = trip.places.size();
+    int[] optimalPath = new int[arraySize];
+    int[][] distTable = new int[arraySize][arraySize];
+    trip.setDistTable(distTable, arraySize);
+    trip.getBestPath(distTable, optimalPath, arraySize);
+    assertEquals(0, optimalPath[0]);
+    assertEquals(2, optimalPath[1]);
+    assertEquals(1, optimalPath[2]);
+    assertEquals(3, optimalPath[3]);
+  }
+
+  @Test
+  public void testGetNearest(){
+    Place coordinate1 = place("0.0","0.0");
+    Place coordinate2 = place("3.0","0.0");
+    Place coordinate3 = place("1.0","0.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    trip.places.add(coordinate3);
+    int[][] distTable = new int[trip.places.size()][trip.places.size()];
+    trip.setDistTable(distTable, trip.places.size());
+    BitSet explored = new BitSet(trip.places.size());
+    int[] currentPath = new int[trip.places.size()];
+    int[] optimalPath = new int[trip.places.size()];
+    int currentMinDist = 4000;
+    explored.set(0);
+    assertEquals(207,trip.getNearest(explored, currentPath, optimalPath ,currentMinDist, distTable));
+    int[] check = {0,2,1};
+    assertTrue(check[0]==optimalPath[0]);
+    assertTrue(check[1]==optimalPath[1]);
+    assertTrue(check[2]==optimalPath[2]);
+  }
+
+  @Test
+  public void testGetMin(){
+    Place coordinate1 = place("40.0","0.0");
+    Place coordinate2 = place("100.0","0.0");
+    Place coordinate3 = place("220.0","0.0");
+    trip.places.add(coordinate1);
+    trip.places.add(coordinate2);
+    trip.places.add(coordinate3);
+    int[][] distTable = new int[trip.places.size()][trip.places.size()];
+    trip.setDistTable(distTable, trip.places.size());
+    BitSet explored = new BitSet(trip.places.size());
+    explored.set(0);
+    assertEquals(1,trip.getMin(0, distTable, explored));
+    assertEquals(2,trip.getMin(0, distTable, explored));
   }
 /*
   @Test
@@ -86,6 +162,6 @@ public class TestTripv2 {
   }
 */
   private static Place place(String lat, String longitude) {
-    return new Place("t", "test place", CoordinateParser.parse(lat), CoordinateParser.parse(longitude));
+    return new Place("t", "test place", CoordinateParser.parse(lat), CoordinateParser.parse(longitude), "denver");
   }
 }
