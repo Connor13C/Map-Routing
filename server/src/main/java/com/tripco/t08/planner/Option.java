@@ -8,5 +8,6 @@ public class Option {
 
   public String distance;
   public Double optimization = 0.0;
+  public String map;
 
 }

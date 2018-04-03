@@ -162,6 +162,6 @@ public class TestTripv2 {
   }
 */
   private static Place place(String lat, String longitude) {
-    return new Place("t", "test place", CoordinateParser.parse(lat), CoordinateParser.parse(longitude));
+    return new Place("t", "test place", CoordinateParser.parse(lat), CoordinateParser.parse(longitude), "denver");
   }
 }
