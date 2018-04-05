@@ -14,7 +14,7 @@ class Itinerary extends Component {
 
       //uploading each destination name to the itinerary
       let dests = places.slice(0);
-      dests = dests.map((item) => <td>{item.name}</td>);
+      dests = dests.map((item) => <td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}><b>{item.name}</b></td>);
       dests.push(dests[0]);
       console.log(dests);
 
@@ -24,12 +24,12 @@ class Itinerary extends Component {
       let initial = 0;
       let cumulative = [];
       if(this.props.trip.distances.length > 0){
-          cumulative = [<td>{0}</td>];
-          dists = [<td>{0}</td>];
+          cumulative = [<td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{0}</td>];
+          dists = [<td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{0}</td>];
       }
       for (let i = 0; i < this.props.trip.distances.length; i++){
-          dists.push(<td>{this.props.trip.distances[i]}</td>);
-          cumulative.push(<td>{initial+=this.props.trip.distances[i]}</td>);
+          dists.push(<td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{this.props.trip.distances[i]}</td>);
+          cumulative.push(<td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{initial+=this.props.trip.distances[i]}</td>);
           distance += this.props.trip.distances[i];
 
       }
@@ -42,18 +42,18 @@ class Itinerary extends Component {
     return(
         <div id="itinerary">
           <h4>Round trip distance of {table.distance} {table.units}. </h4>
-          <table className="table table-responsive table-bordered">
+          <table className="table table-responsive table-bordered" style={{border: "2px solid black"}}>
             <thead>
             <tr className="table-info">
-              <th className="align-middle" style={{backgroundColor:"#A9DFBF"}}>Destination</th>{table.dests}
+              <th className="align-middle" style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>Destination</th>{table.dests}
             </tr>
             </thead>
             <tbody>
             <tr>
-              <th className="table-info align-middle" style={{backgroundColor:"#A9DFBF"}}>{table.units}</th>{table.dists}
+              <th className="table-info align-middle" style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{table.units}</th>{table.dists}
             </tr>
             <tr>
-              <th className="table-info align-middle" style={{backgroundColor:"#A9DFBF"}}>Cumulative</th>{table.cumulative}
+              <th className="table-info align-middle" style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>Cumulative</th>{table.cumulative}
             </tr>
             </tbody>
           </table>
