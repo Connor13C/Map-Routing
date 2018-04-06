@@ -1,6 +1,6 @@
 package com.tripco.t08.planner;
 
-public class UserUnit {
+public class UserUnit implements DistanceUnit{
     private final double conversionFactor;
 
     UserUnit(double conversionFactor){
