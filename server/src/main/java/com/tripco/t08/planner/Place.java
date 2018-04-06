@@ -44,7 +44,7 @@ public class Place {
    * @return the distance between the places
    */
   public double distanceTo(Place other) {
-    return this.distanceTo(other, DistanceUnit.MILES);
+    return this.distanceTo(other, CommonUnit.MILES);
   }
 
   /**

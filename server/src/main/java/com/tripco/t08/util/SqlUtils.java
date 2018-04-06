@@ -26,6 +26,7 @@ public final class SqlUtils {
     private static final String CSU_DB = "jdbc:mysql://faure.cs.colostate.edu/cs314";
     private static final String LOCAL_DB = "jdbc:mysql://localhost/test";
     private static final List<DbSpecification> PLACES_TO_CHECK = Arrays.asList(
+            new DbSpecification(CSU_DB, "cs314-db", "eiK5liet1uej"),
             new DbSpecification(CSU_DB, "natemort", "831106760"),
             new DbSpecification(CSU_DB, System.getenv("CSU_NAME"), System.getenv("CSU_ID")),
             new DbSpecification(CSU_DB, System.getProperty("username"),
