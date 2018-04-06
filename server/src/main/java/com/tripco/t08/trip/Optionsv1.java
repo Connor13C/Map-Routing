@@ -9,6 +9,6 @@ public class Optionsv1 implements Options {
 
     @Override
     public DistanceUnit getDistanceUnit() {
-        return CommonUnit.getCommonUnit(distance);
+        return CommonUnit.getDistanceUnit(distance);
     }
 }

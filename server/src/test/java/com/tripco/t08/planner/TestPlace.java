@@ -27,37 +27,37 @@ public class TestPlace {
         public void testCorrectDistanceMi() {
             Place coordinate1 = place("40.445","-79.982");
             Place coordinate2 = place("40.445","-78.982");
-            assertEquals( 53, coordinate1.distanceTo(coordinate2,DistanceUnit.MILES), 0.001);
+            assertEquals( 53, coordinate1.distanceTo(coordinate2,CommonUnit.MILES), 0.001);
         }
         @Test
         public void testCorrectDistanceKm() {
             Place coordinate1 = place("0.0","130.0");
             Place coordinate2 = place("0.0","131.0");
-            assertEquals( 111, coordinate1.distanceTo(coordinate2,DistanceUnit.KILOMETERS), 0.001);
+            assertEquals( 111, coordinate1.distanceTo(coordinate2,CommonUnit.KILOMETERS), 0.001);
         }
         @Test
         public void testDirectionsOne() {
             Place coordinate1 = place("1.0","-1.0");
             Place coordinate2 = place("1.0","1.0");
-            assertEquals( 138, coordinate1.distanceTo(coordinate2,DistanceUnit.MILES), 0.001);
+            assertEquals( 138, coordinate1.distanceTo(coordinate2,CommonUnit.MILES), 0.001);
         }
         @Test
         public void testDirectionsTwo() {
             Place coordinate1 = place("-1.0","1.0");
             Place coordinate2 = place("1.0","1.0");
-            assertEquals( 138, coordinate1.distanceTo(coordinate2,DistanceUnit.MILES), 0.001);
+            assertEquals( 138, coordinate1.distanceTo(coordinate2,CommonUnit.MILES), 0.001);
         }
         @Test
         public void testDirectionsThree() {
             Place coordinate1 = place("-1.0","-1.0");
             Place coordinate2 = place("1.0","1.0");
-            assertEquals( 195, coordinate1.distanceTo(coordinate2,DistanceUnit.MILES), 0.001);
+            assertEquals( 195, coordinate1.distanceTo(coordinate2,CommonUnit.MILES), 0.001);
         }
         @Test
         public void testDirectionsFour() {
             Place coordinate1 = place("-1.0","-1.0");
             Place coordinate2 = place("-2.0","-2.0");
-            assertEquals( 98, coordinate1.distanceTo(coordinate2,DistanceUnit.MILES), 0.001);
+            assertEquals( 98, coordinate1.distanceTo(coordinate2,CommonUnit.MILES), 0.001);
         }
         
         private static Place place(String lat, String longitude) {

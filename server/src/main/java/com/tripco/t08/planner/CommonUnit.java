@@ -16,7 +16,7 @@ public enum CommonUnit implements DistanceUnit{
         return conversionFactor;
     }
 
-    public static CommonUnit getCommonUnit(String dist){
+    public static CommonUnit getDistanceUnit(String dist){
         if(dist.equals("miles")){
             return CommonUnit.MILES;
         }
