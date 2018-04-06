@@ -1,5 +1,6 @@
 package com.tripco.t08.trip;
 
+import com.tripco.t08.planner.CommonUnit;
 import com.tripco.t08.planner.DistanceUnit;
 
 public class Optionsv1 implements Options {
@@ -8,6 +9,6 @@ public class Optionsv1 implements Options {
 
     @Override
     public DistanceUnit getDistanceUnit() {
-        return DistanceUnit.getDistanceUnit(distance);
+        return CommonUnit.getCommonUnit(distance);
     }
 }
