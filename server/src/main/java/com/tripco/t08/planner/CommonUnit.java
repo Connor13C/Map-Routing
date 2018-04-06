@@ -16,6 +16,11 @@ public enum CommonUnit implements DistanceUnit{
         return conversionFactor;
     }
 
+    /**
+     * Returns the radius of the earth in miles, kilometers, or nautical miles.
+     * @param dist distance type
+     * @return the radius of earth in specified type
+     */
     public static CommonUnit getDistanceUnit(String dist){
         if(dist.equals("miles")){
             return CommonUnit.MILES;
