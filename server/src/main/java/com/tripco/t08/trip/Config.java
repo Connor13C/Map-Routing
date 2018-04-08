@@ -57,7 +57,7 @@ public class Config {
      *
      * @param rsQuery1 The result from the SQL query
      * @param filter The array of Filter Objects
-     * @throws SQLException An exception that provides information on a database access error or other errors.
+     * @throws SQLException  provides information on a database access error or other errors.
      */
     private static void storeResult(ResultSet rsQuery1, Filter filter) throws SQLException {
 

@@ -23,7 +23,7 @@ const getItemStyle = (isDragging, draggableStyle) => {
         margin: `0 0 ${grid}px 0`,
 
         // change background colour if dragging
-        background: isDragging ? 'lightgreen' : 'white',
+        background: isDragging ? '#C8B019' : 'white',
 
     };
     for (let key in draggableStyle) {

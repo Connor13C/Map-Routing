@@ -16,6 +16,7 @@ public class Place {
   private final String name;
   private final double latitude;
   private final double longitude;
+  private final String municipality;
 
   /**
    * Constructs a new place with the specified fields.
@@ -24,14 +25,16 @@ public class Place {
    * @param name name of the place
    * @param latitude latitude of the place[-180,180]
    * @param longitude longitude of the place[-180,180]
+   * @param municipality name of municipality
    * @throws IllegalArgumentException if any of the parameters are null
    */
-  public Place(String id, String name, double latitude, double longitude)
+  public Place(String id, String name, double latitude, double longitude, String municipality)
           throws IllegalArgumentException {
     this.id = checkNull(id, "Id must be specified");
     this.name = checkNull(name, "Name must be specified");
     this.latitude = latitude;
     this.longitude = longitude;
+    this.municipality = municipality;
   }
 
   /**
@@ -41,7 +44,7 @@ public class Place {
    * @return the distance between the places
    */
   public double distanceTo(Place other) {
-    return this.distanceTo(other, DistanceUnit.MILES);
+    return this.distanceTo(other, CommonUnit.MILES);
   }
 
   /**
@@ -87,6 +90,7 @@ public class Place {
     return longitude;
   }
 
+  public String getMunicipality() { return municipality; }
 
   private static <T> T checkNull(T value, String message) {
     if (value == null) {
@@ -104,6 +108,7 @@ public class Place {
       // lat and long are strings, even if they're numeric values
       jsonWriter.name("latitude").value(String.valueOf(place.getLatitude()));
       jsonWriter.name("longitude").value(String.valueOf(place.getLongitude()));
+      jsonWriter.name("municipality").value(place.getMunicipality());
       jsonWriter.endObject();
     }
 
@@ -113,6 +118,7 @@ public class Place {
       String name = null;
       Double latitude = null;
       Double longitude = null;
+      String municipality = null;
       jsonReader.beginObject();
       while (jsonReader.hasNext()) {
         switch (jsonReader.nextName()) {
@@ -128,11 +134,14 @@ public class Place {
           case "longitude":
             longitude = CoordinateParser.parse(jsonReader.nextString());
             break;
+          case "municipality":
+            municipality = jsonReader.nextString();
+            break;
           default: break;
         }
       }
       jsonReader.endObject();
-      return new Place(id, name, latitude, longitude);
+      return new Place(id, name, latitude, longitude, municipality);
     }
 
   }
