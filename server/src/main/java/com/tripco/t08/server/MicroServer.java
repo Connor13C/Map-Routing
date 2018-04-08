@@ -11,12 +11,11 @@ import com.tripco.t08.planner.Query;
 import com.tripco.t08.trip.Config;
 import com.tripco.t08.trip.Trip;
 
+import static com.tripco.t08.trip.Trip.GSON;
+
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
-
-import static com.tripco.t08.trip.Trip.GSON;
 import spark.Response;
-
 
 import static spark.Spark.*;
 
