@@ -14,7 +14,8 @@ public class Config {
             new Filter("continent", "SELECT DISTINCT NAME FROM continents ORDER BY NAME", "name")};
     public String map = "[\"svg\", \"kml\"]";
     public int optimization = 2;
-    public String optimizations = "[{ \"label\" : \"1opt\", \"description\" : \"1-opt ...\" }, {\"label\" : \"2opt\", \"description\" : \"2-opt ...\" }]";
+    public String optimizations = "[{ \"label\" : \"1opt\", \"description\" : \"1-opt ...\" }, " +
+            "{\"label\" : \"2opt\", \"description\" : \"2-opt ...\" }]";
     public String units = "[\"kilometers\",\"miles\",\"nautical miles\",\"user defined\"]";
 
     /**
@@ -55,8 +56,8 @@ public class Config {
      *takes the result from queryFilters and stores them in the Filter object Arraylist.
      *
      * @param rsQuery1 The result from the SQL query
-     * @param filter
-     * @throws SQLException
+     * @param filter The array of Filter Objects
+     * @throws SQLException An exception that provides information on a database access error or other errors.
      */
     private static void storeResult(ResultSet rsQuery1, Filter filter) throws SQLException {
 
@@ -68,7 +69,7 @@ public class Config {
 
     /**
      * Printing the result from each of the queries.
-     * @param args
+     * @param args command-line arguments.
      */
     public static void main(String[] args) {
         Config config = new Config();

@@ -42,6 +42,8 @@ public class MicroServer {
 
     // serve the static files: index.html and bundle.js
     staticFileLocation(STATIC_FILES);
+
+
     get("/", (req, res) -> {res.redirect("index.html"); return null;});
 
     // register all micro-services and the function that services them.
