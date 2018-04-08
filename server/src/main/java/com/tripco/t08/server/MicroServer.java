@@ -13,9 +13,11 @@ import com.tripco.t08.trip.Trip;
 
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
-import spark.Response;
 
 import static com.tripco.t08.trip.Trip.GSON;
+import spark.Response;
+
+
 import static spark.Spark.*;
 
 
