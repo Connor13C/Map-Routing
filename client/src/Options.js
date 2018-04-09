@@ -118,12 +118,6 @@ class Options extends Component{
   }
 
 
-  componentDidMount(){
-    fetch('http://' + location.host + '/config')
-        .then((res) => res.json())
-        .then((config) => this.setState({optimization: config["optimization"]}));
-
-  }
 
     render() {
         return(
