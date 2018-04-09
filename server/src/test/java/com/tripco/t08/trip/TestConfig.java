@@ -17,7 +17,7 @@ public class TestConfig {
     public void testQueryAttributes1(){
         if(!System.getProperty("user.name").equals("travis")){
             String filter[] = new String[]{"heliport", "small_airport", "seaplane_base", "closed", "balloonport", "medium_airport", "large_airport"};
-            //assertArrayEquals(filter, Config.filters[0].values.toArray());
+            assertArrayEquals(filter, Config.filters[0].values.toArray());
         }
 
     }
@@ -33,7 +33,7 @@ public class TestConfig {
     public void testQueryAttributes3(){
         if(!System.getProperty("user.name").equals("travis")){
             String filter[] = new String[]{"Africa", "Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"};
-            //assertArrayEquals(filter, Config.filters[2].values.toArray());
+            assertArrayEquals(filter, Config.filters[2].values.toArray());
         }
 
     }
