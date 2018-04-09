@@ -4,6 +4,7 @@ import defaults from 'json-schema-defaults';
 import DestinationList from "./DestinationList";
 import Options from "./Options";
 
+
 let optionsSchema = {
     id: "/options",
     type: "object",
@@ -107,7 +108,7 @@ function deepCopy(from, to) {
 
 
 /* Destinations reside in the parent object so they may be shared
- * with the Trip object.
+ * with the trip object.
  * Renders the current destination list.
  * Loads destinations from files.
  * Finds destinations in a database.

@@ -8,7 +8,10 @@ import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.Query;
 
+import com.tripco.t08.trip.Config;
 import com.tripco.t08.trip.Trip;
+
+import static com.tripco.t08.trip.Trip.GSON;
 
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
@@ -40,6 +43,8 @@ public class MicroServer {
 
     // serve the static files: index.html and bundle.js
     staticFileLocation(STATIC_FILES);
+
+
     get("/", (req, res) -> {res.redirect("index.html"); return null;});
 
     // register all micro-services and the function that services them.
@@ -148,7 +153,8 @@ public class MicroServer {
 
   private String config(Request request, Response response) {
     response.type("application/json");
-
-    return "{\"type\": \"config\", \"version\": 2, \"optimization\": 1 }";
+    Config config = new Config();
+    config.queryAttributes();
+    return GSON.toJson(config);
   }
 }

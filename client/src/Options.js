@@ -4,7 +4,7 @@ import './Options.css';
 
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
- * The options reside in the parent object so they may be shared with the Trip object.
+ * The options reside in the parent object so they may be shared with the trip object.
  * Allows the user to set the options used by the application via a set of buttons.
  */
 class Options extends Component{
@@ -22,7 +22,8 @@ class Options extends Component{
     this.optimizationValueName = this.optimizationValueName.bind(this);
     this.renderSlider = this.renderSlider.bind(this);
     this.sliderSteps = this.sliderSteps.bind(this);
-    this.state = {collapse: false,
+    this.state = {
+        collapse: false,
         optimization: 0
     };
   }
@@ -56,7 +57,7 @@ class Options extends Component{
         this.changeOption({distance: "nautical miles"});
 
     }
-  
+
   getMilesClassName(){
     if(this.props.options.distance === "miles"){
       return "btn btn-outline-dark active";
@@ -74,7 +75,7 @@ class Options extends Component{
           return "btn btn-outline-dark ";
       }
   }
-  
+
   getNautMilesClassName(){
         if(this.props.options.distance === "nautical miles"){
             return "btn btn-outline-dark active";

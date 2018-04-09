@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 
 class Itinerary extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.createTable = this.createTable.bind(this);
-  }
+        this.createTable = this.createTable.bind(this);
+    }
 
-  createTable () {
+    createTable () {
 
-      let units = this.props.trip.options.distance;
-      let places = this.props.trip.places;
+        let units = this.props.trip.options.distance;
+        let places = this.props.trip.places;
 
       //uploading each destination name to the itinerary
       let dests = places.slice(0);
@@ -31,11 +31,10 @@ class Itinerary extends Component {
           dists.push(<td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{this.props.trip.distances[i]}</td>);
           cumulative.push(<td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}>{initial+=this.props.trip.distances[i]}</td>);
           distance += this.props.trip.distances[i];
+        }
 
-      }
-
-    return {distance, units, dests, dists, cumulative};
-  }
+        return {distance, units, dests, dists, cumulative};
+    }
 
   render() {
     let table = this.createTable();

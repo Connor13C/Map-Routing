@@ -91,6 +91,7 @@ export default class DestinationList extends Component {
 
     removeDestination(place){
         let places = this.props.trip.places;
+        let distances = this.props.trip.distances;
         let index;
         for (let i = 0; i < places.length; i++){
             if(place == places[i].name){
@@ -98,11 +99,14 @@ export default class DestinationList extends Component {
             }
         }
         places.splice(index, 1);
-
+        distances.splice(index, 1);
         this.props.updateTrip(Object.assign(
             {},
             this.props.trip,
-            {places: places}
+            {
+                places: places,
+                distances:distances
+            }
             )
         );
 
