@@ -23,6 +23,11 @@ let optionsSchema = {
                     type: "number"
                 }
             ]
+        },
+        "map":{
+            type: "string",
+            format: "svg|kml",
+            "default": "kml"
         }
     }
 };
