@@ -24,6 +24,7 @@ export default class FilteredSearch extends Component {
         });
     }
 
+
     secondToggle(){
         this.setState({
             dropdown2Open: !this.state.dropdown2Open
@@ -44,6 +45,7 @@ export default class FilteredSearch extends Component {
            if(this.props.filters[i].attribute === value){
                console.log(this.props.filters[i].values);
                {this.selectValues(i)};
+
            }
        }
     }
@@ -60,7 +62,6 @@ export default class FilteredSearch extends Component {
                     </DropdownMenu>
                 </Dropdown>
         });
-
     }
 
     filterData(){
@@ -70,6 +71,7 @@ export default class FilteredSearch extends Component {
     render() {
         return (
             <div>
+
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
                     <DropdownToggle caret>
                         Filters
@@ -83,6 +85,7 @@ export default class FilteredSearch extends Component {
                 <br/>
             {this.state.dropdownValues}
             </div>
+
         );
     }
 }

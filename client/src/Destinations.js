@@ -116,6 +116,7 @@ function deepCopy(from, to) {
  * Displays the current number of destinations
  */
 class Destinations extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -145,6 +146,7 @@ class Destinations extends Component {
     checkOptions(json){
         if(json.options.optimization === undefined || json.options.optimization === "none"){
             json.options.optimization = 0.0;
+
         }
     }
 
@@ -189,8 +191,10 @@ class Destinations extends Component {
         } else {
             infoMessage = "";
         }
+
         return infoMessage;
-    }
+}
+
 
     componentDidMount(){
         fetch('http://' + location.host + '/config')

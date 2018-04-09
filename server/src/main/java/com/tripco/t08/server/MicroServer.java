@@ -18,6 +18,8 @@ import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
 
+import java.lang.reflect.Modifier;
+
 import static spark.Spark.*;
 
 
