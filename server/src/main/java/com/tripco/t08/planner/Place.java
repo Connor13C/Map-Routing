@@ -6,6 +6,8 @@ import com.google.gson.stream.JsonWriter;
 import com.tripco.t08.util.CoordinateParser;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Describes the places to visit in a trip in TFFI format.
@@ -16,8 +18,28 @@ public class Place {
   private final String name;
   private final double latitude;
   private final double longitude;
-  private final String municipality;
+  private final Map<String, String> extra;
 
+  /**
+   * Constructs a new Place with only latitude and longitude.
+   *
+   * @param latitude  the latitude
+   * @param longitude the longitude
+   */
+  public Place(double latitude, double longitude) {
+    this("t", "test", latitude, longitude);
+  }
+
+  /**
+   * Constructs a new Place with no extra metadata.
+   * @param id id of the place
+   * @param name name of the place
+   * @param latitude latitude of the place
+   * @param longitude longitude of the place
+   */
+  public Place(String id, String name, double latitude, double longitude) {
+    this(id, name, latitude, longitude, new HashMap<>());
+  }
   /**
    * Constructs a new place with the specified fields.
    *
@@ -25,16 +47,15 @@ public class Place {
    * @param name name of the place
    * @param latitude latitude of the place[-180,180]
    * @param longitude longitude of the place[-180,180]
-   * @param municipality name of municipality
    * @throws IllegalArgumentException if any of the parameters are null
    */
-  public Place(String id, String name, double latitude, double longitude, String municipality)
+  public Place(String id, String name, double latitude, double longitude, Map<String, String> extra)
           throws IllegalArgumentException {
     this.id = checkNull(id, "Id must be specified");
     this.name = checkNull(name, "Name must be specified");
     this.latitude = latitude;
     this.longitude = longitude;
-    this.municipality = municipality;
+    this.extra = extra;
   }
 
   /**
@@ -90,8 +111,6 @@ public class Place {
     return longitude;
   }
 
-  public String getMunicipality() { return municipality; }
-
   private static <T> T checkNull(T value, String message) {
     if (value == null) {
       throw new IllegalArgumentException(message);
@@ -99,7 +118,18 @@ public class Place {
     return value;
   }
 
-  public static class Serializer extends TypeAdapter<Place> {
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", extra=" + extra +
+                '}';
+    }
+
+    public static class Serializer extends TypeAdapter<Place> {
     @Override
     public void write(JsonWriter jsonWriter, Place place) throws IOException {
       jsonWriter.beginObject();
@@ -108,40 +138,23 @@ public class Place {
       // lat and long are strings, even if they're numeric values
       jsonWriter.name("latitude").value(String.valueOf(place.getLatitude()));
       jsonWriter.name("longitude").value(String.valueOf(place.getLongitude()));
-      jsonWriter.name("municipality").value(place.getMunicipality());
+      for (Map.Entry<String,String> entry : place.extra.entrySet()) {
+        jsonWriter.name(entry.getKey()).value(entry.getValue());
+      }
       jsonWriter.endObject();
     }
 
     @Override
     public Place read(JsonReader jsonReader) throws IOException {
-      String id = null;
-      String name = null;
-      Double latitude = null;
-      Double longitude = null;
-      String municipality = null;
+      Map<String, String> data = new HashMap<>();
       jsonReader.beginObject();
       while (jsonReader.hasNext()) {
-        switch (jsonReader.nextName()) {
-          case "id":
-            id = jsonReader.nextString();
-            break;
-          case "name":
-            name = jsonReader.nextString();
-            break;
-          case "latitude":
-            latitude = CoordinateParser.parse(jsonReader.nextString());
-            break;
-          case "longitude":
-            longitude = CoordinateParser.parse(jsonReader.nextString());
-            break;
-          case "municipality":
-            municipality = jsonReader.nextString();
-            break;
-          default: break;
-        }
+        data.put(jsonReader.nextName(), jsonReader.nextString());
       }
       jsonReader.endObject();
-      return new Place(id, name, latitude, longitude, municipality);
+      double latitude = CoordinateParser.parse(data.remove("latitude"));
+      double longitude = CoordinateParser.parse(data.remove("longitude"));
+      return new Place(data.remove("id"), data.remove("name"), latitude, longitude, data);
     }
 
   }
