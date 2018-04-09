@@ -17,6 +17,8 @@ import org.jdbi.v3.core.Jdbi;
 import spark.Request;
 import spark.Response;
 
+import java.lang.reflect.Modifier;
+
 import static spark.Spark.*;
 
 
@@ -153,6 +155,10 @@ public class MicroServer {
 
   private String config(Request request, Response response) {
     response.type("application/json");
+    Gson GSON = new GsonBuilder()
+            //Allows static fields to be serialized
+            .excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT)
+            .create();
     Config config = new Config();
     config.queryAttributes();
     return GSON.toJson(config);

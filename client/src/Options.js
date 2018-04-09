@@ -24,7 +24,6 @@ class Options extends Component{
     this.sliderSteps = this.sliderSteps.bind(this);
     this.state = {
         collapse: false,
-        optimization: 0
     };
   }
 
@@ -110,19 +109,11 @@ class Options extends Component{
   }
 
   sliderSteps(){
-    let opt = this.state.optimization;
+    let opt = this.props.optimization;
     let step = 1 / opt;
     step.toFixed(2);
     let returnValue = "" + step;
     return returnValue;
-  }
-
-
-  componentDidMount(){
-    fetch('http://' + location.host + '/config')
-        .then((res) => res.json())
-        .then((config) => this.setState({optimization: config["optimization"]}));
-
   }
 
     render() {

@@ -3,6 +3,7 @@ import {Validator} from 'jsonschema';
 import defaults from 'json-schema-defaults';
 import DestinationList from "./DestinationList";
 import Options from "./Options";
+import FilteredSearch from "./FilteredSearch";
 
 
 let optionsSchema = {
@@ -118,7 +119,9 @@ class Destinations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        errorMessage: null
+        errorMessage: null,
+        optimization: 0,
+        filters: [],
     };
     this.loadTFFI = this.loadTFFI.bind(this);
     this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
@@ -189,6 +192,15 @@ class Destinations extends Component {
       return infoMessage;
   }
 
+    componentDidMount(){
+        fetch('http://' + location.host + '/config')
+            .then((res) => res.json())
+            .then((config) => this.setState({
+                optimization: config["optimization"],
+                filters: config["filters"]}));
+
+    }
+
   render() {
     return (
         <div id="destinations" className="card">
@@ -201,11 +213,12 @@ class Destinations extends Component {
                 <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
                     Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                 </label>
+                <FilteredSearch filters={this.state.filters} updateTrip={this.props.updateTrip}/>
             </div>
               {this.getInfoMessage()}
               <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
               <br/>
-              <Options options={this.props.trip.options} updateOptions={this.props.updateOptions}/>
+              <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions}/>
           </div>
         </div>
     )
