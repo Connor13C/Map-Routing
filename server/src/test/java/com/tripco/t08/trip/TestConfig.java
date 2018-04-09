@@ -10,7 +10,9 @@ public class TestConfig {
 
     @BeforeClass
     public static void createConfig(){
-        Config.queryAttributes();
+        if (!System.getProperty("user.name").equals("travis")) {
+            Config.queryAttributes();
+        }
     }
 
     @Test

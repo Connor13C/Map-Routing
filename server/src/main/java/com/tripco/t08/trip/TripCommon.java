@@ -5,12 +5,13 @@ import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.SvgBuilder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TripCommon implements Trip {
     // The variables in this class should reflect TFFI.
     public String type = "trip";
     public String title;
-    public ArrayList<Place> places;
+    public List<Place> places;
     public ArrayList<Integer> distances;
     public String map;
 
