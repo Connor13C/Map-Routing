@@ -56,6 +56,7 @@ public final class SqlUtils {
         Jdbi jdbi = findJdbi();
         // Maybe we're running a proxy and didn't configure it right
         if (jdbi == null) {
+            System.out.println("Configuring a socks proxy and trying again.");
             System.setProperty("socksProxyHost", "localhost");
             System.setProperty("socksProxyPort", "9008");
             jdbi = findJdbi();
@@ -75,10 +76,13 @@ public final class SqlUtils {
     }
 
     private static boolean canConnect(String url, String username, String password) {
+        System.out.print("Trying to connect to " + url + " with "+username+":"+password+"...");
         try (Connection c = DriverManager.getConnection(url, username, password)) {
+            System.out.println(" Success.");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(" Failed.");
+            //e.printStackTrace();
             return false;
         }
     }

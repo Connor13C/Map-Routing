@@ -1,5 +1,6 @@
 package com.tripco.t08.optimize;
 
+import com.tripco.t08.planner.CommonUnit;
 import org.junit.Test;
 
 public class NearestNeighborTest extends AbstractOptimizationTest {
@@ -20,7 +21,12 @@ public class NearestNeighborTest extends AbstractOptimizationTest {
 
     @Test
     public void testWorldTour() {
-        testFile("world_tour_4_6_2018.json", 137417);
+        testFile("world_tour_4_6_2018.json", 137417, CommonUnit.KILOMETERS);
+    }
+
+    @Test
+    public void testSprint4Deploy1() {
+        testFile("sp4deploy1.json", 2399, CommonUnit.MILES);
     }
 
     @Test
@@ -28,4 +34,8 @@ public class NearestNeighborTest extends AbstractOptimizationTest {
         test(line(1, 6, 5, 12), line(1, 5, 6, 12));
     }
 
+    @Test
+    public void testConsidersLast() {
+        test(line(12, 6, 5, 1), line(1, 5, 6, 12));
+    }
 }

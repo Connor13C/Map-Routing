@@ -1,5 +1,6 @@
 package com.tripco.t08.optimize;
 
+import com.tripco.t08.planner.CommonUnit;
 import com.tripco.t08.planner.Place;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,8 +19,14 @@ public class TwoOptTest extends AbstractOptimizationTest {
 
     @Test
     public void testWorldTour() {
-        testFile("world_tour_4_6_2018.json", 127622);
+        testFile("world_tour_4_6_2018.json", 127622, CommonUnit.KILOMETERS);
     }
+
+    @Test
+    public void testSprint4Deploy1() {
+        testFile("sp4deploy1.json", 2178, CommonUnit.MILES);
+    }
+
     @Test
     public void removeCross() {
         List<Place> places = list(

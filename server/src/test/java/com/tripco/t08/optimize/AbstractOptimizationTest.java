@@ -55,11 +55,12 @@ public abstract class AbstractOptimizationTest {
         );
     }
 
-    protected void testFile(String fileName, double expectedDistance) {
+    protected void testFile(String fileName, double expectedDistance, CommonUnit unit) {
         try (Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(fileName))) {
             Tripv2 obj = Trip.GSON.fromJson(reader, Tripv2.class);
             List<Place> optimized = this.optimization.optimize(obj.places);
-            Assert.assertEquals("Same result as Dave", expectedDistance, cumulative(optimized), 1);
+            System.out.println(optimized.stream().map(Place::getId).collect(Collectors.joining("\n")));
+            Assert.assertEquals("Same result as Dave", expectedDistance, cumulative(optimized, unit), 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,16 +70,20 @@ public abstract class AbstractOptimizationTest {
         Assert.assertThat("Failed to find ideal trip", optimization.optimize(input), new TripMatcher(expected));
     }
 
-    protected static double cumulative(List<Place> places) {
+    protected static double cumulative(List<Place> places, CommonUnit unit) {
         if (places.size() < 2) {
             return 0;
         }
         double dist = 0;
         for (int i = 0; i< places.size()-1; i++) {
-            dist += places.get(i).distanceTo(places.get(i+1), CommonUnit.KILOMETERS);
+            dist += places.get(i).distanceTo(places.get(i+1), unit);
         }
-        dist += places.get(0).distanceTo(places.get(places.size()-1), CommonUnit.KILOMETERS);
+        dist += places.get(0).distanceTo(places.get(places.size()-1), unit);
         return dist;
+    }
+
+    protected static double cumulative(List<Place> places) {
+        return cumulative(places, CommonUnit.KILOMETERS);
     }
 
 
