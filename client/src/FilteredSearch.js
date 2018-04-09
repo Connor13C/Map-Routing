@@ -43,7 +43,6 @@ export default class FilteredSearch extends Component {
            //console.log("Attribute: ");
            //console.log(this.props.filters[i].attribute);
            if(this.props.filters[i].attribute === value){
-               console.log(this.props.filters[i].values);
                {this.selectValues(i)};
 
            }
@@ -51,24 +50,31 @@ export default class FilteredSearch extends Component {
     }
 
     selectValues(index){
+    let Key = "attribute" + index;
         this.setState({
-            dropdownValues:
-                <Dropdown isOpen={this.state.dropdown2Open} toggle={this.secondToggle()}>
-                    <DropdownToggle caret>
-                        Select
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        {this.props.filters[index].values.map((item)=> <DropdownItem> item </DropdownItem>)}
-                    </DropdownMenu>
-                </Dropdown>
+            dropdownValues: this.props.filters[index].values.map((item, Key)=> <DropdownItem onClick={this.filterData} key={Key}> {item} </DropdownItem>)
         });
     }
 
     filterData(){
-
+        console.log("query has been selected");
     }
 
     render() {
+        let dropdown;
+        if(this.state.dropdownValues == null){
+            dropdown = null;
+        }
+        else {
+            dropdown = <Dropdown isOpen={this.state.dropdown2Open} toggle={this.secondToggle}>
+                <DropdownToggle caret>
+                    Select
+                </DropdownToggle>
+                <DropdownMenu>
+                    {this.state.dropdownValues}
+                </DropdownMenu>
+            </Dropdown>;
+        }
         return (
             <div>
 
@@ -82,8 +88,7 @@ export default class FilteredSearch extends Component {
                         <DropdownItem onClick={this.populateDropDown2} value={"continent"}>Continent</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <br/>
-            {this.state.dropdownValues}
+                {dropdown}
             </div>
 
         );
