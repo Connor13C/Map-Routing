@@ -59,7 +59,6 @@ public abstract class AbstractOptimizationTest {
         try (Reader reader = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(fileName))) {
             Tripv2 obj = Trip.GSON.fromJson(reader, Tripv2.class);
             List<Place> optimized = this.optimization.optimize(obj.places);
-            System.out.println(optimized.stream().map(Place::getId).collect(Collectors.joining("\n")));
             Assert.assertEquals("Same result as Dave", expectedDistance, cumulative(optimized, unit), 1);
         } catch (IOException e) {
             e.printStackTrace();
