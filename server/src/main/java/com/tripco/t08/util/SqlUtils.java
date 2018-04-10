@@ -34,7 +34,6 @@ public final class SqlUtils {
             new DbSpecification(LOCAL_DB, "travis", "")
     );
     private static Pattern DELIM = Pattern.compile("(;(\\r)?\\n)|(--\\n)");
-
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -44,22 +43,27 @@ public final class SqlUtils {
         // Fail after 1 seconds
         DriverManager.setLoginTimeout(1);
     }
+    private static Jdbi INSTANCE = findJdbi();
+
 
     private SqlUtils() {}
 
+    public static Jdbi getJdbi() {
+        return INSTANCE;
+    }
     /**
      * Gets a Jdbi instance based on the current environment.
      *
      * @return jdbi instance or null if a database can not be found
      */
-    public static Jdbi getJdbi() {
-        Jdbi jdbi = findJdbi();
+    private static Jdbi findJdbi() {
+        Jdbi jdbi = searchPlaces();
         // Maybe we're running a proxy and didn't configure it right
         if (jdbi == null) {
             System.out.println("Configuring a socks proxy and trying again.");
             System.setProperty("socksProxyHost", "localhost");
             System.setProperty("socksProxyPort", "9008");
-            jdbi = findJdbi();
+            jdbi = searchPlaces();
         }
         if (jdbi != null ) {
             jdbi.registerRowMapper(ConstructorMapper.factory(Airport.class));
@@ -67,7 +71,7 @@ public final class SqlUtils {
         return jdbi;
     }
 
-    private static Jdbi findJdbi() {
+    private static Jdbi searchPlaces() {
         return PLACES_TO_CHECK.stream()
                 .filter(DbSpecification::canConnect)
                 .findAny()

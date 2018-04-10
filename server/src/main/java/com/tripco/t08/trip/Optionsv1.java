@@ -11,4 +11,9 @@ public class Optionsv1 implements Options {
     public DistanceUnit getDistanceUnit() {
         return CommonUnit.getDistanceUnit(distance);
     }
+
+    @Override
+    public double getOptimization() {
+        return 0;
+    }
 }
