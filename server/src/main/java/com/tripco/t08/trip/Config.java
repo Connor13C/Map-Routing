@@ -1,9 +1,12 @@
 package com.tripco.t08.trip;
 
 
+import com.tripco.t08.util.SqlUtils;
+
 import java.sql.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Config {
 
@@ -23,7 +26,7 @@ public class Config {
      */
     public static void queryAttributes() {
         for (Filter filter: filters
-             ) {
+                ) {
             queryFilters(filter);
         }
     }
@@ -35,36 +38,11 @@ public class Config {
     private static void queryFilters(Filter filter){
         String queryFilter = filter.query;
 
-        String myUrl = "jdbc:mysql://faure.cs.colostate.edu/cs314";
+        List<String> values = SqlUtils.getJdbi().withHandle(handle ->
+                handle.createQuery(queryFilter).mapTo(String.class).list()
+        );
+        filter.values.addAll(values);
 
-
-        // connect to the database and query
-        try (Connection conn = DriverManager.getConnection(myUrl, "cs314-db", "eiK5liet1uej");
-             Statement stQuery = conn.createStatement();
-             ResultSet rsQuery = stQuery.executeQuery(queryFilter);
-
-        ) {
-
-            storeResult(rsQuery, filter);
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-
-    }
-
-    /**
-     *takes the result from queryFilters and stores them in the Filter object Arraylist.
-     *
-     * @param rsQuery1 The result from the SQL query
-     * @param filter The array of Filter Objects
-     * @throws SQLException  provides information on a database access error or other errors.
-     */
-    private static void storeResult(ResultSet rsQuery1, Filter filter) throws SQLException {
-
-        // iterate through query results and print out the airport codes
-        while (rsQuery1.next()) {
-            filter.values.add(rsQuery1.getString(filter.column));
-        }
     }
 
     /**
