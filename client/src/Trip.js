@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import MapContainer from './MapContainer';
+import Map from './Map';
 import Itinerary from './Itinerary';
 
 /* trip computes the map an intinerary based on a set of destinations and options.
  * The destinations and options reside in the parent object so they may be set by
  * the Destinations and Options classes.
- * The map and itinerary reside in this object so they can be passed to the MapContainer and Itinerary classes.
+ * The map and itinerary reside in this object so they can be passed to the GoogleMap and Itinerary classes.
  */
 class Trip extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ class Trip extends Component {
             </div>
             <p/>
               <h5>{this.props.trip.title}</h5>
-            <MapContainer trip={this.props.trip} />
+            <Map trip={this.props.trip} />
             <Itinerary trip={this.props.trip} />
           </div>
         </div>

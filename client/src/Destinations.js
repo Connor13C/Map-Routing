@@ -160,7 +160,7 @@ class Destinations extends Component {
 
     checkVersion(json){
         if(json.version === undefined){
-            json.version = 2;
+            json.version = 3;
         }
     }
 

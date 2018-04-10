@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {compose, withProps} from 'recompose'
 import {withScriptjs, withGoogleMap, GoogleMap, Polyline, Marker} from 'react-google-maps'
 
-/* MapContainer obtains and renders the map for the trip.
+/* GoogleMap obtains and renders the map for the trip.
  * Might be an SVG or KML contained in the server response.
  */
-class MapContainer extends Component {
+class GoogleMapElement extends Component {
   constructor(props){
     super(props);
     this.getCenter.bind(this);
@@ -47,40 +47,17 @@ class MapContainer extends Component {
         if(this.props.trip.distances.length === 0){
             return (<div></div>);
         }
-        console.log("this.props.trip.options.map: ", this.props.trip.options.map);
-        if(this.props.trip.options.map==="kml") {
-            return (
-                <GoogleMap
-                    defaultCenter={this.getCenter(places)}
-                    defaultZoom={3}
-                >
-                    <Polyline path={this.makePath(places)}
-                              options={{strokeColor: 'DeepSkyBlue'}}
-                    />
-                    {this.makeMarkers(places)}
-                </GoogleMap>
+        return (
+            <GoogleMap
+                defaultCenter={this.getCenter(places)}
+                defaultZoom={2}
+            >
+                <Polyline path={this.makePath(places)}
+                    options={{strokeColor: 'DeepSkyBlue'}}
+                />
+                {this.makeMarkers(places)}
+            </GoogleMap>
             );
-        }else if(this.props.trip.options.map === "svg"){
-            let svgHeader='data:image/svg+xml;charset=UTF-8,';
-            let svgData = this.props.trip.map;
-
-            return(
-                <figure className="figure" id="map">
-                    <img className="figure-img img-fluid" alt="Map"
-                         src={svgHeader.concat(svgData)}/>
-                </figure>
-            );
-
-        }
-        else{
-            return(
-              <div>
-                  <p className="text-warning">
-                      There Was An Issue With The Map
-                  </p>
-              </div>
-            );
-        }
     }
 }
 
@@ -96,6 +73,6 @@ const TripMap = compose(
     }),
     withScriptjs,
     withGoogleMap,
-)(MapContainer);  // (2)
+)(GoogleMapElement);  // (2)
 
 export default TripMap;
