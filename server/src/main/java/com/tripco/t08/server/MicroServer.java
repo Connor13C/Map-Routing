@@ -8,6 +8,7 @@ import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.Query;
 
+import com.tripco.t08.planner.TffiError;
 import com.tripco.t08.trip.Config;
 import com.tripco.t08.trip.Trip;
 
@@ -57,6 +58,12 @@ public class MicroServer {
     // client is sending data, so a HTTP POST is used instead of a GET
     post("/plan", this::plan);
     post("/query", this::query);
+    exception(RuntimeException.class, (e, request, response) -> {
+      e.printStackTrace();
+      response.type("application/json");
+      response.status(500);
+      response.body(GSON.toJson(new TffiError("Server error.", e)));
+    });
 
     System.out.println("\n\nServer running on port: " + this.port + "\n\n");
   }
@@ -126,16 +133,10 @@ public class MicroServer {
   private String query(Request request, Response response){
 
     response.type("application/json");
-    Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(new TypeToken<Place>(){}.getType(), new Place.Serializer())
-            .create();
-    // first print the request
-    System.out.println(HTTP.echoRequest(request));
-    // convert the body of the request to a Java class.
-    Query query = GSON.fromJson(request.body(), Query.class);
-    Airports airport = jdbi.onDemand(Airports.class);
-    query.places = airport.searchEverything("%"+query.query+"%");
-    return GSON.toJson(query);
+    Query query = Query.from(request);
+    jdbi.useHandle(query::search);
+
+    return query.toJson();
   }
 
   /** A REST API that returns the team information associated with the server.

@@ -20,7 +20,7 @@ public class Tripv2 extends TripCommon {
    * @param opt double choice for opt choice 0 to 1
    */
   public void optimize(double opt){
-    this.places = Optimization.getOptimization(opt).optimize(places);
+    ;
   }
 
   @Override

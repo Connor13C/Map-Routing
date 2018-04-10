@@ -1,5 +1,6 @@
 package com.tripco.t08.trip;
 
+import com.tripco.t08.optimize.Optimization;
 import com.tripco.t08.planner.DistanceUnit;
 import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.SvgBuilder;
@@ -49,6 +50,7 @@ public abstract class TripCommon implements Trip {
 
     @Override
     public void plan() {
+        this.places = Optimization.getOptimization(getOptions().getOptimization()).optimize(places);
         this.map = svg();
         this.distances = legDistances();
     }
