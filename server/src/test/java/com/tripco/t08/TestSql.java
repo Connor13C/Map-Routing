@@ -13,7 +13,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-@Ignore
 public class TestSql {
     private static final List<String> EMPTY = Collections.emptyList();
     @ClassRule
