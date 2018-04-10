@@ -3,6 +3,7 @@ import {Validator} from 'jsonschema';
 import defaults from 'json-schema-defaults';
 import DestinationList from "./DestinationList";
 import Options from "./Options";
+import FilteredSearch from "./FilteredSearch";
 
 
 let optionsSchema = {
@@ -115,101 +116,117 @@ function deepCopy(from, to) {
  * Displays the current number of destinations
  */
 class Destinations extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        errorMessage: null
-    };
-    this.loadTFFI = this.loadTFFI.bind(this);
-    this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
-    this.checkOptions = this.checkOptions.bind(this);
-    this.checkVersion = this.checkVersion.bind(this);
-  }
 
-  checkDuplicateIds(json){
-    var usedIds = new Set();
-    for(var place of json.places){
-        if (!usedIds.has(place.id)) {
-            usedIds.add(place.id);
-        }
-        else {
-            place.id = place.id+json.places.indexOf(place);
-            usedIds.add(place.id);
+    constructor(props) {
+        super(props);
+        this.state = {
+            errorMessage: null,
+            optimization: 0,
+            filters: [],
+        };
+        this.loadTFFI = this.loadTFFI.bind(this);
+        this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
+        this.checkOptions = this.checkOptions.bind(this);
+        this.checkVersion = this.checkVersion.bind(this);
+    }
+
+    checkDuplicateIds(json){
+        var usedIds = new Set();
+        for(var place of json.places){
+            if (!usedIds.has(place.id)) {
+                usedIds.add(place.id);
+            }
+            else {
+                place.id = place.id+json.places.indexOf(place);
+                usedIds.add(place.id);
+            }
         }
     }
-  }
 
-  checkOptions(json){
-      if(json.options.optimization === undefined || json.options.optimization === "none"){
-          json.options.optimization = 0.0;
-      }
-  }
+    checkOptions(json){
+        if(json.options.optimization === undefined || json.options.optimization === "none"){
+            json.options.optimization = 0.0;
 
-  checkVersion(json){
-      if(json.version === undefined){
-          json.version = 2;
-      }
-  }
-
-  loadTFFI(event) {
-    let reader = new FileReader();
-    let fileName = event.target.files[0].name;
-    reader.onload = () => {
-        try {
-            let json = JSON.parse(reader.result);
-            let validation = validator.validate(json, tffiSchema);
-            if (validation.valid) {
-                this.setState({errorMessage: null});
-                setDefaults(json);
-                this.checkDuplicateIds(json);
-                this.checkOptions(json);
-                this.checkVersion(json);
-                this.props.updateTrip(json);
-            } else {
-                this.setState({errorMessage: "Invalid TFFI file."});
-            }
-        } catch(exception) {
-            this.setState({errorMessage: "Failed to parse " + fileName})
         }
-    };
-    reader.readAsText(event.target.files[0]);
-  }
+    }
 
-  getInfoMessage() {
-      console.log(this.props.trip);
-      let count = this.props.trip.places ? this.props.trip.places.length : 0;
-      let infoMessage;
-      if (this.state.errorMessage != null) {
-          infoMessage = <div className="alert alert-danger">{this.state.errorMessage}</div>;
-      } else if (count > 0) {
-          infoMessage = <div className="alert alert-success">Loaded {count} destinations.</div>
-      } else {
-          infoMessage = "";
-      }
-      return infoMessage;
-  }
+    checkVersion(json){
+        if(json.version === undefined){
+            json.version = 2;
+        }
+    }
 
-  render() {
-    return (
-        <div id="destinations" className="card">
-         <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
-            Get Started
-          </div>
-          <div className="card-body">
-            <p>Upload a file with planned destinations or manually plan your trip by adding destinations with coordinates.</p>
-            <div className="form-group" role="group">
-                <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
-                    Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
-                </label>
+    loadTFFI(event) {
+        let reader = new FileReader();
+        let fileName = event.target.files[0].name;
+        reader.onload = () => {
+            try {
+                let json = JSON.parse(reader.result);
+                let validation = validator.validate(json, tffiSchema);
+                if (validation.valid) {
+                    this.setState({errorMessage: null});
+                    setDefaults(json);
+                    this.checkDuplicateIds(json);
+                    this.checkOptions(json);
+                    this.checkVersion(json);
+                    this.props.updateTrip(json);
+                } else {
+                    this.setState({errorMessage: "Invalid TFFI file."});
+                }
+            } catch(exception) {
+                this.setState({errorMessage: "Failed to parse " + fileName})
+            }
+        };
+        reader.readAsText(event.target.files[0]);
+    }
+
+    getInfoMessage() {
+        console.log(this.props.trip);
+        let count = this.props.trip.places ? this.props.trip.places.length : 0;
+        let infoMessage;
+        if (this.state.errorMessage != null) {
+            infoMessage = <div className="alert alert-danger">{this.state.errorMessage}</div>;
+        } else if (count > 0) {
+            infoMessage = <div className="alert alert-success">Loaded {count} destinations.</div>
+        } else {
+            infoMessage = "";
+        }
+
+        return infoMessage;
+}
+
+
+    componentDidMount(){
+        fetch('http://' + location.host + '/config')
+            .then((res) => res.json())
+            .then((config) => this.setState({
+                optimization: config["optimization"],
+                filters: config["filters"]}));
+
+    }
+
+    render() {
+        return (
+            <div id="destinations" className="card">
+                <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
+                    Get Started
+                </div>
+                <div className="card-body">
+                    <p>Upload a file with planned destinations or manually plan your trip by adding destinations with coordinates.</p>
+                    <div className="form-group" role="group">
+                        <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
+                            Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
+                        </label>
+                        <FilteredSearch filters={this.state.filters} updateTrip={this.props.updateTrip}/>
+                    </div>
+                    {this.getInfoMessage()}
+                    <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
+                    <br/>
+                    <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions}/>
+                </div>
             </div>
-              {this.getInfoMessage()}
-              <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
-              <br/>
-              <Options options={this.props.trip.options} updateOptions={this.props.updateOptions}/>
-          </div>
-        </div>
-    )
-  }
+        )
+    }
 }
 
 export default Destinations;

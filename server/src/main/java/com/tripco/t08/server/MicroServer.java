@@ -12,6 +12,7 @@ import com.tripco.t08.trip.Config;
 import com.tripco.t08.trip.Trip;
 
 import static com.tripco.t08.trip.Trip.GSON;
+import java.lang.reflect.Modifier;
 
 import org.jdbi.v3.core.Jdbi;
 import spark.Request;
@@ -153,6 +154,10 @@ public class MicroServer {
 
   private String config(Request request, Response response) {
     response.type("application/json");
+    Gson GSON = new GsonBuilder()
+            //Allows static fields to be serialized
+            .excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT)
+            .create();
     Config config = new Config();
     config.queryAttributes();
     return GSON.toJson(config);

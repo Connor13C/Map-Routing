@@ -26,7 +26,7 @@ public class Config {
      */
     public static void queryAttributes() {
         for (Filter filter: filters
-             ) {
+                ) {
             queryFilters(filter);
         }
     }
@@ -39,7 +39,7 @@ public class Config {
         String queryFilter = filter.query;
 
         List<String> values = SqlUtils.getJdbi().withHandle(handle ->
-            handle.createQuery(queryFilter).mapTo(String.class).list()
+                handle.createQuery(queryFilter).mapTo(String.class).list()
         );
         filter.values.addAll(values);
 
