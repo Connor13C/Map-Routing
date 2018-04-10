@@ -1,27 +1,40 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import GoogleMapElement from './GoogleMapElement'
+import SVGMap from './SVGMap'
 
 
-/* Map obtains and renders the map for the trip.
- * Might be an SVG or KML contained in the server response.
- */
 class Map extends Component {
-  constructor(props){
-    super(props);
-  }
+    constructor(props){
+        super(props);
 
-  render() {
-   {
-      let svgHeader='data:image/svg+xml;charset=UTF-8,';
-      let svgData = this.props.trip.map;
-
-      return (
-          <figure className="figure" id="map">
-            <img className="figure-img img-fluid" alt="Map"
-                 src={svgHeader.concat(svgData)}/>
-          </figure>
-      )
     }
-  }
+
+    render() {
+        const places = this.props.trip.places;
+        if(this.props.trip.distances.length === 0){
+            return (<div></div>);
+        }
+        //console.log("this.props.trip.options.map: ", this.props.trip.options.map);
+        if(this.props.trip.options.map==="kml") {
+            return (
+                <GoogleMapElement trip={this.props.trip}/>
+            );
+        }else if(this.props.trip.options.map === "svg"){
+            return (
+            <SVGMap trip={this.props.trip}/>
+            );
+
+        }
+        else{
+            return(
+                <div>
+                    <p className="text-warning">
+                        There Was An Issue With The Map
+                    </p>
+                </div>
+            );
+        }
+    }
 }
 
 export default Map;

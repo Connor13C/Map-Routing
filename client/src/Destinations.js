@@ -24,6 +24,11 @@ let optionsSchema = {
                     type: "number"
                 }
             ]
+        },
+        "map":{
+            type: "string",
+            format: "svg|kml",
+            "default": "kml"
         }
     }
 };
@@ -148,11 +153,14 @@ class Destinations extends Component {
             json.options.optimization = 0.0;
 
         }
+        if(json.options.map === undefined){
+            json.options.map = "kml";
+        }
     }
 
     checkVersion(json){
         if(json.version === undefined){
-            json.version = 2;
+            json.version = 3;
         }
     }
 

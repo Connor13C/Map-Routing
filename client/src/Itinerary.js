@@ -16,7 +16,7 @@ class Itinerary extends Component {
       let dests = places.slice(0);
       dests = dests.map((item) => <td style={{backgroundColor:"#A9DFBF", border: "2px solid black"}}><b>{item.name}</b></td>);
       dests.push(dests[0]);
-      console.log(dests);
+      //console.log(dests);
 
       //distance for each destination
       let distance = 0;
