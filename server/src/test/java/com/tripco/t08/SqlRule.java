@@ -54,7 +54,7 @@ public class SqlRule implements TestRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                if (setup()) {
+                if (!System.getProperty("user.name").equals("travis") && setup()) {
                     try {
                         statement.evaluate();
                     } finally {

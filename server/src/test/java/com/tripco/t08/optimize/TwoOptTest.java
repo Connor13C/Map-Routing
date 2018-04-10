@@ -28,6 +28,11 @@ public class TwoOptTest extends AbstractOptimizationTest {
     }
 
     @Test
+    public void testSprint4Deploy2() {
+        testFile("sp4deploy2.json", 120199, CommonUnit.KILOMETERS);
+    }
+
+    @Test
     public void removeCross() {
         List<Place> places = list(
                 place("100", "100"),

@@ -30,6 +30,11 @@ public class NearestNeighborTest extends AbstractOptimizationTest {
     }
 
     @Test
+    public void testSprint4Deploy2() {
+        testFile("sp4deploy2.json", 139928, CommonUnit.KILOMETERS);
+    }
+
+    @Test
     public void testConsidersSecond() {
         test(line(1, 6, 5, 12), line(1, 5, 6, 12));
     }
