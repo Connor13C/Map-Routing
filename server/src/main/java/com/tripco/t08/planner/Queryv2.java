@@ -14,7 +14,7 @@ public class Queryv2 implements Query {
     public int version;
     public String type;
     public String query;
-    public List<Airport> places;
+    public List<Place> places;
 
     @Override
     public void search(Handle connection) {

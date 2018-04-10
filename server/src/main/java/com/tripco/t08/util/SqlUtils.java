@@ -1,7 +1,5 @@
 package com.tripco.t08.util;
 
-import com.tripco.t08.planner.Airport;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -13,10 +11,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.tripco.t08.planner.Place;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.HandleConsumer;
 import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import spark.utils.IOUtils;
@@ -66,7 +64,7 @@ public final class SqlUtils {
             jdbi = searchPlaces();
         }
         if (jdbi != null ) {
-            jdbi.registerRowMapper(ConstructorMapper.factory(Airport.class));
+            jdbi.registerRowMapper(new Place.Mapper());
         }
         return jdbi;
     }

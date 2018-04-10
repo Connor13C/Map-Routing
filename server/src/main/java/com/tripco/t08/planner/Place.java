@@ -4,9 +4,15 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.tripco.t08.util.CoordinateParser;
+import org.jdbi.v3.core.mapper.RowMapper;
+import org.jdbi.v3.core.statement.StatementContext;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -111,6 +117,10 @@ public class Place {
     return longitude;
   }
 
+  public Map<String, String> getExtra() {
+    return extra;
+  }
+
   private static <T> T checkNull(T value, String message) {
     if (value == null) {
       throw new IllegalArgumentException(message);
@@ -118,18 +128,18 @@ public class Place {
     return value;
   }
 
-    @Override
-    public String toString() {
-        return "Place{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", extra=" + extra +
-                '}';
-    }
+  @Override
+  public String toString() {
+      return "Place{" +
+              "id='" + id + '\'' +
+              ", name='" + name + '\'' +
+              ", latitude=" + latitude +
+              ", longitude=" + longitude +
+              ", extra=" + extra +
+              '}';
+  }
 
-    public static class Serializer extends TypeAdapter<Place> {
+  public static class Serializer extends TypeAdapter<Place> {
     @Override
     public void write(JsonWriter jsonWriter, Place place) throws IOException {
       jsonWriter.beginObject();
@@ -157,5 +167,36 @@ public class Place {
       return new Place(data.remove("id"), data.remove("name"), latitude, longitude, data);
     }
 
+  }
+
+  public static class Mapper implements RowMapper<Place> {
+
+    @Override
+    public Place map(ResultSet rs, StatementContext ctx) throws SQLException {
+      return specialize(rs, ctx).map(rs, ctx);
+    }
+
+    @Override
+    public RowMapper<Place> specialize(ResultSet rs, StatementContext ctx) throws SQLException {
+      List<String> columns = new ArrayList<>(rs.getMetaData().getColumnCount());
+      for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+        String name = rs.getMetaData().getColumnName(i);
+        String alias = rs.getMetaData().getColumnLabel(i);
+        if (alias == null) {
+          alias = name;
+        }
+        columns.add(alias);
+      }
+
+      return (r, c) -> {
+        Map<String, String> data = new HashMap<>();
+        for (String s : columns) {
+          data.put(s, r.getString(s));
+        }
+        double latitude = CoordinateParser.parse(data.remove("latitude"));
+        double longitude = CoordinateParser.parse(data.remove("longitude"));
+        return new Place(data.remove("id"), data.remove("name"), latitude, longitude, data);
+      };
+    }
   }
 }
