@@ -73,7 +73,7 @@ class Trip extends Component {
               </span>
             </div>
             <p/>
-              <h5>{this.props.trip.title}</h5>
+              <h3><b>{this.props.trip.title}</b></h3>
             <Map trip={this.props.trip} />
             <Itinerary trip={this.props.trip} />
           </div>
