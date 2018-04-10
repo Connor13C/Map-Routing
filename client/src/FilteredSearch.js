@@ -66,8 +66,8 @@ export default class FilteredSearch extends Component {
             dropdown = null;
         }
         else {
-            dropdown = <Dropdown isOpen={this.state.dropdown2Open} toggle={this.secondToggle}>
-                <DropdownToggle caret style={{backgroundColor:"#1E4D2B"}}>
+            dropdown = <Dropdown style={{backgroundColor:"#1E4D2B"}} isOpen={this.state.dropdown2Open} toggle={this.secondToggle}>
+                <DropdownToggle caret >
                     Select
                 </DropdownToggle>
                 <DropdownMenu>
