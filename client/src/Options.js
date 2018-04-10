@@ -22,6 +22,10 @@ class Options extends Component{
     this.optimizationValueName = this.optimizationValueName.bind(this);
     this.renderSlider = this.renderSlider.bind(this);
     this.sliderSteps = this.sliderSteps.bind(this);
+    this.getKMLClassName = this.getKMLClassName.bind(this);
+    this.getSVGClassName = this.getSVGClassName.bind(this);
+    this.setKML = this.setKML.bind(this);
+    this.setSVG = this.setSVG.bind(this);
     this.state = {
         collapse: false,
     };
@@ -45,6 +49,14 @@ class Options extends Component{
 
   setMiles(){
     this.changeOption({distance : "miles"});
+  }
+
+  setKML(){
+      this.changeOption({map: "kml"});
+  }
+
+  setSVG(){
+      this.changeOption({map: "svg"});
   }
 
   setKilo(){
@@ -77,6 +89,24 @@ class Options extends Component{
 
   getNautMilesClassName(){
         if(this.props.options.distance === "nautical miles"){
+            return "btn btn-outline-dark active";
+        }
+        else{
+            return "btn btn-outline-dark ";
+        }
+    }
+
+    getKMLClassName(){
+        if(this.props.options.map === "kml"){
+            return "btn btn-outline-dark active";
+        }
+        else{
+            return "btn btn-outline-dark ";
+        }
+    }
+
+    getSVGClassName(){
+        if(this.props.options.map === "svg"){
             return "btn btn-outline-dark active";
         }
         else{
@@ -135,7 +165,18 @@ class Options extends Component{
                         <input type="radio" id="nautmiles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
                       </label>
                     </div>
+                      <br/>
+                    <p>Choose The Map type you wish to use.</p>
+                    <div className="btn-group btn-group-toggle">
+                        <label className={this.getKMLClassName()}>
+                            <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setKML}/> Google Maps
+                        </label>
+                        <label className={this.getSVGClassName()}>
+                            <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setSVG}/> SVG
+                        </label>
+                    </div>
                   </div>
+
                   <div className="container-fluid">
                       <p> Optimization level: {this.optimizationValueName()}</p>
                       {this.renderSlider()}

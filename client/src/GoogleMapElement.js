@@ -50,7 +50,7 @@ class GoogleMapElement extends Component {
         return (
             <GoogleMap
                 defaultCenter={this.getCenter(places)}
-                defaultZoom={2}
+                defaultZoom={1}
             >
                 <Polyline path={this.makePath(places)}
                     options={{strokeColor: 'DeepSkyBlue'}}

@@ -15,7 +15,7 @@ public class SvgBuilder {
     private static final String TEMPLATE;
     static {
         String file = null;
-        try (InputStream is = SvgBuilder.class.getClassLoader().getResourceAsStream("svgOfCO")) {
+        try (InputStream is = SvgBuilder.class.getClassLoader().getResourceAsStream("world.svg")) {
             file = IOUtils.toString(is);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,10 +57,6 @@ public class SvgBuilder {
     }
 
     private static class MapObject {
-        private static final double TOP_LAT = 41.0;
-        private static final double BOTTOM_LAT = 37.0;
-        private static final double LEFT_LONG = -109.05;
-        private static final double RIGHT_LONG = -102.05;
         private double x;
         private double y;
 
@@ -80,11 +76,30 @@ public class SvgBuilder {
         static MapObject coordinateToMap(Place place){
             double percentX;
             double percentY;
+            double latitude = place.getLatitude();
+            double longitude = place.getLongitude();
 
-            percentX = (place.getLongitude()- LEFT_LONG)/(RIGHT_LONG - LEFT_LONG);
-            percentY = (place.getLatitude()- TOP_LAT)/(BOTTOM_LAT - TOP_LAT);
+            if(latitude < 0){
+                latitude = Math.abs(latitude) + 90;
+            }else if(latitude > 0){
+                latitude = 90 - latitude;
+            }else{
+                latitude = 180;
+            }
 
-            return new MapObject(percentX*990, percentY*707);
+            if(longitude < 0){
+                longitude = 180 - Math.abs(longitude);
+            }else if(longitude > 0){
+                longitude = longitude + 180;
+            }else{
+                longitude = 90;
+            }
+
+
+            percentX = (latitude)/(180);
+            percentY = (longitude)/(360);
+
+            return new MapObject(percentY*1025, percentX*525);
         }
     }
 }
