@@ -2,9 +2,9 @@ package com.tripco.t08;
 
 import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class TestSql {
     private static final List<String> EMPTY = Collections.emptyList();
     @ClassRule
