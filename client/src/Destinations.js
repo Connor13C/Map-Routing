@@ -153,6 +153,9 @@ class Destinations extends Component {
             json.options.optimization = 0.0;
 
         }
+        if(json.options.map === undefined){
+            json.options.map = "kml";
+        }
     }
 
     checkVersion(json){

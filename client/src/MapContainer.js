@@ -8,94 +8,81 @@ import {withScriptjs, withGoogleMap, GoogleMap, Polyline, Marker} from 'react-go
 class MapContainer extends Component {
   constructor(props){
     super(props);
-    this.planCoordinates;
-    this.getCoordinates.bind(this);
     this.getCenter.bind(this);
   }
 
-  getCoordinates(){
-      this.planCoordinates = this.props.trip.places.map(p => ({lat: p.latitude, lng: p.longitude}));
-      console.log("Coordinates For GM API", this.planCoordinates);
-  }
-
-  getCenter(){
-      if(this.planCoordinates.size === 0){
+  getCenter(places){
+      if(this.props.trip.distances.length === 0){
           console.log("Center: ", {lat: 39.87, lng: -104});
           return {lat: 39.87, lng: -104};
       }
       else{
-          console.log("Center: ", this.planCoordinates[0]);
-          return this.planCoordinates[0];
+          let center = {
+              lat: Number(places[0].latitude),
+              lng: Number(places[0].longitude)
+          }
+          console.log("Center: ", center);
+          return center;
       }
   }
     // Create our path from the places array
     makePath(places) {
         let path = places.map(
-            x => ({lat: x.latitude, lng: x.longitude})
+            x => ({lat: Number(x.latitude), lng: Number(x.longitude)})
         );
-        path.push({lat: places[0].latitude, lng: places[0].longitude});
+        path.push({lat: Number(places[0].latitude), lng: Number(places[0].longitude)});
         return path;
     }
 
     // Create our markers
     makeMarkers(places) {
         let markers = places.map(
-            x => <Marker position={{lat: x.latitude, lng: x.longitude}}/>
+            x => <Marker position={{lat: Number(x.latitude), lng: Number(x.longitude)}}/>
         );
         return markers;
     }
 
     render() {
         const places = this.props.trip.places;
-        return (
-            <GoogleMap
-                defaultCenter={{lat: 0, lng: 0}}
-                defaultZoom={1}
-            >
-                <Polyline path={this.makePath(places)}
-                          options={{strokeColor: 'DeepSkyBlue'}}
-                />
-                {this.makeMarkers(places)}
-            </GoogleMap>
-        );
+        if(this.props.trip.distances.length === 0){
+            return (<div></div>);
+        }
+        console.log("this.props.trip.options.map: ", this.props.trip.options.map);
+        if(this.props.trip.options.map==="kml") {
+            return (
+                <GoogleMap
+                    defaultCenter={this.getCenter(places)}
+                    defaultZoom={3}
+                >
+                    <Polyline path={this.makePath(places)}
+                              options={{strokeColor: 'DeepSkyBlue'}}
+                    />
+                    {this.makeMarkers(places)}
+                </GoogleMap>
+            );
+        }else if(this.props.trip.options.map === "svg"){
+            let svgHeader='data:image/svg+xml;charset=UTF-8,';
+            let svgData = this.props.trip.map;
+
+            return(
+                <figure className="figure" id="map">
+                    <img className="figure-img img-fluid" alt="Map"
+                         src={svgHeader.concat(svgData)}/>
+                </figure>
+            );
+
+        }
+        else{
+            return(
+              <div>
+                  <p className="text-warning">
+                      There Was An Issue With The Map
+                  </p>
+              </div>
+            );
+        }
     }
 }
-
- /* render() {
-      const style = {
-          width: '1%',
-          height: '1%'
-      }
-      let svgHeader='data:image/svg+xml;charset=UTF-8,';
-      let svgData = this.props.trip.map;
-      this.getCoordinates();
-       //<figure className="figure" id="map">
-       //    <img className="figure-img img-fluid" alt="Map"
-       //         src={svgHeader.concat(svgData)}/>
-       //</figure>
-
-      return (
-          <div style={style}>
-            <Map
-                google={this.props.google}
-                zoom={5}
-                initialCenter={this.getCenter()}>
-                <Polyline
-                    paths={this.planCoordinates}
-                    strokeColor="#0000FF"
-                    strokeOpacity={0.8}
-                    strokeWeight={2} />
-            </Map>
-          </div>
-      )
-
-  }
-}
-
-//export default MapContainer;
-export default GoogleApiWrapper({
-    apiKey: ("AIzaSyB8UZTGK61XwzNflBMnQQ0C2Xfva9AzUDg")
-})(MapContainer) */
 
 const TripMap = compose(
     withProps({
@@ -105,7 +92,7 @@ const TripMap = compose(
         '&libraries=geometry,drawing,places',
         loadingElement: <div />,
         containerElement: <div/>,
-        mapElement: <div style={{ height: `30%` }} />
+        mapElement: <div style={{ height: `40%` }} />
     }),
     withScriptjs,
     withGoogleMap,
