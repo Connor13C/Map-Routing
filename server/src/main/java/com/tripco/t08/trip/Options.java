@@ -8,4 +8,5 @@ import com.tripco.t08.planner.DistanceUnit;
  */
 public interface Options {
     DistanceUnit getDistanceUnit();
+    double getOptimization();
 }

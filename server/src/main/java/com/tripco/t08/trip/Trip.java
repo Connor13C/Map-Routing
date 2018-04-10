@@ -41,11 +41,11 @@ public interface Trip {
             throw new IllegalArgumentException("Invalid json");
         }
         JsonObject object = (JsonObject) element;
-        if (object.has("version")) {
-            return GSON.fromJson(object, Tripv2.class);
-        } else {
-            return GSON.fromJson(object, Tripv1.class);
+        int version = object.has("version") ? object.get("version").getAsInt() : 1;
+        switch (version) {
+            case 1 : return GSON.fromJson(object, Tripv1.class);
+            case 2 : return GSON.fromJson(object, Tripv2.class);
+            default: return GSON.fromJson(object, Tripv3.class);
         }
-
     }
 }
