@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Map, Polyline, GoogleApiWrapper} from 'google-maps-react';
-
+import React, {Component} from 'react'
+import {compose, withProps} from 'recompose'
+import {withScriptjs, withGoogleMap, GoogleMap, Polyline, Marker} from 'react-google-maps'
 
 /* MapContainer obtains and renders the map for the trip.
  * Might be an SVG or KML contained in the server response.
@@ -28,11 +28,43 @@ class MapContainer extends Component {
           return this.planCoordinates[0];
       }
   }
+    // Create our path from the places array
+    makePath(places) {
+        let path = places.map(
+            x => ({lat: x.latitude, lng: x.longitude})
+        );
+        path.push({lat: places[0].latitude, lng: places[0].longitude});
+        return path;
+    }
 
-  render() {
+    // Create our markers
+    makeMarkers(places) {
+        let markers = places.map(
+            x => <Marker position={{lat: x.latitude, lng: x.longitude}}/>
+        );
+        return markers;
+    }
+
+    render() {
+        const places = this.props.trip.places;
+        return (
+            <GoogleMap
+                defaultCenter={{lat: 0, lng: 0}}
+                defaultZoom={1}
+            >
+                <Polyline path={this.makePath(places)}
+                          options={{strokeColor: 'DeepSkyBlue'}}
+                />
+                {this.makeMarkers(places)}
+            </GoogleMap>
+        );
+    }
+}
+
+ /* render() {
       const style = {
-          width: '10%',
-          height: '10%'
+          width: '1%',
+          height: '1%'
       }
       let svgHeader='data:image/svg+xml;charset=UTF-8,';
       let svgData = this.props.trip.map;
@@ -63,4 +95,20 @@ class MapContainer extends Component {
 //export default MapContainer;
 export default GoogleApiWrapper({
     apiKey: ("AIzaSyB8UZTGK61XwzNflBMnQQ0C2Xfva9AzUDg")
-})(MapContainer)
+})(MapContainer) */
+
+const TripMap = compose(
+    withProps({
+        googleMapURL: 'https://maps.googleapis.com/maps/api/js?' +
+        'key=' + 'AIzaSyB8UZTGK61XwzNflBMnQQ0C2Xfva9AzUDg' +
+        '&v=3.exp' +
+        '&libraries=geometry,drawing,places',
+        loadingElement: <div />,
+        containerElement: <div/>,
+        mapElement: <div style={{ height: `30%` }} />
+    }),
+    withScriptjs,
+    withGoogleMap,
+)(MapContainer);  // (2)
+
+export default TripMap;
