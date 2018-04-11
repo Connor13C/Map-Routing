@@ -85,6 +85,13 @@ public class SvgBuilder {
         return ret.toString();
     }
 
+    private int getSlope(MapObject mapobj1, MapObject mapobj2){
+        double x1 = mapobj1.getX();
+        double x2 = mapobj2.getX();
+        double y1 = mapobj1.getY();
+        double y2 = mapobj2.getY();
+    }
+
     /**
      * Generates an SVG with all the provided parameters.
      * @return svg
