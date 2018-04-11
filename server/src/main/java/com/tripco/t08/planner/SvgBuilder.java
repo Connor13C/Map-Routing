@@ -39,13 +39,33 @@ public class SvgBuilder {
     //Creates String That Will Replace POINTSGOHERE
     private String mapObjectsToString(){
         StringBuilder s = new StringBuilder();
-        for (MapObject mapObject : mapObjects) {
-            s.append(mapObject.getX()).append(",").append(mapObject.getY()).append(" ");
+        for (int i = 0; i < mapObjects.size(); i++) {
+            s.append(mapObjects.get(i).getX()).append(",").append(mapObjects.get(i).getY()).append(" ");
+            if(i - 2 < mapObjects.size()){
+                if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) > 180){
+                    s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(i + 1)));
+                }
+                else if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) < -180){
+                    s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(i+1)));
+                }
+            }//Also Needs To Compare The First And Last Index
         }
         if(mapObjects.size() > 0) {
             s.append(mapObjects.get(0).getX()).append(",").append(mapObjects.get(0).getY()).append(" ");
         }
         return s.toString();
+    }
+
+    private String loopFromRight(MapObject current, MapObject next){
+        String ret = "";
+        ret.app
+        return null;
+    }
+
+    private String loopFromLeft(MapObject current, MapObject next){
+        String ret = "";
+
+        return null;
     }
 
     /**
