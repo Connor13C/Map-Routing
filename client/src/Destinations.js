@@ -189,7 +189,7 @@ class Destinations extends Component {
     }
 
     getInfoMessage() {
-        console.log(this.props.trip);
+        //console.log(this.props.trip);
         let count = this.props.trip.places ? this.props.trip.places.length : 0;
         let infoMessage;
         if (this.state.errorMessage != null) {
@@ -225,10 +225,9 @@ class Destinations extends Component {
                         <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
                             Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                         </label>
-                        <FilteredSearch filters={this.state.filters} updateTrip={this.props.updateTrip}/>
                     </div>
                     {this.getInfoMessage()}
-                    <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
+                    <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip}/>
                     <br/>
                     <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions}/>
                 </div>

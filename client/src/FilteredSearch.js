@@ -4,30 +4,34 @@ import {
     Button,
     CardBody,
     Card,
-    Dropdown,
-    DropdownMenu,
-    DropdownToggle,
-    DropdownItem,
     Form,
     FormGroup,
     Label,
     Input,
-    FormText
+    FormText,
+    CardTitle,
+    CardText,
+    Row,
+    Col,
+    TabContent,
+    TabPane,
+    Nav,
+    NavItem,
+    NavLink,
 } from 'reactstrap';
-import Destinations from "./Destinations";
+import classnames from 'classnames';
 
 export default class FilteredSearch extends Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.secondToggle = this.secondToggle.bind(this);
+        this.toggleTab = this.toggleTab.bind(this);
         this.query = this.query.bind(this);
         this.populateCheckBoxes = this.populateCheckBoxes.bind(this);
         this.selectValues = this.selectValues.bind(this);
         this.state = {
             collapse: false,
-            dropdownOpen: false,
-            dropdown2Open: false,
+            activeTab: '1',
             checkBoxValues: null,
             filter: [{
                 attribute: "",
@@ -42,40 +46,38 @@ export default class FilteredSearch extends Component {
         this.setState({ collapse: !this.state.collapse });
     }
 
-
-    secondToggle() {
-        this.setState({
-            dropdown2Open: !this.state.dropdown2Open
-        });
+    toggleTab(tab) {
+        if (this.state.activeTab !== tab) {
+            this.setState({
+                activeTab: tab
+            });
+        }
     }
 
-    populateCheckBoxes(e) {
-        let value = e.target.value;
+    populateCheckBoxes(tab) {
 
         //console.log(this.props);
-        console.log(value);
+        console.log(tab);
 
-        for (var i = 0; i < this.props.filters.length; i++) {
-            //console.log("Attribute: ");
-            //console.log(this.props.filters[i].attribute);
-            if (this.props.filters[i].attribute === value) {
-                {
-                    this.selectValues(i)
-                }
-                ;
-               }
-
-
+        if(tab == '1'){
+            this.selectValues(0);
+        }
+        else if(tab == '2'){
+            this.selectValues(1);
+        }
+        else{
+            this.selectValues(2);
         }
     }
 
     selectValues(index) {
-        //console.log(index);
+        console.log("this is the index");
+        console.log(index);
         this.setState({
             checkBoxValues: this.props.filters[index].values.map((item, i) =>
                 <FormGroup check>
                 <Label check>
-                    <Input type="checkbox" onClick={(e) => this.query(e, index)} key={i} value={item}/> {item}
+                    <Input type="checkbox" onChange={(e) => this.query(e, index)} key={i} value={item}/> {item}
                 </Label>
                 </FormGroup>)
 
@@ -120,24 +122,43 @@ export default class FilteredSearch extends Component {
                     <div id="filters" className="card">
                         <div className="card-body">
                             <p> Select your filter type </p>
-                            <Form>
-                                <FormGroup check inline>
-                                    <Label check>
-                                        <Input type="checkbox" value={"type"} onChange={this.populateCheckBoxes}/> Airport Type
-                                    </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                    <Label check>
-                                        <Input type="checkbox" value={"country"} onChange={this.populateCheckBoxes} /> Country
-                                    </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                    <Label check>
-                                        <Input type="checkbox" value={"continent"} onChange={this.populateCheckBoxes}/> Continent
-                                    </Label>
-                                </FormGroup>
-                            </Form>
-                            {checkBoxes}
+                            <Nav tabs>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '1' })}
+                                        onClick={() => {
+                                            this.toggleTab('1');
+                                            this.populateCheckBoxes('1');
+                                                }}
+                                    >
+                                        Airport Type
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '2' })}
+                                        onClick={() => {
+                                            this.toggleTab('2');
+                                            this.populateCheckBoxes('2');}}
+                                    >
+                                        Country
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '3' })}
+                                        onClick={() => {
+                                            this.toggleTab('3');
+                                            this.populateCheckBoxes('3');
+                                        }}
+                                    >
+                                        Continent
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                            <TabContent activeTab={this.state.activeTab}>
+                                {checkBoxes}
+                            </TabContent>
                         </div>
                     </div>
                 </Collapse>
