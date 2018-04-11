@@ -22,6 +22,18 @@ class Application extends Component {
     }
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset(){
+    this.setState({
+      trip: Object.assign(
+        {},
+        this.state.trip,
+        {places: []},
+        {distances: []}
+            )
+        });
   }
 
   updateTrip(tffi){
@@ -46,7 +58,7 @@ class Application extends Component {
         <div id="application" className="container">
           <div className="row">
             <div className="col-12">
-                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updateOptions={this.updateOptions}/>
+                <Destinations trip={this.state.trip} updateTrip={this.updateTrip} updateOptions={this.updateOptions} reset={this.reset}/>
             </div>
             <div className="col-12">
                 <Trip trip={this.state.trip} updateTrip={this.updateTrip} />

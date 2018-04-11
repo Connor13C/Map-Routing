@@ -10,6 +10,7 @@ import './Options.css';
 class Options extends Component{
   constructor(props) {
     super(props);
+    this.clear = this.clear.bind(this);
     this.changeOption = this.changeOption.bind(this);
     this.setMiles = this.setMiles.bind(this);
     this.setKilo = this.setKilo.bind(this);
@@ -33,6 +34,10 @@ class Options extends Component{
 
   toggle() {
     this.setState({ collapse: !this.state.collapse });
+  }
+
+  clear(){
+    this.props.reset();
   }
 
   changeOption(arg) {
@@ -152,6 +157,7 @@ class Options extends Component{
         return(
             <div>
               <Button color="primary" onClick={this.toggle} style={{backgroundColor:"#1E4D2B"}}>Options</Button>
+              <Button className="float-right" color="primary" onClick={this.clear} style={{backgroundColor:"#1E4D2B"}}>Clear Destinations</Button>
               <Collapse isOpen={this.state.collapse}>
                 <div id="options" className="card">
                   <div className="card-body">

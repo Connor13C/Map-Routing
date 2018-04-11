@@ -230,7 +230,7 @@ class Destinations extends Component {
                     {this.getInfoMessage()}
                     <DestinationList trip={this.props.trip} updateTrip={this.props.updateTrip}/>
                     <br/>
-                    <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions}/>
+                    <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} reset={this.props.reset}/>
                 </div>
             </div>
         )
