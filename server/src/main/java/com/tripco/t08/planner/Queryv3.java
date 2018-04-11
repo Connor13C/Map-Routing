@@ -1,10 +1,11 @@
 package com.tripco.t08.planner;
 
 import com.tripco.t08.trip.Filter;
-import org.jdbi.v3.core.Handle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jdbi.v3.core.Handle;
 
 public class Queryv3 extends Queryv2 {
     public int version = 3;
