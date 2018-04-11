@@ -55,6 +55,7 @@ class GoogleMapElement extends Component {
                 <Polyline path={this.makePath(places)}
                     options={{strokeColor: 'DeepSkyBlue'}}
                 />
+                {this.makeMarkers(places)}
             </GoogleMap>
             );
     }

@@ -48,7 +48,7 @@ public class SvgBuilder {
                 else if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) < (-512.5)){
                     s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(0)));
                 }
-            }else if((i+1) == mapObjects.size()){
+            }else{
                 if((mapObjects.get(i).getX() - mapObjects.get(0).getX()) > (512.5)){
                     s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(i+1)));
                 }
@@ -66,7 +66,7 @@ public class SvgBuilder {
     private String loopFromRight(MapObject current, MapObject next){
         StringBuilder ret = new StringBuilder();
         double offMapRight = 1025 + next.getX();
-        double offMapLeft = -(1025 - next.getX());
+        double offMapLeft = -(1025 - current.getX());
         ret.append(offMapRight).append(",").append(next.getY()).append(" ");
         ret.append(offMapRight).append(",").append("-1000").append(" ");
         ret.append(offMapLeft).append(",").append("-1000").append(" ");
@@ -76,7 +76,7 @@ public class SvgBuilder {
 
     private String loopFromLeft(MapObject current, MapObject next){
         StringBuilder ret = new StringBuilder();
-        double offMapRight = 1025 + (1025 - next.getX());
+        double offMapRight = 1025 + current.getX();
         double offMapLeft = -(1025 - next.getX());
         ret.append(offMapLeft).append(",").append(next.getY()).append(" ");
         ret.append(offMapLeft).append(",").append("-800").append(" ");
@@ -121,7 +121,7 @@ public class SvgBuilder {
             }else if(latitude > 0){
                 latitude = 90 - latitude;
             }else{
-                latitude = 180;
+                latitude = 90;
             }
 
             if(longitude < 0){
@@ -129,7 +129,7 @@ public class SvgBuilder {
             }else if(longitude > 0){
                 longitude = longitude + 180;
             }else{
-                longitude = 90;
+                longitude = 180;
             }
 
 
