@@ -2,9 +2,9 @@ package com.tripco.t08;
 
 import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
