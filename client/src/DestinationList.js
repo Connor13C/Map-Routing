@@ -69,7 +69,7 @@ export default class DestinationList extends Component {
         this.props.updateTrip(Object.assign(
                 {},
                 this.props.trip,
-                {map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"},
+                {map: ""},
                 {places: items},
                 {distances: []}
             )

@@ -46,11 +46,11 @@ public class SvgBuilder {
                     s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(i+1)));
                 }
                 else if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) < (-512.5)){
-                    s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(0)));
+                    s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(i+1)));
                 }
             }else{
                 if((mapObjects.get(i).getX() - mapObjects.get(0).getX()) > (512.5)){
-                    s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(i+1)));
+                    s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(0)));
                 }
                 else if((mapObjects.get(i).getX() - mapObjects.get(0).getX()) < (-512.5)){
                     s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(0)));
@@ -85,19 +85,15 @@ public class SvgBuilder {
         return ret.toString();
     }
 
-    private int getSlope(MapObject mapobj1, MapObject mapobj2){
-        double x1 = mapobj1.getX();
-        double x2 = mapobj2.getX();
-        double y1 = mapobj1.getY();
-        double y2 = mapobj2.getY();
-    }
-
     /**
      * Generates an SVG with all the provided parameters.
      * @return svg
      */
     public String build() {
-        return TEMPLATE.replace("POINTSGOHERE", mapObjectsToString());
+        if(mapObjects.size() > 0) {
+            return TEMPLATE.replace("POINTSGOHERE", mapObjectsToString());
+        }
+        else{return null;}
     }
 
     private static class MapObject {
