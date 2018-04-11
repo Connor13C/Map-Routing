@@ -109,6 +109,7 @@ export default class FilteredSearch extends Component {
             checkBoxes= null;
         }
         else {
+
             checkBoxes = (<div className="card-body" style={{overflow: 'auto'}}>
                 <Form>
                     {this.state.checkBoxValues}
