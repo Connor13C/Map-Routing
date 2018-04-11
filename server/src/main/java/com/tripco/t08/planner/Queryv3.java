@@ -1,18 +1,34 @@
 package com.tripco.t08.planner;
 
 import com.tripco.t08.trip.Filter;
-import org.jdbi.v3.core.Handle;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jdbi.v3.core.Handle;
+
 public class Queryv3 extends Queryv2 {
-    private List<Filter> filters;
+    public int version = 3;
+    public List<Filter> filters;
 
     @Override
     public void search(Handle connection) {
         // TODO - use the filters and query based on them instead
-        // See https://stackoverflow.com/questions/19424573/how-to-do-in-query-in-jdbi
-        // https://skife.org/jdbi/java/2011/12/21/jdbi_in_clauses.html
-        super.search(connection);
+        Airports airports = connection.attach(Airports.class);
+        ArrayList<String> type = new ArrayList<>();
+        ArrayList<String> country = new ArrayList<>();
+        ArrayList<String> continent = new ArrayList<>();
+        for(int i=0; i<filters.size(); ++i){
+            if(filters.get(i).attribute.equals("type")&&type.size()==0){
+                type = filters.get(i).values;
+            }
+            if(filters.get(i).attribute.equals("country")&&country.size()==0){
+                country = filters.get(i).values;
+            }
+            if(filters.get(i).attribute.equals("continent")&&continent.size()==0){
+                continent = filters.get(i).values;
+            }
+        }
+        places = airports.filter(query, type, country, continent);
     }
 }

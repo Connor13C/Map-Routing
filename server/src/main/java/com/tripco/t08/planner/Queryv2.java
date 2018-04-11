@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Queryv2 implements Query {
     // The variables in this class should reflect TFFI.
-    public int version;
+    public int version = 2;
     public String type;
     public String query;
     public List<Place> places;
