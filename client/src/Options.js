@@ -121,13 +121,15 @@ class Options extends Component{
 
   }
   optimizationValueName(){
-    if(this.props.options.optimization == 0.0){
+    if(this.props.options.optimization <= 0.33){
         return ("No Optimization");
     }
+    if(this.props.options.optimization > 0.33 && this.props.options.optimization <= 0.66){
+            return ("Nearest Neighbor");
+        }
     else{
-        return ("Nearest Neighbor");
+        return ("2-Opt");
     }
-
   }
 
   renderSlider(){
