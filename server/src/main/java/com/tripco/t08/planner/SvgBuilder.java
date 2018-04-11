@@ -41,14 +41,21 @@ public class SvgBuilder {
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < mapObjects.size(); i++) {
             s.append(mapObjects.get(i).getX()).append(",").append(mapObjects.get(i).getY()).append(" ");
-            if(i - 2 < mapObjects.size()){
-                if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) > 180){
-                    s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(i + 1)));
-                }
-                else if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) < -180){
+            if((i + 2) <= mapObjects.size()){
+                if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) > (512.5)){
                     s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(i+1)));
                 }
-            }//Also Needs To Compare The First And Last Index
+                else if((mapObjects.get(i).getX() - mapObjects.get(i + 1).getX()) < (-512.5)){
+                    s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(0)));
+                }
+            }else if((i+1) == mapObjects.size()){
+                if((mapObjects.get(i).getX() - mapObjects.get(0).getX()) > (512.5)){
+                    s.append(this.loopFromRight(mapObjects.get(i), mapObjects.get(i+1)));
+                }
+                else if((mapObjects.get(i).getX() - mapObjects.get(0).getX()) < (-512.5)){
+                    s.append(this.loopFromLeft(mapObjects.get(i), mapObjects.get(0)));
+                }
+            }
         }
         if(mapObjects.size() > 0) {
             s.append(mapObjects.get(0).getX()).append(",").append(mapObjects.get(0).getY()).append(" ");
@@ -57,15 +64,25 @@ public class SvgBuilder {
     }
 
     private String loopFromRight(MapObject current, MapObject next){
-        String ret = "";
-        ret.app
-        return null;
+        StringBuilder ret = new StringBuilder();
+        double offMapRight = 1025 + next.getX();
+        double offMapLeft = -(1025 - next.getX());
+        ret.append(offMapRight).append(",").append(next.getY()).append(" ");
+        ret.append(offMapRight).append(",").append("-1000").append(" ");
+        ret.append(offMapLeft).append(",").append("-1000").append(" ");
+        ret.append(offMapLeft).append(",").append(current.getY()).append(" ");
+        return ret.toString();
     }
 
     private String loopFromLeft(MapObject current, MapObject next){
-        String ret = "";
-
-        return null;
+        StringBuilder ret = new StringBuilder();
+        double offMapRight = 1025 + (1025 - next.getX());
+        double offMapLeft = -(1025 - next.getX());
+        ret.append(offMapLeft).append(",").append(next.getY()).append(" ");
+        ret.append(offMapLeft).append(",").append("-800").append(" ");
+        ret.append(offMapRight).append(",").append("-800").append(" ");
+        ret.append(offMapRight).append(",").append(current.getY()).append(" ");
+        return ret.toString();
     }
 
     /**

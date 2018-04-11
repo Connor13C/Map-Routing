@@ -15,23 +15,13 @@ class Map extends Component {
             return (<div></div>);
         }
         //console.log("this.props.trip.options.map: ", this.props.trip.options.map);
-        if(this.props.trip.options.map==="kml") {
+        if(this.props.trip.options.map==="svg") {
             return (
-                <GoogleMapElement trip={this.props.trip}/>
+                <SVGMap trip={this.props.trip}/>
             );
-        }else if(this.props.trip.options.map === "svg"){
+        }else{
             return (
-            <SVGMap trip={this.props.trip}/>
-            );
-
-        }
-        else{
-            return(
-                <div>
-                    <p className="text-warning">
-                        There Was An Issue With The Map
-                    </p>
-                </div>
+             <GoogleMapElement trip={this.props.trip}/>
             );
         }
     }
