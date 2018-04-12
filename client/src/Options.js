@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { Collapse, Button, InputGroup, Input} from 'reactstrap';
 import './Options.css';
 
 /* Options allows the user to change the parameters for planning
@@ -12,22 +12,16 @@ class Options extends Component{
     super(props);
     this.clear = this.clear.bind(this);
     this.changeOption = this.changeOption.bind(this);
-    this.setMiles = this.setMiles.bind(this);
-    this.setKilo = this.setKilo.bind(this);
-    this.setNautMiles = this.setNautMiles.bind(this);
-    this.getKilometersClassName = this.getKilometersClassName.bind(this);
-    this.getMilesClassName = this.getMilesClassName.bind(this);
-    this.getNautMilesClassName = this.getNautMilesClassName.bind(this);
     this.toggle = this.toggle.bind(this);
     this.optimizationValue = this.optimizationValue.bind(this);
     this.optimizationValueName = this.optimizationValueName.bind(this);
     this.renderSlider = this.renderSlider.bind(this);
     this.sliderSteps = this.sliderSteps.bind(this);
-    this.getKMLClassName = this.getKMLClassName.bind(this);
-    this.getSVGClassName = this.getSVGClassName.bind(this);
-    this.setKML = this.setKML.bind(this);
-    this.setSVG = this.setSVG.bind(this);
-    this.state = {
+    this.setOption = this.setOption.bind(this);
+    this.getClassName = this.getClassName.bind(this);
+    this.createOption = this.createOption.bind(this);
+
+      this.state = {
         collapse: false,
     };
   }
@@ -51,73 +45,6 @@ class Options extends Component{
     console.log(result);
     this.props.updateOptions(options);
   }
-
-  setMiles(){
-    this.changeOption({distance : "miles"});
-  }
-
-  setKML(){
-      this.changeOption({map: "kml"});
-  }
-
-  setSVG(){
-      this.changeOption({map: "svg"});
-  }
-
-  setKilo(){
-    this.changeOption({distance: "kilometers"});
-
-  }
-
-  setNautMiles(){
-        this.changeOption({distance: "nautical miles"});
-
-    }
-
-  getMilesClassName(){
-    if(this.props.options.distance === "miles"){
-      return "btn btn-outline-dark active";
-    }
-    else{
-      return "btn btn-outline-dark ";
-    }
-  }
-
-  getKilometersClassName(){
-      if(this.props.options.distance === "kilometers"){
-          return "btn btn-outline-dark active";
-      }
-      else{
-          return "btn btn-outline-dark ";
-      }
-  }
-
-  getNautMilesClassName(){
-        if(this.props.options.distance === "nautical miles"){
-            return "btn btn-outline-dark active";
-        }
-        else{
-            return "btn btn-outline-dark ";
-        }
-    }
-
-    getKMLClassName(){
-        if(this.props.options.map === "kml"){
-            return "btn btn-outline-dark active";
-        }
-        else{
-            return "btn btn-outline-dark ";
-        }
-    }
-
-    getSVGClassName(){
-        if(this.props.options.map === "svg"){
-            return "btn btn-outline-dark active";
-        }
-        else{
-            return "btn btn-outline-dark ";
-        }
-    }
 
     optimizationValue(e){
       let value = e.target.value;
@@ -153,6 +80,49 @@ class Options extends Component{
     return returnValue;
   }
 
+  setOption(key, value) {
+      let obj = {};
+      obj[key] = value;
+    this.changeOption(obj);
+  }
+
+
+  getClassName(key, value) {
+      if(this.props.options[key] === value){
+          return "btn btn-outline-dark active";
+      }
+      else{
+          return "btn btn-outline-dark ";
+      }
+  }
+
+
+  createOption(type, name, prettyName) {
+      return (
+          <label className={this.getClassName(type, name)}>
+              <input type="radio" id={name} autoComplete="off" onClick={() => this.setOption(type, name)} /> {prettyName}
+          </label>
+      );
+  }
+
+  customUnitForm() {
+      if (this.props.options.distance === "user defined") {
+          return (
+              <div>
+              <InputGroup>
+                  <Input placeholder="unit name" value={this.props.options.userUnit} onChange={e => this.setOption("userUnit", e.target.value)}/>
+              </InputGroup>
+                  <br />
+              <InputGroup>
+                  <Input placeholder="radius" value={this.props.options.userRadius} onChange={e => this.setOption("userRadius", e.target.value)}/>
+              </InputGroup>
+              </div>
+          );
+      } else {
+          return;
+      }
+  }
+
     render() {
         return(
             <div>
@@ -163,25 +133,17 @@ class Options extends Component{
                   <div className="card-body">
                     <p>Highlight the options you wish to use.</p>
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label className={this.getMilesClassName()}>
-                        <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setMiles}/> Miles
-                      </label>
-                      <label className={this.getKilometersClassName()}>
-                        <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setKilo}/> Kilometers
-                      </label>
-                      <label className={this.getNautMilesClassName()}>
-                        <input type="radio" id="nautmiles" name="distance" autcomplete="off" onClick={this.setNautMiles}/> Nautical Miles
-                      </label>
+                        {this.createOption("distance", "miles", "Miles")}
+                        {this.createOption("distance", "kilometers", "Kilometers")}
+                        {this.createOption("distance", "nautical miles", "Nautical Miles")}
+                        {this.createOption("distance", "user defined", "Custom")}
                     </div>
-                      <br/>
+                      {this.customUnitForm()}
+                    <br/>
                     <p>Choose The Map type you wish to use.</p>
                     <div className="btn-group btn-group-toggle">
-                        <label className={this.getKMLClassName()}>
-                            <input type="radio" id="miles" name="distance" autcomplete="off" onClick={this.setKML}/> Google Maps
-                        </label>
-                        <label className={this.getSVGClassName()}>
-                            <input type="radio" id="kilometers" name="distance" autcomplete="off" onClick={this.setSVG}/> SVG
-                        </label>
+                        {this.createOption("map", "kml", "Google Maps")}
+                        {this.createOption("map", "svg", "SVG")}
                     </div>
                   </div>
 
