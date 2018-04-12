@@ -10,6 +10,9 @@ class Itinerary extends Component {
     createTable () {
 
         let units = this.props.trip.options.distance;
+        if (units === "user defined") {
+            units = this.props.trip.options.userUnit;
+        }
         let places = this.props.trip.places;
 
       //uploading each destination name to the itinerary
