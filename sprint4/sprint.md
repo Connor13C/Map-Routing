@@ -70,6 +70,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 * Distance Unit Configuration: Client retrives configuration from the server on page load
 * Plan Trips Outside of Colorado: World wide SVG used, and points selected from the entire world
 * Zoom and Pan the map: Google maps support
+* Branding: Fully compliant with CSU branding
 
 
 #### Incomplete epics in Sprint Backlog 
@@ -81,7 +82,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 * Asking questions when we need help
 
 #### Problems encountered and resolutions
-* Realistic task estimates
+* Realistic task estimates - At daily scrums we discussed why tasks were taking long
 
 ## Retrospective
 
