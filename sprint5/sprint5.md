@@ -1,9 +1,9 @@
-# Sprint 4 - *your team number* - *your team name*
+# Sprint 5 - *08* - *Pantz*
 
 ## Goal
 
 ### Worldwide!
-### Sprint Leader: *firstname lastname*
+### Sprint Leader: *Lettia Wilson*
 
 ## Definition of Done
 
@@ -31,8 +31,17 @@
 
 Epics planned for this release.
 
-* *## title*
-*
+* *##Filtered Searches * 
+* *##TFFI Updates *
+* *##Interop *
+* *##Shorter Trips #3 *
+* *##Staff Page *
+* *##Save my options as defaults *
+* *##Allow user to reverse the trip *
+* *##System Testing *
+* *##Improve the user experience *
+* *##View trip in other tools *
+* *##Speed up computation on the server *
 
 *Include a discussion of planning decisions made based on your velocity from previous sprints.*
 
