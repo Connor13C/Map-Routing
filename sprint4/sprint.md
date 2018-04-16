@@ -47,40 +47,48 @@ The story points are below the average, even considering the last sprint where s
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *value*   | *value* 
-Story Points |  *value*  | *value* 
+Tasks |  43  | 40
+Story Points |  50 | 48
 
 ## Daily Scrums
 
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
 3/28/18 |  | #267 #274 #298 #282| Awaiting TFFIv3
- | | | 
+3/30/18 | #285 #293 | #267 #274 #298 #282 | Awaiting TFFIv3
+4/03/18 | #276 #301| #303 #308 #311 |  
+4/05/18 | #303 #308 #311 | #274 #305 #286 #310 | Procrastination
+4/09/18 | #274 #305 #286 #310 | #289 #290 #292 #266 #282 #280 #322 #268 | 
+4/11/18 | #289 #290 #292 #266 #282 #280 #322 #268 | #265 #273 #291 #307 #329 #335 | Crunch time
  
 
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* Shorter Trips 2:  Highly optimized parallel solution
+* Distance Units: Nautical miles and custom units fully supported
+* Distance Unit Configuration: Client retrives configuration from the server on page load
+* Plan Trips Outside of Colorado: World wide SVG used, and points selected from the entire world
+* Zoom and Pan the map: Google maps support
+* Branding: Fully compliant with CSU branding
+
 
 #### Incomplete epics in Sprint Backlog 
-* *user story*: *explanation...*
-*
+* Filtered Searches: Clientside support is not functional
+* System Testing: Moved to next sprint
 
 #### What went well
-* *something*
-*
+* Collaboration and helping each other
+* Asking questions when we need help
 
 #### Problems encountered and resolutions
-* *something*
-*
+* Realistic task estimates - At daily scrums we discussed why tasks were taking long
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | Subdivide tasks more realistically | Tracking new issuesin Zenhub | Systems testing 
+What we did well | Teamwork and asking questions | Quickly reviewed pull requests | Effectively used Slack
+What we need to work on | Communication and group meeting attendance | Stricter code climate review | Configuring IDE's to use appropriate settings
+What we will change next time | We will be gone |  | 

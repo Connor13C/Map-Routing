@@ -6,6 +6,7 @@ import com.tripco.t08.planner.Place;
 import com.tripco.t08.planner.SvgBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class TripCommon implements Trip {
@@ -13,7 +14,7 @@ public abstract class TripCommon implements Trip {
     public String type = "trip";
     public String title;
     public List<Place> places;
-    public ArrayList<Integer> distances;
+    public List<Integer> distances;
     public String map;
 
 
@@ -30,8 +31,11 @@ public abstract class TripCommon implements Trip {
      * including the return to the starting point to make a round trip.
      * @return list of leg distances based on the ordere of places
      */
-    protected ArrayList<Integer> legDistances() {
-        ArrayList<Integer> dist = new ArrayList<>();
+    protected List<Integer> legDistances() {
+        if (places.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<Integer> dist = new ArrayList<>();
         DistanceUnit distUnit = getOptions().getDistanceUnit();
 
         for (int i = 1; i < places.size(); i++) {
