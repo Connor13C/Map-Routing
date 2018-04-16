@@ -26,16 +26,21 @@ export default class FilteredSearch extends Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.toggleTab = this.toggleTab.bind(this);
-        this.query = this.query.bind(this);
         this.renderAirport = this.renderAirport.bind(this);
-        this.selectValues = this.selectValues.bind(this);
-        this.currentTab = this.currentTab.bind(this);
+        this.renderCountries = this.renderCountries.bind(this);
+        this.renderContinents = this.renderContinents.bind(this);
+        this.loadCheckboxes = this.loadCheckboxes.bind(this);
+        this.checkBoxState = this.checkBoxState.bind(this);
+        this.defaultChecked = this.defaultChecked.bind(this);
         this.state = {
             collapse: false,
             activeTab: '1',
-            checkBoxValues1: null,
-            checkBoxValues2: null,
-            checkBoxValues3: null,
+            airportsTab:"",
+            countryTab:"",
+            continentTab:"",
+            airportsCheckboxes:[],
+            countryCheckboxes:[],
+            continentCheckboxes:[],
             filter: [{
                 attribute: "",
                 values: [],
@@ -43,7 +48,6 @@ export default class FilteredSearch extends Component {
 
         };
     }
-
 
     toggle() {
         this.setState({ collapse: !this.state.collapse });
@@ -57,70 +61,80 @@ export default class FilteredSearch extends Component {
         }
     }
 
-    renderAirport(tab) {
-        console.log(this.props.filters);
-        let index;
-        if(tab == '1'){
-            index = 0;
-        }
-           return(
-               <TabContent activeTab={this.state.activeTab}>
-                   {this.props.filters[index].values.map((item, index) =>
-                       <FormGroup check>
-                           <Label check>
-                               <Input type="checkbox" key={index} value={item}/> {item}
-                           </Label>
-                       </FormGroup>)
-                   }
-               </TabContent>
-           )
-    }
-
-    selectValues(index) {
-        console.log("this is the index");
-        console.log(index);
-        if(this.state.activeTab == '1') {
+    renderAirport() {
+        //console.log(this.props.filters[0]);
+        if(this.props.filters.length != 0) {
             this.setState({
-                checkBoxValues1: this.props.filters[index].values.map((item, i) =>
+                airportsTab:
+                    this.props.filters[0].values.map((item, index) =>
                     <FormGroup check>
                         <Label check>
-                            <Input type="checkbox" onChange={(e) => this.query(e, index)} key={i} value={item}/> {item}
+                            <Input type="checkbox"  onClick={(e)=>{this.checkBoxState(e, 0)}} key={index} value={item}/> {item}
                         </Label>
-                    </FormGroup>)
-
+                    </FormGroup>),
             });
         }
-
     }
-
-    query(e, index) {
-        console.log(index);
-        console.log("this is checked");
-        console.log(e.target.value);
-        let checked = [];
-        checked.push(e.target.value);
-        if(this.state.activeTab='1') {
-            console.log(checked);
-            let filter = {
-                attribute: "type",
-                values: checked,
-            }
-            console.log(filter);
+    renderCountries(){
+        if(this.props.filters.length != 0) {
+            this.setState({
+                countryTab:
+                    this.props.filters[1].values.map((item, index) =>
+                        <FormGroup check>
+                            <Label check>
+                                <Input type="checkbox"  key={index} value={item}/> {item}
+                            </Label>
+                        </FormGroup>),
+            });
         }
     }
-    currentTab(){
+    renderContinents(){
+        if(this.props.filters.length != 0) {
+            this.setState({
+                continentTab:
+                    this.props.filters[2].values.map((item, index) =>
+                        <FormGroup check>
+                            <Label check>
+                                <Input type="checkbox" key={index} value={item}/> {item}
+                            </Label>
+                        </FormGroup>),
+            });
+        }
+    }
 
+
+
+    checkBoxState(e, index){
+        let checkBoxes;
+        //console.log(this.state.airportsCheckboxes);
+        if(index == 0){
+           checkBoxes = this.state.airportsCheckboxes.push(e.target.value);
+            this.setState({
+                airportsCheckboxes: checkBoxes
+            }, console.log(this.state.airportsCheckboxes))
+        }
+    }
+
+    defaultChecked(index){
+
+    }
+
+    loadCheckboxes(){
+        let checkBoxes;
+        if(this.state.activeTab == '1'){
+            checkBoxes = this.state.airportsTab;
+        }
+        if(this.state.activeTab == '2'){
+            checkBoxes = this.state.countryTab
+        }
+        if(this.state.activeTab == '3') {
+            checkBoxes = this.state.continentTab
+        }
+        return checkBoxes
     }
 
     render() {
-
-
-       let airport = (<div className="card-body" style={{overflow: 'auto'}}>
-                <Form>
-                    {this.state.checkBoxValues1}
-                </Form>
-                </div>);
-
+        let checkBoxes = this.loadCheckboxes();
         return (
             <div style={{overflow: 'auto'}}>
                 <Button color="primary" onClick={this.toggle} style={{backgroundColor: "#1E4D2B"}}>Filters</Button>
@@ -134,6 +148,7 @@ export default class FilteredSearch extends Component {
                                         className={classnames({ active: this.state.activeTab === '1' })}
                                         onClick={() => {
                                             this.toggleTab('1');
+                                            this.renderAirport();
                                         }}
                                     >
                                         Airport Type
@@ -144,6 +159,7 @@ export default class FilteredSearch extends Component {
                                         className={classnames({ active: this.state.activeTab === '2' })}
                                         onClick={() => {
                                             this.toggleTab('2');
+                                            this.renderCountries();
                                             }}
                                     >
                                         Country
@@ -154,13 +170,18 @@ export default class FilteredSearch extends Component {
                                         className={classnames({ active: this.state.activeTab === '3' })}
                                         onClick={() => {
                                             this.toggleTab('3');
+                                            this.renderContinents();
                                         }}
                                     >
                                         Continent
                                     </NavLink>
                                 </NavItem>
                             </Nav>
-                            {this.renderAirport(this.state.activeTab)}
+                            <TabContent activeTab={this.state.activeTab}>
+                                <div className="container-fluid">
+                                    {checkBoxes}
+                                </div>
+                            </TabContent>
                         </div>
                     </div>
                 </Collapse>
