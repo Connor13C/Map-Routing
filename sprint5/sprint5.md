@@ -10,7 +10,7 @@
 * Web application deployed on the production server (kiwis.cs.colostate.edu).
 * Sprint Review and Restrospectives completed (sprint.md).
 * Product Increment release `v5.0` created on GitHub with appropriate version number and name, a description based on the Release Notes template, and the archived files.
-* Version in pom.xml should be `<version>4.0</version>`.
+* Version in pom.xml should be `<version>5.0</version>`.
 * Javadoc and unit tests for public methods.
 * Tests for database and REST APIs.
 * Coverage at least 50% overall and for each class.
@@ -57,7 +57,14 @@ Story Points |  *56*  | *0*
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
 *date* | *@task only* | *@task only* | none
- | | | 
+ | 4/13| | 
+ | 4/17| | 
+ | 4/19| | 
+ | 4/24| | 
+ | 4/26| | 
+ | 5/01| | 
+ | 5/02| | 
+ 
  
 
 ## Review
