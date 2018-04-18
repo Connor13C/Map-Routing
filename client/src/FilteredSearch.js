@@ -26,14 +26,15 @@ export default class FilteredSearch extends Component {
         super(props);
         this.toggle = this.toggle.bind(this);
         this.toggleTab = this.toggleTab.bind(this);
-        this.renderAirport = this.renderAirport.bind(this);
-        this.renderCountries = this.renderCountries.bind(this);
-        this.renderContinents = this.renderContinents.bind(this);
+        this.toggleChecked = this.toggleChecked.bind(this);
         this.loadCheckboxes = this.loadCheckboxes.bind(this);
         this.checkBoxState = this.checkBoxState.bind(this);
         this.defaultChecked = this.defaultChecked.bind(this);
+        this.renderTab = this.renderTab.bind(this);
+        this.renderCheckboxes = this.renderCheckboxes.bind(this);
         this.state = {
             collapse: false,
+            checked: false,
             activeTab: '1',
             airportsTab:"",
             countryTab:"",
@@ -60,58 +61,62 @@ export default class FilteredSearch extends Component {
             });
         }
     }
+    toggleChecked(){
+        this.setState({ checked: !this.state.checked});
+    }
 
-    renderAirport() {
-        //console.log(this.props.filters[0]);
-        if(this.props.filters.length != 0) {
+   renderTab(index){
+        if(index == 0){
             this.setState({
-                airportsTab:
-                    this.props.filters[0].values.map((item, index) =>
-                    <FormGroup check>
-                        <Label check>
-                            <Input type="checkbox"  onClick={(e)=>{this.checkBoxState(e, 0)}} key={index} value={item}/> {item}
-                        </Label>
-                    </FormGroup>),
+                airportsTab: this.renderCheckboxes(index),
             });
         }
-    }
-    renderCountries(){
-        if(this.props.filters.length != 0) {
+        else if(index == 1){
             this.setState({
-                countryTab:
-                    this.props.filters[1].values.map((item, index) =>
-                        <FormGroup check>
-                            <Label check>
-                                <Input type="checkbox"  key={index} value={item}/> {item}
-                            </Label>
-                        </FormGroup>),
-            });
+                countryTab: this.renderCheckboxes(index),
+            })
         }
-    }
-    renderContinents(){
-        if(this.props.filters.length != 0) {
+        else{
             this.setState({
-                continentTab:
-                    this.props.filters[2].values.map((item, index) =>
-                        <FormGroup check>
-                            <Label check>
-                                <Input type="checkbox" key={index} value={item}/> {item}
-                            </Label>
-                        </FormGroup>),
-            });
+                continentTab: this.renderCheckboxes(index),
+            })
         }
-    }
+   }
+
+   renderCheckboxes(index){
+       return(this.props.filters[index].values.map((item, index) =>
+           <FormGroup check>
+               <Label check>
+                   <Input type="checkbox"  defaultChecked={this.state.checked} onClick={(e)=>{this.checkBoxState(e, 0)}} key={index} value={item}/> {item}
+               </Label>
+           </FormGroup>));
+   }
+
+
 
 
 
     checkBoxState(e, index){
         let checkBoxes;
         //console.log(this.state.airportsCheckboxes);
-        if(index == 0){
-           checkBoxes = this.state.airportsCheckboxes.push(e.target.value);
-            this.setState({
-                airportsCheckboxes: checkBoxes
-            }, console.log(this.state.airportsCheckboxes))
+        if(index == 0) {
+            if (this.state.airportsCheckboxes.indexOf(e.target.value) >= 0) {
+                this.state.airportsCheckboxes.splice(this.state.airportsCheckboxes.indexOf(e.target.value), 1);
+                checkBoxes = this.state.airportsCheckboxes.slice();
+                this.setState({
+                    airportsCheckboxes: checkBoxes,
+
+                }, console.log(this.state.airportsCheckboxes))
+
+            }
+            else {
+                this.state.airportsCheckboxes.push(e.target.value);
+                checkBoxes = this.state.airportsCheckboxes.slice();
+                this.setState({
+                    airportsCheckboxes: checkBoxes,
+                }, console.log(this.state.airportsCheckboxes))
+            }
+
         }
     }
 
@@ -148,7 +153,7 @@ export default class FilteredSearch extends Component {
                                         className={classnames({ active: this.state.activeTab === '1' })}
                                         onClick={() => {
                                             this.toggleTab('1');
-                                            this.renderAirport();
+                                            this.renderTab(0);
                                         }}
                                     >
                                         Airport Type
@@ -159,7 +164,7 @@ export default class FilteredSearch extends Component {
                                         className={classnames({ active: this.state.activeTab === '2' })}
                                         onClick={() => {
                                             this.toggleTab('2');
-                                            this.renderCountries();
+                                            this.renderTab(1);
                                             }}
                                     >
                                         Country
@@ -170,7 +175,7 @@ export default class FilteredSearch extends Component {
                                         className={classnames({ active: this.state.activeTab === '3' })}
                                         onClick={() => {
                                             this.toggleTab('3');
-                                            this.renderContinents();
+                                            this.renderTab(2);
                                         }}
                                     >
                                         Continent
