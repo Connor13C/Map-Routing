@@ -1,7 +1,7 @@
 package com.tripco.t08.trip;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Filter {
     public String attribute;
@@ -11,7 +11,7 @@ public class Filter {
 
 
     /**
-     * Filter constructor.
+     * Filter constructor used for config.
      * @param attribute attribute to filter on.
      * @param query SQL query to be executed.
      * @param column Column in table to apply filter to.
@@ -20,6 +20,13 @@ public class Filter {
         this.attribute = attribute;
         this.query = query;
         this.column = column;
+    }
+
+    /**
+     * Default constructor.
+     */
+    public Filter(){
+
     }
 
     @Override
