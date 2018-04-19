@@ -29,6 +29,14 @@ public class Queryv3 extends Queryv2 {
                 continent = filters.get(i).values;
             }
         }
-        places = airports.filter(query, type, country, continent);
+        places = airports.filter("%" + query +"%", type, country, continent);
+    }
+
+    @Override
+    public String toString() {
+        return "Queryv3{"
+               + "version=" + version
+               + ", filters=" + filters
+               + "} " + super.toString();
     }
 }

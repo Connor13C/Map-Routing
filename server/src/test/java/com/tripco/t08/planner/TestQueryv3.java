@@ -1,13 +1,15 @@
 package com.tripco.t08.planner;
 
 import com.tripco.t08.SqlRule;
-import com.tripco.t08.trip.Config;
 import com.tripco.t08.trip.Filter;
+
+import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class TestQueryv3 {
     @ClassRule
@@ -24,6 +26,13 @@ public class TestQueryv3 {
         filters.add(filter);
         query.filters = filters;
         SQL.getJdbi().useHandle(query::search);
-        System.out.print(query.places);
+        assertTrue(query.places.size()>0);
+    }
+
+    @Test
+    public void testToString(){
+        Queryv3 query = new Queryv3();
+        assertTrue(query.toString().equals("Queryv3{version=3, filters=null} "
+                + "Queryv2{version=2, type=null, query=null, places=null}"));
     }
 }
