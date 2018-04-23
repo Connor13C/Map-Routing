@@ -7,9 +7,13 @@ import java.util.List;
 
 import org.jdbi.v3.core.Handle;
 
-public class Queryv3 extends Queryv2 {
+public class Queryv3 implements Query {
     public int version = 3;
+    public String type;
+    public int limit = 0;
+    public String query;
     public List<Filter> filters;
+    public List<Place> places;
 
     @Override
     public void search(Handle connection) {
@@ -29,6 +33,18 @@ public class Queryv3 extends Queryv2 {
                 continent = filters.get(i).values;
             }
         }
-        places = airports.filter(query, type, country, continent);
+        places = airports.filter("%" + query +"%", type, country, continent);
+    }
+
+    @Override
+    public String toString() {
+        return "Queryv3{"
+               + "version=" + version
+               + ", type=" + type
+               + ", limit=" + limit
+               + ", query=" + query
+               + ", filters=" + filters
+               + ", places=" + places
+               + '}';
     }
 }
