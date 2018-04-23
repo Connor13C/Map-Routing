@@ -2,19 +2,20 @@ import React, {Component} from 'react';
 import { AsyncCreatable } from 'react-select';
 import 'react-select/dist/react-select.css';
 import DestinationEditor from "./DestinationEditor";
-
-
+import FilteredSearch from "./FilteredSearch";
 
 export default class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             placeName: "",
+            filters: [],
         };
         this.onChange = this.onChange.bind(this);
         this.onNewDestinationClick = this.onNewDestinationClick.bind(this);
         this.addDestination = this.addDestination.bind(this);
         this.query = this.query.bind(this);
+        this.setFilters = this.setFilters.bind(this);
     }
 
     onChange(value) {
@@ -58,9 +59,11 @@ export default class SearchBar extends Component {
         let options = {
             method: "POST",
             body: JSON.stringify({
-                version: 2,
+                version: 3,
                 type: "query",
-                query: input
+                query: input,
+                filters: [],
+                places: [],
             })
         };
         return fetch('http://' + location.host + '/query', options)
@@ -78,13 +81,18 @@ export default class SearchBar extends Component {
                 return [];
             });
     }
-
+    setFilters(filters){
+        this.setState({
+            filters:filters,
+        }, () => console.log(this.state.filters));
+    }
 
     render() {
         //https://github.com/JedWatson/react-select
         // Check that out if you need to add more properties
         return (
             <div className="pb-2">
+                <FilteredSearch filters={this.props.filters} setFilters={this.setFilters}/>
                 <DestinationEditor isOpen={this.state.placeName.length !== 0}
                                    onFinish={this.addDestination}
                                    place={{name: this.state.placeName}}/>

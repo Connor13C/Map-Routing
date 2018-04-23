@@ -9,8 +9,8 @@
 
 * Web application deployed on the production server (kiwis.cs.colostate.edu).
 * Sprint Review and Restrospectives completed (sprint.md).
-* Product Increment release `v4.0` created on GitHub with appropriate version number and name, a description based on the Release Notes template, and the archived files.
-* Version in pom.xml should be `<version>4.0</version>`.
+* Product Increment release `v5.0` created on GitHub with appropriate version number and name, a description based on the Release Notes template, and the archived files.
+* Version in pom.xml should be `<version>5.0</version>`.
 * Javadoc and unit tests for public methods.
 * Tests for database and REST APIs.
 * Coverage at least 50% overall and for each class.
@@ -31,17 +31,17 @@
 
 Epics planned for this release.
 
-* *##Filtered Searches * 
-* *##TFFI Updates *
-* *##Interop *
-* *##Shorter Trips #3 *
-* *##Staff Page *
-* *##Save my options as defaults *
-* *##Allow user to reverse the trip *
-* *##System Testing *
-* *##Improve the user experience *
-* *##View trip in other tools *
-* *##Speed up computation on the server *
+* *#267 Filtered Searches * 
+* *#340 TFFI Updates *
+* *#341 Interop *
+* *#342 Shorter Trips #3 *
+* *#343 Staff Page *
+* *#344 Save my options as defaults *
+* *#348 Allow user to reverse the trip *
+* *#345 System Testing *
+* *#272 Improve the user experience *
+* *#346 View trip in other tools *
+* *#347 Speed up computation on the server *
 
 *Include a discussion of planning decisions made based on your velocity from previous sprints.*
 
@@ -49,7 +49,7 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *39*   | *0* 
+Tasks |  *29*   | *0* 
 Story Points |  *56*  | *0* 
 
 ## Daily Scrums
@@ -57,7 +57,14 @@ Story Points |  *56*  | *0*
 Date | Tasks done  | Tasks in progress | Impediments 
 :--- | :--- | :--- | :--- 
 *date* | *@task only* | *@task only* | none
- | | | 
+ | 4/13| none | #374 #375 #378 #377 #379| 
+ | 4/17| #374  #375 #378 #377 #379| #368 #380 #383 #334 #371 #358|
+ | 4/19| | 
+ | 4/24| | 
+ | 4/26| | 
+ | 5/01| | 
+ | 5/02| | 
+ 
  
 
 ## Review
