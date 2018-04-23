@@ -31,6 +31,7 @@ class Header extends Component{
                 Review and revise the trip origin and order.
                 Save the trip map and itinerary for future reference.</li>
             </ol>
+<a href="About.html" className="btn btn-info" style={{backgroundColor:"#1E4D2B"}} role="button">Learn More About Us</a>
         </div>
       </div>
     )
