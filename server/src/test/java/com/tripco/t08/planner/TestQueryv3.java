@@ -32,7 +32,7 @@ public class TestQueryv3 {
     @Test
     public void testToString(){
         Queryv3 query = new Queryv3();
-        assertTrue(query.toString().equals("Queryv3{version=3, filters=null} "
-                + "Queryv2{version=2, type=null, query=null, places=null}"));
+        assertTrue(query.toString().equals("Queryv3{version=3, type=null,"
+                +" limit=0, query=null, filters=[], places=[]}"));
     }
 }
