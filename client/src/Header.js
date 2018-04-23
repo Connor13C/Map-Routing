@@ -17,7 +17,6 @@ class Header extends Component{
             </div>
           <div id="header" className="jumbotron">
           {this.title()}
-
           <p className="lead">"Want to travel far and wide?"</p>
             <ol>
               <li>
