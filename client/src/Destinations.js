@@ -129,6 +129,7 @@ class Destinations extends Component {
             optimization: 0,
             filters: [],
         };
+        this.sliderLabels = [];
         this.loadTFFI = this.loadTFFI.bind(this);
         this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
         this.checkOptions = this.checkOptions.bind(this);
@@ -209,11 +210,12 @@ class Destinations extends Component {
             .then((res) => res.json())
             .then((config) => this.setState({
                 optimization: config["optimization"],
+                optimizations: config["optimizations"],
                 filters: config["filters"]}));
-
     }
 
     render() {
+        //console.log("Optimizations: ", this.state.optimizations);
         return (
             <div id="destinations" className="card">
                 <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
@@ -229,7 +231,7 @@ class Destinations extends Component {
                     {this.getInfoMessage()}
                     <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip}/>
                     <br/>
-                    <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} reset={this.props.reset}/>
+                    <Options optimizationLabels={this.state.optimizations} options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} reset={this.props.reset}/>
                 </div>
             </div>
         )
