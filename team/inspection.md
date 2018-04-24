@@ -22,8 +22,8 @@ file:line | defect | h/m/l | who found | github#
  Options.js:*| Inconsistent formatting | m |Robbie| #380
  Options.js:85 | Implicit int to strign | m | Connor| #333
  Options.js:128 | Unnecessary return | l | Nicole| #387
- Options.js:39 | Unused variable | Nate | #357
+ Options.js:39 | Unused variable |m| Nate | #357
  Options.js:135,136 | Inline CSS | m | Lettia| #358
  Options.js:133-167 | Method too long | l |Robbie| #351
- Options.js:56 | body should be on a different line|Connor| #352
+ Options.js:56 | body should be on a different line|l|Connor| #352
  
