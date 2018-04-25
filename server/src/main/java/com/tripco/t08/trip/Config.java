@@ -6,6 +6,7 @@ import com.tripco.t08.util.SqlUtils;
 
 import java.sql.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +31,25 @@ public class Config {
     }
 
     private void setFilters(){
-
+        String[] query = {"SELECT DISTINCT type FROM airports",
+                "SELECT DISTINCT name FROM country",
+                "SELECT DISTINCT name FROM continents",
+                "SELECT DISTINCT name FROM region"
+        };
+        List<String> values;
+        Filter filterType;
+        ArrayList<Filter> filters = new ArrayList<>();
+        int index = 0;
+        String[] type = {"type", "country", "continents", "region"};
+        for (String i:query
+             ) {
+            values = SqlUtils.getJdbi().withHandle(handle ->
+                    handle.createQuery(i).mapTo(String.class).list());
+            filterType = new Filter(type[index], values);
+            filters.add(filterType);
+            ++index;
+        }
+        this.filters = filters;
     }
 
     private void setOptimizations() {
@@ -51,39 +70,6 @@ public class Config {
                + ", optimizations=" + optimizations
                + ", units=" + units
                + '}';
-    }
-
-    /**
-     *Loops through each filter and queries them.
-     *
-    public static void queryAttributes() {
-        for (Filter filter: filters
-                ) {
-            queryFilters(filter);
-        }
-    }
-
-    /**
-     *Executes sql query from every filter.
-     * param filter The array of Filter objects
-     *
-    private static void queryFilters(Filter filter){
-        String queryFilter = filter.query;
-
-        List<String> values = SqlUtils.getJdbi().withHandle(handle ->
-                handle.createQuery(queryFilter).mapTo(String.class).list()
-        );
-        filter.values.addAll(values);
-
-    }
-
-    /**
-     * Printing the result from each of the queries.
-     * @param args command-line arguments.
-     */
-    public static void main(String[] args) {
-        Config config = new Config();
-        System.out.println(config.toString());
     }
 
 }

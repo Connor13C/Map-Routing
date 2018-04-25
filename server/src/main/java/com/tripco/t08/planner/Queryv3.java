@@ -19,9 +19,9 @@ public class Queryv3 implements Query {
     public void search(Handle connection) {
         // TODO - use the filters and query based on them instead
         Airports airports = connection.attach(Airports.class);
-        ArrayList<String> type = new ArrayList<>();
-        ArrayList<String> country = new ArrayList<>();
-        ArrayList<String> continent = new ArrayList<>();
+        List<String> type = new ArrayList<>();
+        List<String> country = new ArrayList<>();
+        List<String> continent = new ArrayList<>();
         for(int i=0; i<filters.size(); ++i){
             if(filters.get(i).attribute.equals("type")&&type.size()==0){
                 type = filters.get(i).values;

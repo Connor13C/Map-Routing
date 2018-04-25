@@ -1,14 +1,14 @@
 package com.tripco.t08.trip;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class Filter {
     public String attribute;
-    public ArrayList<String> values = new ArrayList<>();
+    public List<String> values;
 
 
-    public Filter(String attribute, ArrayList<String> values) {
+    public Filter(String attribute, List<String> values) {
         this.attribute = attribute;
         this.values = values;
     }
@@ -28,11 +28,11 @@ public class Filter {
         this.attribute = attribute;
     }
 
-    public ArrayList<String> getValues() {
+    public List<String> getValues() {
         return values;
     }
 
-    public void setValues(ArrayList<String> values) {
+    public void setValues(List<String> values) {
         this.values = values;
     }
 
