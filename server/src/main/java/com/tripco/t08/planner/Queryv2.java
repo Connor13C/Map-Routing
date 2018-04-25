@@ -21,4 +21,14 @@ public class Queryv2 implements Query {
         Airports airports = connection.attach(Airports.class);
         places = airports.searchEverything("%"+query+"%");
     }
+
+    @Override
+    public String toString() {
+        return "Queryv2{"
+                + "version=" + version
+                + ", type=" + type
+                + ", query=" + query
+                + ", places=" + places
+                + '}';
+    }
 }
