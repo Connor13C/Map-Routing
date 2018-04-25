@@ -3,56 +3,101 @@ package com.tripco.t08.trip;
 
 import com.tripco.t08.util.SqlUtils;
 
-import java.sql.*;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Config {
 
-    public String type = "config";
-    public int version = 3;
-    public static Filter[] filters= new Filter[]{ new Filter("type", "SELECT DISTINCT type FROM airports ", "type"),
-            new Filter("country","SELECT DISTINCT NAME FROM country ORDER BY NAME","name"),
-            new Filter("continent", "SELECT DISTINCT NAME FROM continents ORDER BY NAME", "name")};
-    public String map = "[\"svg\", \"kml\"]";
-    public int optimization = 2;
-    public String optimizations = "[{ \"label\" : \"1opt\", \"description\" : \"1-opt ...\" }, " +
-            "{\"label\" : \"2opt\", \"description\" : \"2-opt ...\" }]";
-    public String units = "[\"kilometers\",\"miles\",\"nautical miles\",\"user defined\"]";
+    private String type;
+    private int version;
+    private List<Filter> filters;
+    private List<String> maps;
+    private int optimization;
+    private List<OptimizationDescription> optimizations;
+    private List<String> units;
 
     /**
-     *Loops through each filter and queries them.
+     * Make config object dynamically from database.
+     * Follows the TFFI format.
      */
-    public static void queryAttributes() {
-        for (Filter filter: filters
-                ) {
-            queryFilters(filter);
+    public Config() {
+        this.type = "config";
+        this.version = 3;
+        setFilters();
+        this.maps = Arrays.asList("svg", "kml");
+        this.optimization = 2;
+        setOptimizations();
+        this.units = Arrays.asList("kilometers", "miles", "nautical miles", "user defined");
+    }
+
+    private void setFilters(){
+        String[] query = {"SELECT DISTINCT type FROM airports",
+                "SELECT DISTINCT name FROM country",
+                "SELECT DISTINCT name FROM continents",
+                "SELECT DISTINCT name FROM region"
+        };
+        List<String> values;
+        Filter filterType;
+        ArrayList<Filter> filters = new ArrayList<>();
+        int index = 0;
+        String[] type = {"type", "country", "continents", "region"};
+        for (String i:query
+             ) {
+            values = SqlUtils.getJdbi().withHandle(handle ->
+                    handle.createQuery(i).mapTo(String.class).list());
+            filterType = new Filter(type[index], values);
+            filters.add(filterType);
+            ++index;
         }
+        this.filters = filters;
     }
 
-    /**
-     *Executes sql query from every filter.
-     * @param filter The array of Filter objects
-     */
-    private static void queryFilters(Filter filter){
-        String queryFilter = filter.query;
-
-        List<String> values = SqlUtils.getJdbi().withHandle(handle ->
-                handle.createQuery(queryFilter).mapTo(String.class).list()
-        );
-        filter.values.addAll(values);
-
+    private void setOptimizations() {
+        OptimizationDescription opt1 = new OptimizationDescription("1opt", "1opt");
+        OptimizationDescription opt2 = new OptimizationDescription("2opt", "2opt");
+        this.optimizations = Arrays.asList(opt1, opt2);
     }
 
-    /**
-     * Printing the result from each of the queries.
-     * @param args command-line arguments.
-     */
-    public static void main(String[] args) {
-        Config config = new Config();
-        config.queryAttributes();
-        System.out.println(Arrays.toString(filters));
+    public String getType() {
+        return type;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public List<Filter> getFilters() {
+        return filters;
+    }
+
+    public List<String> getMaps() {
+        return maps;
+    }
+
+    public int getOptimization() {
+        return optimization;
+    }
+
+    public List<OptimizationDescription> getOptimizations() {
+        return optimizations;
+    }
+
+    public List<String> getUnits() {
+        return units;
+    }
+
+    @Override
+    public String toString() {
+        return "Config{"
+               + "type='" + type + '\''
+               + ", version=" + version
+               + ", filters=" + filters
+               + ", map=" + maps
+               + ", optimization=" + optimization
+               + ", optimizations=" + optimizations
+               + ", units=" + units
+               + '}';
     }
 
 }

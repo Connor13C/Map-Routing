@@ -1,42 +1,29 @@
 package com.tripco.t08.trip;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import com.tripco.t08.SqlRule;
+import org.junit.*;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertArrayEquals;
 
 public class TestConfig {
+    Config config;
 
-    @BeforeClass
-    public static void createConfig(){
-        if (!System.getProperty("user.name").equals("travis")) {
-            Config.queryAttributes();
-        }
-    }
+    @ClassRule
+    public static SqlRule SQL = new SqlRule();
+
 
     @Test
-    public void testQueryAttributes1(){
-        if(!System.getProperty("user.name").equals("travis")){
-            String filter[] = new String[]{"heliport", "small_airport", "seaplane_base", "closed", "balloonport", "medium_airport", "large_airport"};
-            assertArrayEquals(filter, Config.filters[0].values.toArray());
-        }
-
+    public void testConfig(){
+        config = new Config();
+        //System.out.println(config.toString());
+        assertTrue(config.toString() != null);
+        assertTrue(config.getType() != null);
+        assertTrue(config.getVersion()>2);
+        assertTrue(config.getFilters() != null);
+        assertTrue(config.getMaps() != null);
+        assertTrue(config.getOptimization() > 0);
+        assertTrue(config.getOptimizations() != null);
+        assertTrue(config.getUnits() != null);
     }
 
-    /*@Test
-    public void testQueryAttributes2(){
-        config.queryAttributes();
-        String filter[] = new String[]{"heliport", "small_airport", "seaplane_base", "closed", "balloonport", "medium_airport", "large_airport"};
-        assertArrayEquals(filter, config.filters[1].values.toArray());
-    }*/
-
-    @Test
-    public void testQueryAttributes3(){
-        if(!System.getProperty("user.name").equals("travis")){
-            String filter[] = new String[]{"Africa", "Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"};
-            assertArrayEquals(filter, Config.filters[2].values.toArray());
-        }
-
-    }
 }

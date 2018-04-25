@@ -18,10 +18,9 @@ public class TestQueryv3 {
     @Test
     public void testSearch(){
         Queryv3 query = new Queryv3();
-        Filter filter = new Filter("type", "SELECT DISTINCT type FROM airports ", "type");
         ArrayList<String> values = new ArrayList<>();
         values.add("heliport");
-        filter.values = values;
+        Filter filter = new Filter("type", values);
         ArrayList<Filter> filters = new ArrayList<>();
         filters.add(filter);
         query.filters = filters;
@@ -32,7 +31,6 @@ public class TestQueryv3 {
     @Test
     public void testToString(){
         Queryv3 query = new Queryv3();
-        assertTrue(query.toString().equals("Queryv3{version=3, type=null,"
-                +" limit=0, query=null, filters=null, places=null}"));
+        assertTrue(query.toString().equals("Queryv3{version=3, type=query, limit=0, query=, filters=null, places=null}"));
     }
 }
