@@ -62,8 +62,8 @@ export default class SearchBar extends Component {
                 version: 3,
                 type: "query",
                 query: input,
-                filters: [],
                 places: [],
+                filters: this.state.filters,
             })
         };
         return fetch('http://' + location.host + '/query', options)
@@ -84,7 +84,7 @@ export default class SearchBar extends Component {
     setFilters(filters){
         this.setState({
             filters:filters,
-        }, () => console.log(this.state.filters));
+        });
     }
 
     render() {
