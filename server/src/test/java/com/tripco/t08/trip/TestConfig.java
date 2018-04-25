@@ -1,28 +1,29 @@
 package com.tripco.t08.trip;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import static org.junit.Assert.assertArrayEquals;
-
-@Ignore public class TestConfig {
-
-    @BeforeClass
-    public static void createConfig(){
+import com.tripco.t08.SqlRule;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 
-    }
+public class TestConfig {
+    Config config;
+
+    @ClassRule
+    public static SqlRule SQL = new SqlRule();
+
 
     @Test
     public void testConfig(){
-
-    }
-
-    @Test
-    public void testConfigToString(){
-
+        config = new Config();
+        //System.out.println(config.toString());
+        assertTrue(config.toString() != null);
+        assertTrue(config.getType() != null);
+        assertTrue(config.getVersion()>2);
+        assertTrue(config.getFilters() != null);
+        assertTrue(config.getMap() != null);
+        assertTrue(config.getOptimization() > 0);
+        assertTrue(config.getOptimizations() != null);
+        assertTrue(config.getUnits() != null);
     }
 
 }

@@ -59,6 +59,33 @@ public class Config {
         this.optimizations = Arrays.asList(opt1, opt2);
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public List<Filter> getFilters() {
+        return filters;
+    }
+
+    public List<String> getMap() {
+        return map;
+    }
+
+    public int getOptimization() {
+        return optimization;
+    }
+
+    public List<Optimizations> getOptimizations() {
+        return optimizations;
+    }
+
+    public List<String> getUnits() {
+        return units;
+    }
 
     @Override
     public String toString() {
