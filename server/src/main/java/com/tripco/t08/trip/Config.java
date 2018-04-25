@@ -14,7 +14,7 @@ public class Config {
     private List<Filter> filters;
     private List<String> maps;
     private int optimization;
-    private List<Optimizations> optimizations;
+    private List<OptimizationDescription> optimizations;
     private List<String> units;
 
     /**
@@ -54,8 +54,8 @@ public class Config {
     }
 
     private void setOptimizations() {
-        Optimizations opt1 = new Optimizations("1opt", "1opt");
-        Optimizations opt2 = new Optimizations("2opt", "2opt");
+        OptimizationDescription opt1 = new OptimizationDescription("1opt", "1opt");
+        OptimizationDescription opt2 = new OptimizationDescription("2opt", "2opt");
         this.optimizations = Arrays.asList(opt1, opt2);
     }
 
@@ -79,7 +79,7 @@ public class Config {
         return optimization;
     }
 
-    public List<Optimizations> getOptimizations() {
+    public List<OptimizationDescription> getOptimizations() {
         return optimizations;
     }
 

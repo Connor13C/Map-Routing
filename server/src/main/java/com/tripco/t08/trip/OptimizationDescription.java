@@ -1,10 +1,10 @@
 package com.tripco.t08.trip;
 
-public class Optimizations {
+public class OptimizationDescription {
     public String label;
     public String description;
 
-    public Optimizations(String label, String description) {
+    public OptimizationDescription(String label, String description) {
         this.label = label;
         this.description = description;
     }
@@ -27,7 +27,7 @@ public class Optimizations {
 
     @Override
     public String toString() {
-        return "Optimizations{"
+        return "OptimizationDescription{"
                + "label='" + label + '\''
                + ", description='" + description + '\''
                + '}';
