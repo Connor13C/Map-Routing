@@ -19,21 +19,22 @@ public class Queryv3 implements Query {
     public void search(Handle connection) {
         // TODO - use the filters and query based on them instead
         Airports airports = connection.attach(Airports.class);
-        List<String> type = new ArrayList<>();
-        List<String> country = new ArrayList<>();
-        List<String> continent = new ArrayList<>();
+        Airports.FilterCriteria criteria = new Airports.FilterCriteria(limit);
         for(int i=0; i<filters.size(); ++i){
-            if(filters.get(i).attribute.equals("type")&&type.size()==0){
-                type = filters.get(i).values;
+            if(filters.get(i).attribute.equals("type")){
+                criteria.addTypes(filters.get(i).values);
             }
-            if(filters.get(i).attribute.equals("country")&&country.size()==0){
-                country = filters.get(i).values;
+            if(filters.get(i).attribute.equals("country")){
+                criteria.addCountries(filters.get(i).values);
             }
-            if(filters.get(i).attribute.equals("continent")&&continent.size()==0){
-                continent = filters.get(i).values;
+            if(filters.get(i).attribute.equals("continent")){
+                criteria.addContinents(filters.get(i).values);
+            }
+            if(filters.get(i).attribute.equals("region")){
+                criteria.addRegions(filters.get(i).values);
             }
         }
-        places = airports.filter("%" + query +"%", type, country, continent);
+        this.places = airports.filter("%" + query +"%", criteria);
     }
 
     @Override
