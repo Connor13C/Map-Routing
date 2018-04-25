@@ -1,10 +1,7 @@
 package com.tripco.t08.trip;
 
 
-import com.tripco.t08.optimize.Optimization;
 import com.tripco.t08.util.SqlUtils;
-
-import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +17,10 @@ public class Config {
     private List<Optimizations> optimizations;
     private List<String> units;
 
+    /**
+     * Make config object dynamically from database.
+     * Follows the TFFI format.
+     */
     public Config() {
         this.type = "config";
         this.version = 3;
