@@ -2,10 +2,7 @@ package com.tripco.t08;
 
 import com.tripco.t08.planner.Airports;
 import com.tripco.t08.planner.Place;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -109,6 +106,25 @@ public class TestSql {
             assertEquals("US", place.getExtra().get("iso_country"));
             assertEquals("NA", place.getExtra().get("continent"));
         }
+    }
+
+    @Test
+    public void testRegion() {
+        Airports.FilterCriteria criteria = new Airports.FilterCriteria();
+        criteria.addRegion("Hidalgo");
+        boolean hadPlace = false;
+        for (Place place : airports.filter("%", criteria)) {
+            assertEquals("MX-HID", place.getExtra().get("iso_region"));
+            hadPlace = true;
+        }
+        Assert.assertTrue("Found a result", hadPlace);
+    }
+
+    @Test
+    public void testLimit() {
+        Airports.FilterCriteria criteria = new Airports.FilterCriteria(50);
+        List<Place> places = airports.filter("%", criteria);
+        Assert.assertEquals(50, places.size());
     }
 
     @Test
