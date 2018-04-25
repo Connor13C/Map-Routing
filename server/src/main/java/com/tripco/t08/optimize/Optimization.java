@@ -2,15 +2,18 @@ package com.tripco.t08.optimize;
 
 import com.tripco.t08.planner.Place;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @FunctionalInterface
 public interface Optimization {
     List<Optimization> STRATEGIES = Arrays.asList(
             new None(),
             new NearestNeighbor(),
-            new TwoOpt()
+            new TwoOpt(),
+            new ThreeOpt()
     );
 
     /**
@@ -26,5 +29,13 @@ public interface Optimization {
             throw new IllegalArgumentException("Invalid optimization: " + value);
         }
         return STRATEGIES.get((int) Math.min(Math.floor(value * STRATEGIES.size()), STRATEGIES.size() -1));
+    }
+
+    static void warmup() {
+        List<Place> places = new ArrayList<>(100);
+        for (int i =0; i < 100; i++) {
+            places.add(new Place(i, i));
+        }
+        STRATEGIES.forEach(opt -> opt.optimize(places));
     }
 }

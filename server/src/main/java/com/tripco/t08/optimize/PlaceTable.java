@@ -6,6 +6,9 @@ import com.tripco.t08.planner.Place;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * PlaceTable contains a Place, and its distance to all other places.
+ */
 public class PlaceTable {
     private final Place place;
     private final int uniqueId;
@@ -21,6 +24,12 @@ public class PlaceTable {
         return uniqueId;
     }
 
+    /**
+     * Gets the distance from the place represented by this PlaceTable to
+     * the place represented by the other PlaceTable.
+     * @param location non-null other location
+     * @return distance between places
+     */
     public double distanceTo(PlaceTable location) {
         return distances[location.uniqueId];
     }
