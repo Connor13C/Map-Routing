@@ -12,7 +12,7 @@ public class Config {
     private String type;
     private int version;
     private List<Filter> filters;
-    private List<String> map;
+    private List<String> maps;
     private int optimization;
     private List<Optimizations> optimizations;
     private List<String> units;
@@ -25,7 +25,7 @@ public class Config {
         this.type = "config";
         this.version = 3;
         setFilters();
-        this.map = Arrays.asList("svg", "kml");
+        this.maps = Arrays.asList("svg", "kml");
         this.optimization = 2;
         setOptimizations();
         this.units = Arrays.asList("kilometers", "miles", "nautical miles", "user defined");
@@ -71,8 +71,8 @@ public class Config {
         return filters;
     }
 
-    public List<String> getMap() {
-        return map;
+    public List<String> getMaps() {
+        return maps;
     }
 
     public int getOptimization() {
@@ -93,7 +93,7 @@ public class Config {
                + "type='" + type + '\''
                + ", version=" + version
                + ", filters=" + filters
-               + ", map=" + map
+               + ", map=" + maps
                + ", optimization=" + optimization
                + ", optimizations=" + optimizations
                + ", units=" + units

@@ -20,7 +20,7 @@ public class TestConfig {
         assertTrue(config.getType() != null);
         assertTrue(config.getVersion()>2);
         assertTrue(config.getFilters() != null);
-        assertTrue(config.getMap() != null);
+        assertTrue(config.getMaps() != null);
         assertTrue(config.getOptimization() > 0);
         assertTrue(config.getOptimizations() != null);
         assertTrue(config.getUnits() != null);
