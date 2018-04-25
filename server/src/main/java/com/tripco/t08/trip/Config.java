@@ -1,6 +1,7 @@
 package com.tripco.t08.trip;
 
 
+import com.tripco.t08.optimize.Optimization;
 import com.tripco.t08.util.SqlUtils;
 
 import java.sql.*;
@@ -10,20 +11,51 @@ import java.util.List;
 
 public class Config {
 
-    public String type = "config";
-    public int version = 3;
-    public static Filter[] filters= new Filter[]{ new Filter("type", "SELECT DISTINCT type FROM airports ", "type"),
-            new Filter("country","SELECT DISTINCT NAME FROM country ORDER BY NAME","name"),
-            new Filter("continent", "SELECT DISTINCT NAME FROM continents ORDER BY NAME", "name")};
-    public String map = "[\"svg\", \"kml\"]";
-    public int optimization = 2;
-    public String optimizations = "[{ \"label\" : \"1opt\", \"description\" : \"1-opt ...\" }, " +
-            "{\"label\" : \"2opt\", \"description\" : \"2-opt ...\" }]";
-    public String units = "[\"kilometers\",\"miles\",\"nautical miles\",\"user defined\"]";
+    private String type;
+    private int version;
+    private List<Filter> filters;
+    private List<String> map;
+    private int optimization;
+    private List<Optimizations> optimizations;
+    private List<String> units;
+
+    public Config() {
+        this.type = "config";
+        this.version = 3;
+        setFilters();
+        this.map = Arrays.asList("svg", "kml");
+        this.optimization = 2;
+        setOptimizations();
+        this.units = Arrays.asList("kilometers", "miles", "nautical miles", "user defined");
+    }
+
+    private void setFilters(){
+
+    }
+
+    private void setOptimizations() {
+        Optimizations opt1 = new Optimizations("1opt", "1opt");
+        Optimizations opt2 = new Optimizations("2opt", "2opt");
+        this.optimizations = Arrays.asList(opt1, opt2);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Config{"
+               + "type='" + type + '\''
+               + ", version=" + version
+               + ", filters=" + filters
+               + ", map=" + map
+               + ", optimization=" + optimization
+               + ", optimizations=" + optimizations
+               + ", units=" + units
+               + '}';
+    }
 
     /**
      *Loops through each filter and queries them.
-     */
+     *
     public static void queryAttributes() {
         for (Filter filter: filters
                 ) {
@@ -33,8 +65,8 @@ public class Config {
 
     /**
      *Executes sql query from every filter.
-     * @param filter The array of Filter objects
-     */
+     * param filter The array of Filter objects
+     *
     private static void queryFilters(Filter filter){
         String queryFilter = filter.query;
 
@@ -51,8 +83,7 @@ public class Config {
      */
     public static void main(String[] args) {
         Config config = new Config();
-        config.queryAttributes();
-        System.out.println(Arrays.toString(filters));
+        System.out.println(config.toString());
     }
 
 }

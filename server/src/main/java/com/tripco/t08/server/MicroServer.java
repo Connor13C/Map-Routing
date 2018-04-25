@@ -160,7 +160,7 @@ public class MicroServer {
             .excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT)
             .create();
     Config config = new Config();
-    config.queryAttributes();
+    //config.queryAttributes();
     return GSON.toJson(config);
   }
 }

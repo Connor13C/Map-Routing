@@ -18,10 +18,9 @@ public class TestQueryv3 {
     @Test
     public void testSearch(){
         Queryv3 query = new Queryv3();
-        Filter filter = new Filter("type", "SELECT DISTINCT type FROM airports ", "type");
         ArrayList<String> values = new ArrayList<>();
         values.add("heliport");
-        filter.values = values;
+        Filter filter = new Filter("type", values);
         ArrayList<Filter> filters = new ArrayList<>();
         filters.add(filter);
         query.filters = filters;

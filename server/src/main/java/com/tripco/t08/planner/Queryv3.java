@@ -9,9 +9,9 @@ import org.jdbi.v3.core.Handle;
 
 public class Queryv3 implements Query {
     public int version = 3;
-    public String type;
+    public String type = "query";
     public int limit = 0;
-    public String query;
+    public String query = "";
     public List<Filter> filters;
     public List<Place> places;
 
