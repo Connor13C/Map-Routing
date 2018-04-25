@@ -67,7 +67,7 @@ class Options extends Component{
             console.log("Did Not Hit If Statement");
         }
     }
-    return ("No Label");
+    return ("None");
   }
 
   renderSlider(){
