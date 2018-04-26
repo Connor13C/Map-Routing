@@ -129,7 +129,6 @@ class Destinations extends Component {
             optimization: 0,
             filters: [],
         };
-        this.sliderLabels = [];
         this.loadTFFI = this.loadTFFI.bind(this);
         this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
         this.checkOptions = this.checkOptions.bind(this);
