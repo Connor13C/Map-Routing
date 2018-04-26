@@ -31,7 +31,7 @@ class Port extends Component {
         )
     }
 
-    handleEntry(e) {
+    handleEntry() {
         this.props.updateLocation(this.state.host, this.state.port);
         //e.preventDefault();
     }
