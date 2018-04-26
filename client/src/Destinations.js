@@ -215,7 +215,6 @@ class Destinations extends Component {
     }
 
     render() {
-        //console.log("Optimizations: ", this.state.optimizations);
         return (
             <div id="destinations" className="card">
                 <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>

@@ -54,17 +54,18 @@ class Options extends Component{
 
   optimizationValueName(){
     if(this.props.optimizationLabels === undefined){return("No Label");}
-    let steps = this.props.optimization+1;
+    //console.log(this.props.options.optimization);
+    if(this.props.options.optimization == 0.0){return "None";}
+    let steps = this.props.optimization;
     for(let i = 0.0; i <= steps; i++){
-        console.log("i/steps: ", i/steps);
-        console.log("Optimization Value: ", this.props.options.optimization);
+        //console.log("i/steps: ", i/steps);
+        //console.log("Optimization Value: ", this.props.options.optimization);
         if(this.props.options.optimization <= (i/steps)){
-            console.log("Label: ", this.props.optimizationLabels);
-            console.log("Label: ", this.props.optimizationLabels[i]);
-            return(this.props.optimizationLabels);
+            //console.log('label: ', this.props.optimizationLabels);
+            return(this.props.optimizationLabels[i-1].label);
         }
         else{
-            console.log("Did Not Hit If Statement");
+            //console.log("Did Not Hit If Statement");
         }
     }
     return ("None");
