@@ -67,7 +67,7 @@ export default class SearchBar extends Component {
                 filters: this.state.filters,
             })
         };
-        return fetch('http://' + location.host + '/query', options, {
+        return fetch('http://' + this.props.location + '/query', options, {
             header: {'Access-Control-Allow-Origin': '*'},
         })
             .then(response => response.json())
