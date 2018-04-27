@@ -1,19 +1,31 @@
-/* You don't need to copy this part, it's cause codepen doesn't have CSS reset */
-* {
-    font-family: sans-serif;
+.titler {
+    background: lightgrey;
+    height: auto;
+    text-align: center;
+    clear: both;
+    overflow: auto;
+    width: 100%;
 }
-p {
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
+.header {
+    background: #1E4D2B;
+    margin: 0;
+    padding: 0px;
+    clear: both;
+    overflow: auto;
+    width: 100%;
 }
-/* Okay, copy styles from here below */
+.headpic {
+    height: 100px;
+    width: 450px;
 
-.rotate90 {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
+}
+.footer {
+    background: #1E4D2B;
+    margin: 0;
+    padding: 0px;
+    clear: both;
+    overflow: auto;
+    width: 100%;
 }
 .staff-container {
     display: flex;
@@ -25,20 +37,17 @@ p {
 .staff-box {
     width: 28%;
     text-align: center;
-    border: 1px solid #35a386;
+    border: 5px solid #1E4D2B;
     margin: 1%;
     background: #ccf1e7;
 }
-.spacer {
-    width: 100%;
-    margin: 20px 0px;
-}
+
 .staff-photo {
     padding: 10px;
     background: #fff;
 }
 .staff-text {
-    padding: 20px;
+margin-bottom: 5px;
 }
 .staff-name {
     font-weight: bold;
@@ -49,7 +58,8 @@ p {
     font-size: 14px;
 }
 .staff-email {
-    color: #35a386;
+    color: #1E4D2B;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 37em) {
