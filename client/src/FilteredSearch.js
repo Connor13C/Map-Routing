@@ -19,7 +19,6 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap';
-import classnames from 'classnames';
 
 export default class FilteredSearch extends Component {
     constructor(props) {
@@ -29,13 +28,7 @@ export default class FilteredSearch extends Component {
         this.renderFilter = this.renderFilter.bind(this);
         this.state = {
             collapse: false,
-            airports: [],
-            airportsCheckboxes:[],
-            filter: [{
-                attribute: "",
-                values: [],
-            }],
-
+            filters: []
         };
     }
 
@@ -44,22 +37,61 @@ export default class FilteredSearch extends Component {
     }
 
 
+    renderFilters() {
+        return this.props.filters.map((_, index) => this.renderFilter(index));
 
-   renderFilter(){
+    }
+
+   renderFilter(index) {
+        let filter = this.props.filters[index];
+        return (
+            <FormGroup>
+                {this.renderChoices(index, filter)}
+            </FormGroup>
+        );
+
+   }
+
+   renderChoices(index, filter) {
        if(this.props.filters.length > 0) {
            return(
                this.props.filters[0].values.map((item, index) =>
-                   <FormGroup check>
-                       <Label check>
-                           <Input type="checkbox" onClick={this.checkBoxState} key={index} value={item}/> {item}
-                       </Label>
-                   </FormGroup>)
-           );
+                   <Label key={index} check>
+                       <Input type="checkbox" onClick={this.checkboxToggler(filter.attribute, item)} value={item}/> {item}
+                   </Label>
+           ))
        }
        else{
            return <div></div>;
        }
    }
+
+   checkboxToggler(attribute, key) {
+        return (e) => {
+            this.modFilter(attribute, filter => {
+                if (!filter.values.includes(key)) {
+                    filter.values.push(key);
+                } else {
+                    let index = filter.values.indexOf
+                }
+            });
+        };
+   }
+
+   modFilter(attribute, fn) {
+        let newFilters = this.props.filters.slice();
+        for (let i = 0; i < newFilters.length; i++) {
+            let filter = newFilters[i];
+            if (filter.attribute === attribute) {
+                let values = filter.values.slice();
+                let newFilter = {attribute, values};
+                newFilters[i] = fn(newFilter);
+            }
+        }
+        this.props.setFilters(newFilters);
+   }
+
+
     checkBoxState(e){
         let checkBoxes;
         //console.log(this.state.airportsCheckboxes);
