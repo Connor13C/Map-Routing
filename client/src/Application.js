@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import Options from './Options';
 import Destinations from './Destinations';
 import Trip from './Trip';
+import Cookies from 'js-cookie';
 
 /* Renders the application.
  * Holds the destinations and options state shared with the trip.
@@ -11,21 +11,30 @@ class Application extends Component {
     super(props);
     this.state = {
       trip: { // default TFFI
-          type: "trip",
-          title: "",
-          version: 3,
-          options: {distance: "miles", optimization: "0.0", map: "kml"},
-          places: [],
-          distances: [],
-          map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
-
+        type: "trip",
+        title: "",
+        version: 3,
+        options : this.getDefaultOptions(),
+        places: [],
+        distances: [],
+        map: "<svg width=\"1920\" height=\"20\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:svg=\"http://www.w3.org/2000/svg\"><g></g></svg>"
       },
-      location: location.host,
+      location:location.host,
     }
     this.updateTrip = this.updateTrip.bind(this);
     this.updateOptions = this.updateOptions.bind(this);
     this.updateLocation = this.updateLocation.bind(this);
     this.reset = this.reset.bind(this);
+    this.getDefaultOptions = this.getDefaultOptions.bind(this);
+  }
+
+  getDefaultOptions(){
+    if(Cookies.get()[("Options")] !== undefined){
+      return Cookies.getJSON("Options");
+    }
+    else{
+      return {distance: "miles", optimization: "0.0", map: "kml"};
+    }
   }
 
   reset(){
@@ -43,6 +52,7 @@ class Application extends Component {
     console.log("updateTrip");
     console.log(tffi);
     this.setState({trip:tffi});
+    Cookies.set("Options", tffi.options);
   }
 
   updateOptions(options){
@@ -54,6 +64,7 @@ class Application extends Component {
             {distances: []}
         )
     });
+    Cookies.set("Options", options);
   }
 
   updateLocation(host, port){
