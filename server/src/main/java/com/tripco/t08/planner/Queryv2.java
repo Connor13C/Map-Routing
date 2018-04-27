@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class Queryv2 implements Query {
     // The variables in this class should reflect TFFI.
-    private int version = 2;
-    private String type;
-    private String query;
-    private List<Place> places;
+    public int version = 2;
+    public String type;
+    public String query;
+    public List<Place> places;
 
     @Override
     public void search(Handle connection) {

@@ -2,18 +2,17 @@ package com.tripco.t08.planner;
 
 import com.tripco.t08.trip.Filter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jdbi.v3.core.Handle;
 
 public class Queryv3 implements Query {
-    private int version = 3;
-    private String type = "query";
-    private int limit = 0;
-    private String query = "";
-    private List<Filter> filters;
-    private List<Place> places;
+    public int version = 3;
+    public String type = "query";
+    public int limit = 0;
+    public String query = "";
+    public List<Filter> filters;
+    public List<Place> places;
 
     @Override
     public void search(Handle connection) {

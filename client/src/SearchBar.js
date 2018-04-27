@@ -95,7 +95,7 @@ export default class SearchBar extends Component {
         // Check that out if you need to add more properties
         return (
             <div className="pb-2">
-                <FilteredSearch filters={this.props.filters} setFilters={this.setFilters}/>
+                <FilteredSearch filters={this.props.filters} activeFilters={this.state.filters} setFilters={this.setFilters}/>
                 <DestinationEditor isOpen={this.state.placeName.length !== 0}
                                    onFinish={this.addDestination}
                                    place={{name: this.state.placeName}}/>
