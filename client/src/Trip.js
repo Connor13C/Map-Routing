@@ -23,7 +23,7 @@ class Trip extends Component {
 
 
     fetchResponse() {
-        return fetch('http://' + location.host + '/plan', {
+        return fetch('http://' + this.props.location + '/plan', {
             method: "POST",
             header: {'Access-Control-Allow-Origin': '*'},
             body: JSON.stringify(this.props.trip)

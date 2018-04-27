@@ -205,7 +205,7 @@ class Destinations extends Component {
 
 
     componentDidMount(){
-        fetch('http://' + location.host + '/config', {
+        fetch('http://' + this.props.location + '/config', {
             header: {'Access-Control-Allow-Origin': '*'},
         })
             .then((res) => res.json())
@@ -230,7 +230,7 @@ class Destinations extends Component {
                         </label>
                     </div>
                     {this.getInfoMessage()}
-                    <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip}/>
+                    <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip} location={this.props.location}/>
                     <br/>
                     <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} updateLocation={this.props.updateLocation} reset={this.props.reset}/>
                 </div>
