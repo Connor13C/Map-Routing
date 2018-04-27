@@ -211,9 +211,8 @@ class Destinations extends Component {
             .then((res) => res.json())
             .then((config) => this.setState({
                 optimization: config["optimization"],
+                optimizations: config["optimizations"],
                 filters: config["filters"]}));
-
-
     }
 
     render() {
@@ -232,7 +231,8 @@ class Destinations extends Component {
                     {this.getInfoMessage()}
                     <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip}/>
                     <br/>
-                    <Options options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} updateLocation={this.props.updateLocation} reset={this.props.reset}/>
+
+                    <Options optimizationLabels={this.state.optimizations} options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} updateLocation={this.props.updateLocation} reset={this.props.reset}/>
                 </div>
             </div>
         )

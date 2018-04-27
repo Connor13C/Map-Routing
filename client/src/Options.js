@@ -37,31 +37,38 @@ class Options extends Component{
   changeOption(arg) {
    let options = this.props.options;
    var result = "";
-   for (var p in arg) {
+   for (let p in arg) {
        if( arg.hasOwnProperty(p)) {
            options[p] = arg[p];
        }
    }
-    console.log(result);
     this.props.updateOptions(options);
   }
 
     optimizationValue(e){
       let value = e.target.value;
-      console.log(value);
+      //console.log(value);
       this.changeOption({optimization: value});
 
   }
+
   optimizationValueName(){
-    if(this.props.options.optimization <= 0.33){
-        return ("No Optimization");
-    }
-    if(this.props.options.optimization > 0.33 && this.props.options.optimization <= 0.66){
-            return ("Nearest Neighbor");
+    if(this.props.optimizationLabels === undefined){return("No Label");}
+    //console.log(this.props.options.optimization);
+    if(this.props.options.optimization == 0.0){return "None";}
+    let steps = this.props.optimization;
+    for(let i = 0.0; i <= steps; i++){
+        //console.log("i/steps: ", i/steps);
+        //console.log("Optimization Value: ", this.props.options.optimization);
+        if(this.props.options.optimization <= (i/steps)){
+            //console.log('label: ', this.props.optimizationLabels);
+            return(this.props.optimizationLabels[i-1].label);
         }
-    else{
-        return ("2-Opt");
+        else{
+            //console.log("Did Not Hit If Statement");
+        }
     }
+    return ("None");
   }
 
   renderSlider(){

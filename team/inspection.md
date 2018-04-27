@@ -26,4 +26,3 @@ file:line | defect | h/m/l | who found | github#
  Options.js:135,136 | Inline CSS | m | Lettia| #358
  Options.js:133-167 | Method too long | l |Robbie| #351
  Options.js:56 | body should be on a different line|l|Connor| #352
- 
