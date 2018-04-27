@@ -61,12 +61,15 @@ export default class SearchBar extends Component {
             body: JSON.stringify({
                 version: 3,
                 type: "query",
+                limit: 100,
                 query: input,
                 places: [],
                 filters: this.state.filters,
             })
         };
-        return fetch('http://' + location.host + '/query', options)
+        return fetch('http://' + location.host + '/query', options, {
+            header: {'Access-Control-Allow-Origin': '*'},
+        })
             .then(response => response.json())
             .then(json => {
                 console.log(json);

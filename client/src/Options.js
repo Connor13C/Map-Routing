@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Collapse, Button, InputGroup, Input} from 'reactstrap';
 import './Options.css';
-
+import Port from "./Port.js";
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
  * The options reside in the parent object so they may be shared with the trip object.
@@ -138,6 +138,7 @@ class Options extends Component{
               <Collapse isOpen={this.state.collapse}>
                 <div id="options" className="card">
                   <div className="card-body">
+                   <Port updateLocation={this.props.updateLocation}/>
                     <p>Highlight the options you wish to use.</p>
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
                         {this.createOption("distance", "miles", "Miles")}

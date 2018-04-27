@@ -1,5 +1,6 @@
 package com.tripco.t08.server;
 
+import com.tripco.t08.optimize.Optimization;
 import com.tripco.t08.util.SqlUtils;
 
 /** The main class for the application.
@@ -17,6 +18,7 @@ public class MyServer {
    ** @param args command line arguments optionally containing port and team name.
    */
   public static void main(String[] args) throws Exception {
+    Optimization.warmup();
     MicroServer server = new MicroServer(getPort(args), SqlUtils.getJdbi(), getName(args));
 
   }
