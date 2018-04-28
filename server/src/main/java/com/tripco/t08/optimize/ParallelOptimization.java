@@ -5,6 +5,8 @@ import com.tripco.t08.planner.Place;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public abstract class ParallelOptimization implements Optimization {
