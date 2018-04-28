@@ -2,11 +2,12 @@ package com.tripco.t08.trip;
 
 
 import com.tripco.t08.util.SqlUtils;
-import org.jdbi.v3.core.Jdbi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.jdbi.v3.core.Jdbi;
 
 public class Config {
 
@@ -43,11 +44,11 @@ public class Config {
         ArrayList<Filter> filters = new ArrayList<>();
         int index = 0;
         String[] type = {"type", "country", "continents", "region"};
-        Jdbi SQL = SqlUtils.getJdbi();
-        if (SQL != null) {
+        Jdbi sql = SqlUtils.getJdbi();
+        if (sql != null) {
             for (String i : query
                     ) {
-                values = SQL.withHandle(handle ->
+                values = sql.withHandle(handle ->
                         handle.createQuery(i).mapTo(String.class).list());
                 filterType = new Filter(type[index], values);
                 filters.add(filterType);
