@@ -140,8 +140,9 @@ public class MicroServer {
     response.header("Access-Control-Allow-Origin", "*");
     response.type("application/json");
     Query query = Query.from(request);
-    jdbi.useHandle(query::search);
-
+    if(jdbi !=null) {
+      jdbi.useHandle(query::search);
+    }
     return query.toJson();
   }
 
