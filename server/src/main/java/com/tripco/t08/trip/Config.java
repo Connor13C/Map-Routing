@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.jdbi.v3.core.Jdbi;
+
 public class Config {
 
     private String type;
@@ -42,13 +44,16 @@ public class Config {
         ArrayList<Filter> filters = new ArrayList<>();
         int index = 0;
         String[] type = {"type", "country", "continents", "region"};
-        for (String i:query
-             ) {
-            values = SqlUtils.getJdbi().withHandle(handle ->
-                    handle.createQuery(i).mapTo(String.class).list());
-            filterType = new Filter(type[index], values);
-            filters.add(filterType);
-            ++index;
+        Jdbi sql = SqlUtils.getJdbi();
+        if (sql != null) {
+            for (String i : query
+                    ) {
+                values = sql.withHandle(handle ->
+                        handle.createQuery(i).mapTo(String.class).list());
+                filterType = new Filter(type[index], values);
+                filters.add(filterType);
+                ++index;
+            }
         }
         this.filters = filters;
     }
