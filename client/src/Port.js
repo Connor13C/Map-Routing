@@ -33,7 +33,6 @@ class Port extends Component {
 
     handleEntry() {
         this.props.updateLocation(this.state.host, this.state.port);
-        //e.preventDefault();
     }
 
     render() {
@@ -49,6 +48,7 @@ class Port extends Component {
                             <button type="button" onClick={this.handleEntry}>Submit</button>
                         </FormGroup>
                     </Form>
+                    <p>Server: {this.props.location}</p>
                 </div>
             </div>
         );

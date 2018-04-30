@@ -15,17 +15,17 @@ let optionsSchema = {
             format: "miles|kilometers",
             "default": "miles"
         },
-        "optimization" : {
+        "optimization": {
             anyOf: [
                 {
                     type: "string",
-                    format:"none"
-                },{
+                    format: "none"
+                }, {
                     type: "number"
                 }
             ]
         },
-        "map":{
+        "map": {
             type: "string",
             format: "svg|kml",
             "default": "kml"
@@ -82,12 +82,12 @@ let tffiSchema = {
         "distances": {
             type: "array",
             items: {
-                type:"integer"
+                type: "integer"
             },
             "default": []
         },
         "map": {
-            type:"string",
+            type: "string",
             "default": ""
         }
     }
@@ -126,8 +126,6 @@ class Destinations extends Component {
         super(props);
         this.state = {
             errorMessage: null,
-            optimization: 0,
-            filters: [],
         };
         this.loadTFFI = this.loadTFFI.bind(this);
         this.checkDuplicateIds = this.checkDuplicateIds.bind(this);
@@ -135,31 +133,31 @@ class Destinations extends Component {
         this.checkVersion = this.checkVersion.bind(this);
     }
 
-    checkDuplicateIds(json){
+    checkDuplicateIds(json) {
         var usedIds = new Set();
-        for(var place of json.places){
+        for (var place of json.places) {
             if (!usedIds.has(place.id)) {
                 usedIds.add(place.id);
             }
             else {
-                place.id = place.id+json.places.indexOf(place);
+                place.id = place.id + json.places.indexOf(place);
                 usedIds.add(place.id);
             }
         }
     }
 
-    checkOptions(json){
-        if(json.options.optimization === undefined || json.options.optimization === "none"){
+    checkOptions(json) {
+        if (json.options.optimization === undefined || json.options.optimization === "none") {
             json.options.optimization = 0.0;
 
         }
-        if(json.options.map === undefined){
+        if (json.options.map === undefined) {
             json.options.map = "kml";
         }
     }
 
-    checkVersion(json){
-        if(json.version === undefined){
+    checkVersion(json) {
+        if (json.version === undefined) {
             json.version = 3;
         }
     }
@@ -181,7 +179,7 @@ class Destinations extends Component {
                 } else {
                     this.setState({errorMessage: "Invalid TFFI file."});
                 }
-            } catch(exception) {
+            } catch (exception) {
                 this.setState({errorMessage: "Failed to parse " + fileName})
             }
         };
@@ -201,38 +199,35 @@ class Destinations extends Component {
         }
 
         return infoMessage;
-}
-
-
-    componentDidMount(){
-        fetch('http://' + this.props.location + '/config', {
-            header: {'Access-Control-Allow-Origin': '*'},
-        })
-            .then((res) => res.json())
-            .then((config) => this.setState({
-                optimization: config["optimization"],
-                optimizations: config["optimizations"],
-                filters: config["filters"]}));
     }
 
     render() {
+        console.log(this.props.optimization);
+        console.log(this.props.optimizations);
+        console.log(this.props.filters);
+        //console.log(this.props.location);
         return (
             <div id="destinations" className="card">
-                <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
+                <div className="card-header text-white" style={{backgroundColor: "#1E4D2B"}}>
                     Get Started
                 </div>
                 <div className="card-body">
-                    <p>Upload a file with planned destinations or manually plan your trip by adding destinations with coordinates.</p>
+                    <p>Upload a file with planned destinations or manually plan your trip by adding destinations with
+                        coordinates.</p>
                     <div className="form-group" role="group">
-                        <label className="btn btn-primary" style={{backgroundColor:"#1E4D2B"}}>
+                        <label className="btn btn-primary" style={{backgroundColor: "#1E4D2B"}}>
                             Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
                         </label>
                     </div>
                     {this.getInfoMessage()}
-                    <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip} location={this.props.location}/>
+                    <DestinationList filters={this.props.filters} trip={this.props.trip}
+                                     updateTrip={this.props.updateTrip} location={this.props.location}/>
                     <br/>
 
-                    <Options optimizationLabels={this.state.optimizations} options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} updateLocation={this.props.updateLocation} reset={this.props.reset}/>
+                    <Options optimizationLabels={this.props.optimizationLabels} options={this.props.trip.options}
+                             optimization={this.props.optimization} updateOptions={this.props.updateOptions}
+                             updateLocation={this.props.updateLocation} updateConfig={this.props.updateConfig}
+                             location={this.props.location} reset={this.props.reset}/>
                 </div>
             </div>
         )
