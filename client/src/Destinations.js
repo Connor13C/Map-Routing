@@ -216,6 +216,9 @@ class Destinations extends Component {
     }
 
     render() {
+        console.log(this.state.optimization);
+        console.log(this.state.optimizations);
+        console.log(this.state.filters);
         return (
             <div id="destinations" className="card">
                 <div className="card-header text-white" style={{backgroundColor:"#1E4D2B"}}>
@@ -232,7 +235,7 @@ class Destinations extends Component {
                     <DestinationList filters={this.state.filters} trip={this.props.trip} updateTrip={this.props.updateTrip} location={this.props.location}/>
                     <br/>
 
-                    <Options optimizationLabels={this.state.optimizations} options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} updateLocation={this.props.updateLocation} reset={this.props.reset}/>
+                    <Options optimizationLabels={this.state.optimizations} options={this.props.trip.options} optimization={this.state.optimization} updateOptions={this.props.updateOptions} updateLocation={this.props.updateLocation} location={this.props.location} reset={this.props.reset}/>
                 </div>
             </div>
         )

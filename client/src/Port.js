@@ -49,6 +49,7 @@ class Port extends Component {
                             <button type="button" onClick={this.handleEntry}>Submit</button>
                         </FormGroup>
                     </Form>
+                    <p>Server: {this.props.location}</p>
                 </div>
             </div>
         );

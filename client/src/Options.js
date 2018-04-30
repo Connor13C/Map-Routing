@@ -138,7 +138,7 @@ class Options extends Component{
               <Collapse isOpen={this.state.collapse}>
                 <div id="options" className="card">
                   <div className="card-body">
-                   <Port updateLocation={this.props.updateLocation}/>
+                   <Port updateLocation={this.props.updateLocation} location={this.props.location}/>
                     <p>Highlight the options you wish to use.</p>
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
                         {this.createOption("distance", "miles", "Miles")}

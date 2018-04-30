@@ -70,7 +70,7 @@ class Application extends Component {
   updateLocation(host, port){
     this.setState({
         location: host + ":" + port,
-    })
+    }, console.log(this.state.location))
   }
 
   render() {
