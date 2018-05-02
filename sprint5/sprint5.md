@@ -70,26 +70,32 @@ Date | Tasks done  | Tasks in progress | Impediments
 ## Review
 
 #### Completed epics in Sprint Backlog 
-* *user story*:  *comments*
-* 
+* *#267 Filtered Searches * 
+* *#340 TFFI Updates *
+* *#341 Interop *
+* *#343 Staff Page *
+* *#344 Save my options as defaults *
+* *#348 Allow user to reverse the trip *
+* *#345 System Testing *
+* *#272 Improve the user experience *
+* *#346 View trip in other tools *
+* *#347 Speed up computation on the server *
 
 #### Incomplete epics in Sprint Backlog 
-* *user story*: *explanation...*
-*
+* *#342 Shorter Trips #3 *
 
 #### What went well
-* *something*
-*
+* *We worked well as a team and accomplished a lot, we also learned that we work really well together*
 
 #### Problems encountered and resolutions
-* *something*
-*
+* *we did not finish 3 opt because of all the other epics we had planned but we stayed in communication about it and found a solution*
+
 
 ## Retrospective
 
 Topic | Teamwork | Process | Tools
 :--- | :--- | :--- | :---
-What we will change this time |  |  | 
-What we did well |  |  | 
-What we need to work on |  |  |
-What we will change next time |  |  | 
+What we will change this time | We could be on time to meetings more.  |  We changed our rigidity in our meetings and with actively assigning tasks and just let each other pick up necessary tasks.| We created a lot of extra issues instead of closing the ones that were already open. 
+What we did well |  We did well in our teamwork and in working well with one another. | We did well in merging pull requests in a timely manner | We did well on our sprint plan. 
+What we need to work on |Our team work does not need to be worked on at all.   | We were very ambitious in what we thought we could accomplish this sprint with all of our other coursework so we need to be a little more realistic on what we can actually finish. | I think we have effectively used the tools this sprint.
+What we will change next time |  nothing! Because we are finished with the course! |  | 
