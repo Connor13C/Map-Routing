@@ -61,8 +61,7 @@ public class Config {
     private void setOptimizations() {
         OptimizationDescription opt1 = new OptimizationDescription("1opt", "1opt");
         OptimizationDescription opt2 = new OptimizationDescription("2opt", "2opt");
-        OptimizationDescription opt3 = new OptimizationDescription("3opt", "Doesn't work");
-        this.optimizations = Arrays.asList(opt1, opt2, opt3);
+        this.optimizations = Arrays.asList(opt1, opt2);
     }
 
     public String getType() {

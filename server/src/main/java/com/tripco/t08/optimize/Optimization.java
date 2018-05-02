@@ -12,8 +12,7 @@ public interface Optimization {
     List<Optimization> STRATEGIES = Arrays.asList(
             new None(),
             new NearestNeighbor(),
-            new TwoOpt(),
-            new ThreeOpt()
+            new TwoOpt()
     );
 
     /**
