@@ -227,7 +227,9 @@ class Destinations extends Component {
                     <Options optimizationLabels={this.props.optimizationLabels} options={this.props.trip.options}
                              optimization={this.props.optimization} updateOptions={this.props.updateOptions}
                              updateLocation={this.props.updateLocation} updateConfig={this.props.updateConfig}
-                             location={this.props.location} reset={this.props.reset}/>
+                             location={this.props.location} reset={this.props.reset} trip={this.props.trip}
+                             updateTrip={this.props.updateTrip}
+                    />
                 </div>
             </div>
         )

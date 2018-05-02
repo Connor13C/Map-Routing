@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Collapse, Button, InputGroup, Input} from 'reactstrap';
 import './Options.css';
 import Port from "./Port.js";
+
 /* Options allows the user to change the parameters for planning
  * and rendering the trip map and itinerary.
  * The options reside in the parent object so they may be shared with the trip object.
@@ -20,6 +21,7 @@ class Options extends Component{
     this.setOption = this.setOption.bind(this);
     this.getClassName = this.getClassName.bind(this);
     this.createOption = this.createOption.bind(this);
+    this.reverseTrip = this.reverseTrip.bind(this);
 
       this.state = {
         collapse: false,
@@ -130,6 +132,25 @@ class Options extends Component{
       }
   }
 
+  reverseTrip() {
+      if(this.props.trip.places.length > 0){
+          this.props.updateTrip(Object.assign(
+              {},
+              this.props.trip,
+              {places: this.props.trip.places.reverse()}
+              )
+          );
+      }
+      if(this.props.trip.distances.length > 0){
+          this.props.updateTrip(Object.assign(
+              {},
+              this.props.trip,
+              {distances : this.props.trip.distances.reverse()}
+              )
+          );
+      }
+  }
+
     render() {
         return(
             <div>
@@ -158,9 +179,9 @@ class Options extends Component{
                   <div className="container-fluid">
                       <p> Optimization level: {this.optimizationValueName()}</p>
                       {this.renderSlider()}
-                     <br/>
-                      <br/>
+                      <Button className="float-right" color="primary" onClick={this.reverseTrip} style={{backgroundColor:"#1E4D2B"}}>Reverse Trip</Button>
                   </div>
+
                 </div>
               </Collapse>
             </div>
