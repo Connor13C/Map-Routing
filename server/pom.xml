@@ -13,7 +13,7 @@
     <groupId>com.tripco.t08</groupId>
     <artifactId>server</artifactId>
     <packaging>jar</packaging>
-    <version>2.0</version>
+    <version>5.0</version>
     <name>t08</name>
     <url>https://github.com/csu314sp18/repo-base</url>
 
