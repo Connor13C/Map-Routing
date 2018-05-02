@@ -11,13 +11,13 @@ import org.junit.Test;
 
 
 
-public class TestQueryv3 {
+public class TestQueryv4 {
     @ClassRule
     public static SqlRule SQL = new SqlRule();
 
     @Test
     public void testSearch(){
-        Queryv3 query = new Queryv3();
+        Queryv4 query = new Queryv4();
         ArrayList<String> values = new ArrayList<>();
         values.add("heliport");
         Filter filter = new Filter("type", values);
@@ -30,7 +30,7 @@ public class TestQueryv3 {
 
     @Test
     public void testToString(){
-        Queryv3 query = new Queryv3();
-        assertTrue(query.toString().equals("Queryv3{version=3, type=query, query=, filters=null, places=null}"));
+        Queryv4 query = new Queryv4();
+        assertTrue(query.toString().equals("Queryv4{version=4, type=query, limit=0, query=, filters=null, places=null}"));
     }
 }

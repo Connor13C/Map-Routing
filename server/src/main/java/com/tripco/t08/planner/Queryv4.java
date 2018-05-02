@@ -6,9 +6,10 @@ import java.util.List;
 
 import org.jdbi.v3.core.Handle;
 
-public class Queryv3 implements Query {
-    public int version = 3;
+public class Queryv4 implements Query {
+    public int version = 4;
     public String type = "query";
+    public int limit = 0;
     public String query = "";
     public List<Filter> filters;
     public List<Place> places;
@@ -16,7 +17,7 @@ public class Queryv3 implements Query {
     @Override
     public void search(Handle connection) {
         Airports airports = connection.attach(Airports.class);
-        Airports.FilterCriteria criteria = new Airports.FilterCriteria(100);
+        Airports.FilterCriteria criteria = new Airports.FilterCriteria(limit);
         if (filters != null && !filters.isEmpty()) {
             for (int i = 0; i < filters.size(); ++i) {
                 if (filters.get(i).attribute.equals("type")) {
@@ -35,12 +36,13 @@ public class Queryv3 implements Query {
 
     @Override
     public String toString() {
-        return "Queryv3{"
-               + "version=" + version
-               + ", type=" + type
-               + ", query=" + query
-               + ", filters=" + filters
-               + ", places=" + places
-               + '}';
+        return "Queryv4{"
+                + "version=" + version
+                + ", type=" + type
+                + ", limit=" + limit
+                + ", query=" + query
+                + ", filters=" + filters
+                + ", places=" + places
+                + '}';
     }
 }
