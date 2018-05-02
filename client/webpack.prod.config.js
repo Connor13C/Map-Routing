@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const port = 31408;
 const url = "http://localhost:" + port;
@@ -19,7 +20,8 @@ module.exports = {
       'process.env': {
         'SERVICE_URL': JSON.stringify(url)
       }
-    })
+    }),
+    new CopyWebpackPlugin(['images/*', 'index.html', 'About.html', 'style.css'])
   ],
   module: {
     rules: [
