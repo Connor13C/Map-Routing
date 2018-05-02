@@ -143,14 +143,6 @@ class Options extends Component{
               })
           );
       }
-      if(this.props.trip.distances.length > 0){
-          this.props.updateTrip(Object.assign(
-              {},
-              this.props.trip,
-              {}
-              )
-          );
-      }
   }
 
     render() {
