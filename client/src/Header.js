@@ -12,7 +12,7 @@ class Header extends Component{
         <div id="container">
           <div className="row text-white" style={{backgroundColor:"#1E4D2B"}}>
           <div className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5" style={{backgroundColor:"#1E4D2B"}}>
-          <img id="myImg" src="http://www.cs.colostate.edu/~cs314/images/CompSci-NS-CSU-1-Hrev.png" className="img-fluid" style={{maxWidth: "450px", minWidth: "350px"}}></img>
+          <img id="myImg" src="http://www.cs.colostate.edu/~cs314/images/CompSci-NS-CSU-1-Hrev.png" className="img-fluid" style={{width:"100%", height:"auto"}}></img>
             </div>
             </div>
           <div id="header" className="jumbotron">
