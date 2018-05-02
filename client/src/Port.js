@@ -39,7 +39,7 @@ class Port extends Component {
         return (
             <div>
                 <div className="float-right">
-                    <Form inline>
+                    <Form>
                         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                             <Label for="exampleEmail" className="mr-sm-2">Host: </Label>
                             <Input type="text" name="port" id="portNumber" placeholder="Host" onChange={this.storeHost}/>
