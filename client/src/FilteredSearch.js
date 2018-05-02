@@ -177,7 +177,7 @@ export default class FilteredSearch extends Component {
     render() {
         return (
             <div>
-                <Button color="primary" onClick={this.toggle} style={{backgroundColor: "#1E4D2B"}}>Filters</Button>
+                <Button color="primary" onClick={this.toggle} style={{backgroundColor: "#1E4D2B", marginBottom: "10px"}}>Filters</Button>
                 <Collapse isOpen={this.state.collapse}>
                     <div id="filters" className="card">
                         <div className="card-body">
