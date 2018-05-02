@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "bundle": "cross-env webpack --config ./webpack.prod.config.js --progress --colors && cp ./index.html ../client_bundle/public",
+    "bundle": "cross-env webpack --config ./webpack.prod.config.js --progress --colors",
     "test": "cross-env webpack-dev-server --config ./webpack.dev.config.js"
   },
   "dependencies": {
@@ -22,7 +22,8 @@
     "react-select": "^1.2.1",
     "reactstrap": "^5.0.0-beta.2",
     "recompose": "^0.26.0",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "copy-webpack-plugin": "^4.4.1"
   },
   "devDependencies": {
     "css-loader": "^0.28.11",
