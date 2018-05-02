@@ -202,10 +202,6 @@ class Destinations extends Component {
     }
 
     render() {
-        console.log(this.props.optimization);
-        console.log(this.props.optimizations);
-        console.log(this.props.filters);
-        //console.log(this.props.location);
         return (
             <div id="destinations" className="card">
                 <div className="card-header text-white" style={{backgroundColor: "#1E4D2B"}}>
