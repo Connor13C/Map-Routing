@@ -133,19 +133,21 @@ class Options extends Component{
   }
 
   reverseTrip() {
-      if(this.props.trip.places.length > 0){
+      if(this.props.trip.places.length > 0 && this.props.trip.distances.length > 0){
           this.props.updateTrip(Object.assign(
               {},
               this.props.trip,
-              {places: this.props.trip.places.reverse()}
-              )
+              {
+                  places: this.props.trip.places.reverse(),
+                  distances : this.props.trip.distances.reverse(),
+              })
           );
       }
       if(this.props.trip.distances.length > 0){
           this.props.updateTrip(Object.assign(
               {},
               this.props.trip,
-              {distances : this.props.trip.distances.reverse()}
+              {}
               )
           );
       }
