@@ -160,22 +160,14 @@ class Options extends Component{
                         {this.createOption("distance", "kilometers", "Kilometers")}
                         {this.createOption("distance", "nautical miles", "Nautical Miles")}
                         {this.createOption("distance", "user defined", "Custom")}
-                    </div>
-                      {this.customUnitForm()}
-                    <br/>
-                    <p>Choose The Map type you wish to use.</p>
-                    <div className="btn-group btn-group-toggle" >
-                        {this.createOption("map", "kml", "Google Maps")}
+                    </div>  {this.customUnitForm()} <br/> <p>Choose The Map type you wish to use.</p>
+                    <div className="btn-group btn-group-toggle" > {this.createOption("map", "kml", "Google Maps")}
                         {this.createOption("map", "svg", "SVG")}
                     </div>
                   </div>
-
-                  <div className="container-fluid">
-                      <p> Optimization level: {this.optimizationValueName()}</p>
-                      {this.renderSlider()}
+                  <div className="container-fluid"> <p> Optimization level: {this.optimizationValueName()}</p> {this.renderSlider()}
                       <Button className="float-right" color="primary" onClick={this.reverseTrip} style={{backgroundColor:"#1E4D2B", marginBottom: "10px"}}>Reverse Trip</Button>
                   </div>
-
                 </div>
               </Collapse>
             </div>
