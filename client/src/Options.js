@@ -147,12 +147,12 @@ class Options extends Component{
 
     render() {
         return(
-            <div>
+            <div style={{overflow: "auto"}}>
               <Button color="primary" onClick={this.toggle} style={{backgroundColor:"#1E4D2B"}}>Options</Button>
               <Button className="float-right" color="primary" onClick={this.clear} style={{backgroundColor:"#1E4D2B"}}>Clear Destinations</Button>
               <Collapse isOpen={this.state.collapse}>
                 <div id="options" className="card">
-                  <div className="card-body">
+                  <div className="card-body" style={{overflow: "auto"}}>
                    <Port updateLocation={this.props.updateLocation} location={this.props.location} updateConfig={this.props.updateConfig}/>
                     <p>Highlight the options you wish to use.</p>
                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
@@ -164,7 +164,7 @@ class Options extends Component{
                       {this.customUnitForm()}
                     <br/>
                     <p>Choose The Map type you wish to use.</p>
-                    <div className="btn-group btn-group-toggle">
+                    <div className="btn-group btn-group-toggle" >
                         {this.createOption("map", "kml", "Google Maps")}
                         {this.createOption("map", "svg", "SVG")}
                     </div>
@@ -173,7 +173,7 @@ class Options extends Component{
                   <div className="container-fluid">
                       <p> Optimization level: {this.optimizationValueName()}</p>
                       {this.renderSlider()}
-                      <Button className="float-right" color="primary" onClick={this.reverseTrip} style={{backgroundColor:"#1E4D2B"}}>Reverse Trip</Button>
+                      <Button className="float-right" color="primary" onClick={this.reverseTrip} style={{backgroundColor:"#1E4D2B", marginBottom: "10px"}}>Reverse Trip</Button>
                   </div>
 
                 </div>
