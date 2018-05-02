@@ -23,7 +23,8 @@ public interface Query {
         int version = object.has("version") ? object.get("version").getAsInt() : 2;
         switch (version) {
             case 2 : return Trip.GSON.fromJson(object, Queryv2.class);
-            default: return Trip.GSON.fromJson(object, Queryv3.class);
+            case 3: return Trip.GSON.fromJson(object, Queryv3.class);
+            default: return Trip.GSON.fromJson(object, Queryv4.class);
         }
     }
 }
