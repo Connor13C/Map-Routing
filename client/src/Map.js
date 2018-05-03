@@ -17,13 +17,10 @@ class Map extends Component {
         let coords = "";
         let arraylength = this.props.trip.places.length;
         for (let i = 0; i < arraylength; i++){
-            console.log(this.props.trip.places[i]);
             coords = coords.concat(this.props.trip.places[i].longitude, ", ", this.props.trip.places[i].latitude, ", 0. ");
         }
         coords.concat(this.props.trip.places[0].longitude, ", ", this.props.trip.places[0].latitude, ", 0. ");
         data= data.concat(coords, "</coordinates></LineString><Style><LineStyle><color>#ff0000ff</color><width>5</width></LineStyle></Style></Placemark></Document></kml>");
-        console.log("Data: ");
-        console.log(data);
         fileDownload(data, 'map.kml');
     }
 
