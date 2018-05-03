@@ -207,19 +207,16 @@ class Destinations extends Component {
                 <div className="card-header text-white" style={{backgroundColor: "#1E4D2B"}}>
                     Get Started
                 </div>
-                <div className="card-body">
-                    <p>Upload a file with planned destinations or manually plan your trip by adding destinations with
+                <div className="card-body"> <p>Upload a file with planned destinations or manually plan your trip by adding destinations with
                         coordinates.</p>
                     <div className="form-group" role="group">
                         <label className="btn btn-primary" style={{backgroundColor: "#1E4D2B"}}>
-                            Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/>
-                        </label>
+                            Browse <input type="file" onChange={this.loadTFFI} id="tffifile" hidden/> </label>
                     </div>
                     {this.getInfoMessage()}
                     <DestinationList filters={this.props.filters} trip={this.props.trip}
                                      updateTrip={this.props.updateTrip} location={this.props.location}/>
                     <br/>
-
                     <Options optimizationLabels={this.props.optimizationLabels} options={this.props.trip.options}
                              optimization={this.props.optimization} updateOptions={this.props.updateOptions}
                              updateLocation={this.props.updateLocation} updateConfig={this.props.updateConfig}
