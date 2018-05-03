@@ -15,7 +15,7 @@ class Map extends Component {
         let fileDownload = require('react-file-download');
         let data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n <kml xmlns=\"http://earth.google.com/kml/2.0\">\n";
         let coords = "";
-        data= data.concat("<Placemark>\n<name>trip</name>\n<LineString>\n<coordinates>\n");
+        data= data.concat("<Document>\n<Placemark>\n<name>trip</name>\n<LineString>\n<coordinates>\n");
         let arraylength = this.props.trip.places.length;
         for (let i = 0; i < arraylength; i++){
             data = data.concat(this.props.trip.places[i].longitude, ",", this.props.trip.places[i].latitude, ",0\n");
@@ -25,7 +25,7 @@ class Map extends Component {
         }
         data = data.concat(this.props.trip.places[0].longitude, ",", this.props.trip.places[0].latitude, ",0\n",
         "</coordinates>\n</LineString>\n</Placemark>\n");
-        data= data.concat(coords, "\n</kml>");
+        data= data.concat(coords, "\n</Document>\n</kml>");
         fileDownload(data, 'map.kml');
     }
 
