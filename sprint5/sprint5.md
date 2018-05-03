@@ -49,8 +49,8 @@ Epics planned for this release.
 
 Statistic | Planned | Completed
 --- | ---: | ---:
-Tasks |  *29*   | *20* 
-Story Points |  *56*  | *28* 
+Tasks |  *57*   | *48* 
+Story Points |  *74*  | *59* 
 
 ## Daily Scrums
 
@@ -61,9 +61,9 @@ Date | Tasks done  | Tasks in progress | Impediments
  | 4/17| #374  #375 #378 #377 #379| #368 #380 #383 #334 #371 #358|
  | 4/19| #383 #351 #334 | #368 #380 #334 #371 #358 #387| 
  | 4/24| #387 #390 #371 #399 | #358 #368 #380 #333 #357 #358 #351 #352 #405 #404|
- | 4/26| #351 #352 #405 #404 #267 #358 #417 #356 #357 #358 #368 #380 #333|| 
- | 5/01| | 
- | 5/02| | 
+ | 4/26| #351 #352 #405 #404 #267 #358 #417 #356 #357 #358 #368 #380 #333| #354 #364 #376 #349| 
+ | 5/01| | #354 #364 #376 #349 #348 #189 #190 #440 #443|
+ | 5/02| #348 #189 #190 #440 #443| #354 #364 #376 #349|
  
  
 
@@ -88,7 +88,7 @@ Date | Tasks done  | Tasks in progress | Impediments
 * *We worked well as a team and accomplished a lot, we also learned that we work really well together*
 
 #### Problems encountered and resolutions
-* *we did not finish 3 opt because of all the other epics we had planned but we stayed in communication about it and found a solution*
+* *we did not finish 3 opt because of all the other epics we had planned but we stayed in communication about it and found a solution. We also did not communicate well during this sprint most likely because it is the end of the semester and we are all burned out but we came to an agreement on what we should try to get done before the final release.*
 
 
 ## Retrospective
